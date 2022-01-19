@@ -28,11 +28,11 @@ public enum SetupProgress: Int {
     public var primingNeverAttempted: Bool {
         return self.rawValue < SetupProgress.startingPrime.rawValue
     }
-    
+
     public var primingNeeded: Bool {
         return self.rawValue < SetupProgress.priming.rawValue
     }
-    
+
     public var needsInitialBasalSchedule: Bool {
         return self.rawValue < SetupProgress.initialBasalScheduleSet.rawValue
     }
@@ -47,12 +47,14 @@ public enum SetupProgress: Int {
 // extension Locked where T == PodState {
 // }
 public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertible {
-    
+
     public typealias RawValue = [String: Any]
-    
+
     public let address: UInt32
     public let ltk: Data
     public var eapAkaSequenceNumber: Int
+
+    public var bleIdentifier: String
 
     public var activatedAt: Date?
     public var expiresAt: Date?  // set based on StatusResponse timeActive and can change with Pod clock drift and/or system time change
@@ -102,8 +104,8 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
         }
         return active
     }
-    
-    public init(address: UInt32, ltk: Data, firmwareVersion: String, bleFirmwareVersion: String, lotNo: UInt64, lotSeq: UInt32, productId: UInt8, messageTransportState: MessageTransportState? = nil)
+
+    public init(address: UInt32, ltk: Data, firmwareVersion: String, bleFirmwareVersion: String, lotNo: UInt64, lotSeq: UInt32, productId: UInt8, messageTransportState: MessageTransportState? = nil, bleIdentifier: String)
     {
         self.address = address
         self.ltk = ltk
@@ -122,12 +124,13 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
         self.setupProgress = .addressAssigned
         self.configuredAlerts = [.slot7: .waitingForPairingReminder]
         self.eapAkaSequenceNumber = 1
+        self.bleIdentifier = bleIdentifier
     }
-    
+
     public var unfinishedSetup: Bool {
         return setupProgress != .completed
     }
-    
+
     public var readyForCannulaInsertion: Bool {
         guard let primeFinishTime = self.primeFinishTime else {
             return false
@@ -147,7 +150,7 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
     public var isFaulted: Bool {
         return fault != nil || setupProgress == .activationTimeout || setupProgress == .podIncompatible
     }
-    
+
     public mutating func increaseEapAkaSequenceNumber() -> Int {
         self.eapAkaSequenceNumber += 1
         return eapAkaSequenceNumber
@@ -156,16 +159,16 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
     public mutating func advanceToNextNonce() {
         // Dash nonce is a fixed value and is never advanced
     }
-    
+
     public var currentNonce: UInt32 {
         let fixedNonceValue: UInt32 = 0x494E532E // Dash pods requires this particular fixed value
         return fixedNonceValue
     }
-    
+
     public mutating func resyncNonce(syncWord: UInt16, sentNonce: UInt32, messageSequenceNum: Int) {
         print("resyncNonce() called!") // Should never be called for Dash!
     }
-    
+
     private mutating func updatePodTimes(timeActive: TimeInterval) -> Date {
         let now = Date()
         let activatedAtComputed = now - timeActive
@@ -213,7 +216,7 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
             unfinalizedTempBasal = nil
         }
     }
-    
+
     private mutating func updateDeliveryStatus(deliveryStatus: DeliveryStatus) {
         finalizeFinishedDoses()
 
@@ -276,12 +279,13 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
             let eapAkaSequenceNumber = rawValue["eapAkaSequenceNumber"] as? Int,
             let firmwareVersion = rawValue["firmwareVersion"] as? String,
             let bleFirmwareVersion = rawValue["bleFirmwareVersion"] as? String,
+            let bleIdentifier = rawValue["bleIdentifier"] as? String,
             let lotNo = rawValue["lotNo"] as? UInt64,
             let lotSeq = rawValue["lotSeq"] as? UInt32
             else {
                 return nil
             }
-        
+
         self.address = address
         self.ltk = Data(hex: ltkString)
         self.eapAkaSequenceNumber = eapAkaSequenceNumber
@@ -294,6 +298,7 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
         } else {
             self.productId = dashProductId
         }
+        self.bleIdentifier = bleIdentifier
 
 
         if let activatedAt = rawValue["activatedAt"] as? Date {
@@ -347,13 +352,13 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
         } else {
             self.lastInsulinMeasurements = nil
         }
-        
+
         if let rawFinalizedDoses = rawValue["finalizedDoses"] as? [UnfinalizedDose.RawValue] {
             self.finalizedDoses = rawFinalizedDoses.compactMap( { UnfinalizedDose(rawValue: $0) } )
         } else {
             self.finalizedDoses = []
         }
-        
+
         if let rawFault = rawValue["fault"] as? DetailedStatus.RawValue,
            let fault = DetailedStatus(rawValue: rawFault),
            fault.faultEventCode.faultType != .noFaults
@@ -362,13 +367,13 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
         } else {
             self.fault = nil
         }
-        
+
         if let alarmsRawValue = rawValue["alerts"] as? UInt8 {
             self.activeAlertSlots = AlertSet(rawValue: alarmsRawValue)
         } else {
             self.activeAlertSlots = .none
         }
-        
+
         if let setupProgressRaw = rawValue["setupProgress"] as? Int,
             let setupProgress = SetupProgress(rawValue: setupProgressRaw)
         {
@@ -377,7 +382,7 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
             // Migrate
             self.setupProgress = .completed
         }
-        
+
         if let messageTransportStateRaw = rawValue["messageTransportState"] as? MessageTransportState.RawValue,
             let messageTransportState = MessageTransportState(rawValue: messageTransportStateRaw)
         {
@@ -405,10 +410,10 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
                 .slot7: .expirationAdvisoryAlarm(alarmTime: 0, duration: 0)
             ]
         }
-        
+
         self.primeFinishTime = rawValue["primeFinishTime"] as? Date
     }
-    
+
     public var rawValue: RawValue {
         var rawValue: RawValue = [
             "address": address,
@@ -423,13 +428,14 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
             "finalizedDoses": finalizedDoses.map( { $0.rawValue }),
             "alerts": activeAlertSlots.rawValue,
             "messageTransportState": messageTransportState.rawValue,
-            "setupProgress": setupProgress.rawValue
+            "setupProgress": setupProgress.rawValue,
+            "bleIdentifier": bleIdentifier
             ]
-        
+
         if let unfinalizedBolus = self.unfinalizedBolus {
             rawValue["unfinalizedBolus"] = unfinalizedBolus.rawValue
         }
-        
+
         if let unfinalizedTempBasal = self.unfinalizedTempBasal {
             rawValue["unfinalizedTempBasal"] = unfinalizedTempBasal.rawValue
         }
@@ -445,7 +451,7 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
         if let lastInsulinMeasurements = self.lastInsulinMeasurements {
             rawValue["lastInsulinMeasurements"] = lastInsulinMeasurements.rawValue
         }
-        
+
         if let fault = self.fault {
             rawValue["fault"] = fault.rawValue
         }
@@ -474,15 +480,16 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
 
         return rawValue
     }
-    
+
     // MARK: - CustomDebugStringConvertible
-    
+
     public var debugDescription: String {
         return [
             "### PodState",
             "* address: \(String(format: "%04X", address))",
             "* ltk: \(ltk.hexadecimalString)",
             "* eapAkaSequenceNumber: \(eapAkaSequenceNumber)",
+            "* bleIdentifier: \(bleIdentifier)",
             "* activatedAt: \(String(reflecting: activatedAt))",
             "* expiresAt: \(String(reflecting: expiresAt))",
             "* setupUnitsDelivered: \(String(reflecting: setupUnitsDelivered))",
