@@ -1,4 +1,3 @@
-//
 //  
 //  DetailedStatus+OmniBLE.swift
 //  OmniBLEKit
