@@ -1,19 +1,20 @@
 //
-//  OmnipodHUDProvider.swift
-//  OmnipodKit
+//  OmniBLEHUDProvider.swift
+//  OmniBLE
 //
+//  Based on OmniKitUI/PumpManager/OmniBLEHUDProvider.swift
 //  Created by Pete Schwamb on 11/26/18.
 //  Copyright © 2018 Pete Schwamb. All rights reserved.
+//  Copyright © 2021 OmniBLE Authors. All rights reserved.
 //
 
 import UIKit
 import LoopKit
 import LoopKitUI
-import OmniKit
 
-internal class OmnipodHUDProvider: NSObject, HUDProvider, PodStateObserver {
+internal class OmniBLEHUDProvider: NSObject, HUDProvider, PodStateObserver {
     var managerIdentifier: String {
-        return OmnipodPumpManager.managerIdentifier
+        return OmniBLEPumpManager.managerIdentifier
     }
     
     private var podState: PodState? {
@@ -45,9 +46,9 @@ internal class OmnipodHUDProvider: NSObject, HUDProvider, PodStateObserver {
         }
     }
     
-    private let pumpManager: OmnipodPumpManager
+    private let pumpManager: OmniBLEPumpManager
     
-    private var reservoirView: OmnipodReservoirView?
+    private var reservoirView: OmniBLEReservoirView?
     
     private var podLifeView: PodLifeHUDView?
 
@@ -59,7 +60,7 @@ internal class OmnipodHUDProvider: NSObject, HUDProvider, PodStateObserver {
         }
     }
     
-    public init(pumpManager: OmnipodPumpManager) {
+    public init(pumpManager: OmniBLEPumpManager) {
         self.pumpManager = pumpManager
         self.podState = pumpManager.state.podState
         super.init()
@@ -110,7 +111,7 @@ internal class OmnipodHUDProvider: NSObject, HUDProvider, PodStateObserver {
     }
     
     public func createHUDViews() -> [BaseHUDView] {
-        self.reservoirView = OmnipodReservoirView.instantiate()
+        self.reservoirView = OmniBLEReservoirView.instantiate()
         self.updateReservoirView()
 
         podLifeView = PodLifeHUDView.instantiate()
@@ -179,7 +180,7 @@ internal class OmnipodHUDProvider: NSObject, HUDProvider, PodStateObserver {
         let reservoirVolume = rawValue["reservoirVolume"] as? Double
         let validTime = rawValue["validTime"] as? Date
         
-        let reservoirView = OmnipodReservoirView.instantiate()
+        let reservoirView = OmniBLEReservoirView.instantiate()
         if let validTime = validTime
         {
             let reservoirLevel = reservoirVolume?.asReservoirPercentage()

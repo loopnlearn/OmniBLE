@@ -1,9 +1,11 @@
 //
-//  OmnipodPumpManagerSetupViewController.swift
-//  OmnipodKit
+//  OmniBLEPumpManagerSetupViewController.swift
+//  OmniBLE
 //
+//  Based on OmniKitUI/ViewControllers/OmnipodPumpManagerSetupViewController.swift
 //  Created by Pete Schwamb on 8/4/18.
 //  Copyright © 2018 Pete Schwamb. All rights reserved.
+//  Copyright © 2021 OmniBLE Authors. All rights reserved.
 //
 
 import Foundation
@@ -11,10 +13,9 @@ import Foundation
 import UIKit
 import LoopKit
 import LoopKitUI
-import OmniKit
 
 // PumpManagerSetupViewController
-public class OmnipodPumpManagerSetupViewController: UINavigationController, PumpManagerSetupViewController, UINavigationControllerDelegate, CompletionNotifying {
+public class OmniBLEPumpManagerSetupViewController: UINavigationController, PumpManagerSetupViewController, UINavigationControllerDelegate, CompletionNotifying {
     public var setupDelegate: PumpManagerSetupViewControllerDelegate?
     
     public var maxBasalRateUnitsPerHour: Double?
@@ -25,8 +26,8 @@ public class OmnipodPumpManagerSetupViewController: UINavigationController, Pump
     
     public var completionDelegate: CompletionDelegate?
     
-    class func instantiateFromStoryboard() -> OmnipodPumpManagerSetupViewController {
-        return UIStoryboard(name: "OmnipodPumpManager", bundle: Bundle(for: OmnipodPumpManagerSetupViewController.self)).instantiateInitialViewController() as! OmnipodPumpManagerSetupViewController
+    class func instantiateFromStoryboard() -> OmniBLEPumpManagerSetupViewController {
+        return UIStoryboard(name: "OmniBLEPumpManager", bundle: Bundle(for: OmniBLEPumpManagerSetupViewController.self)).instantiateInitialViewController() as! OmniBLEPumpManagerSetupViewController
     }
 
     override public func viewDidLoad() {
@@ -44,7 +45,7 @@ public class OmnipodPumpManagerSetupViewController: UINavigationController, Pump
         delegate = self
     }
         
-    private(set) var pumpManager: OmnipodPumpManager?
+    private(set) var pumpManager: OmniBLEPumpManager?
     
     /*
      1. Basal Rates & Delivery Limits
@@ -80,8 +81,8 @@ public class OmnipodPumpManagerSetupViewController: UINavigationController, Pump
         case let vc as PairPodSetupViewController:
             if let basalSchedule = basalSchedule {
                 let schedule = BasalSchedule(repeatingScheduleValues: basalSchedule.items)
-                let pumpManagerState = OmnipodPumpManagerState(podState: nil, timeZone: .currentFixed, basalSchedule: schedule)
-                let pumpManager = OmnipodPumpManager(state: pumpManagerState)
+                let pumpManagerState = OmniBLEPumpManagerState(podState: nil, timeZone: .currentFixed, basalSchedule: schedule)
+                let pumpManager = OmniBLEPumpManager(state: pumpManagerState)
                 vc.pumpManager = pumpManager
                 setupDelegate?.pumpManagerSetupViewController(self, didSetUpPumpManager: pumpManager)
             }
@@ -96,7 +97,7 @@ public class OmnipodPumpManagerSetupViewController: UINavigationController, Pump
 
     open func finishedSetup() {
         if let pumpManager = pumpManager {
-            let settings = OmnipodSettingsViewController(pumpManager: pumpManager)
+            let settings = OmniBLESettingsViewController(pumpManager: pumpManager)
             setViewControllers([settings], animated: true)
         }
     }
@@ -106,7 +107,7 @@ public class OmnipodPumpManagerSetupViewController: UINavigationController, Pump
     }
 }
 
-extension OmnipodPumpManagerSetupViewController: SetupTableViewControllerDelegate {
+extension OmniBLEPumpManagerSetupViewController: SetupTableViewControllerDelegate {
     public func setupTableViewControllerCancelButtonPressed(_ viewController: SetupTableViewController) {
         completionDelegate?.completionNotifyingDidComplete(self)
     }

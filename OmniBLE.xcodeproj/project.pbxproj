@@ -29,7 +29,7 @@
 		10289E6A271B2A3E000339E6 /* IdentifiableClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289E69271B2A3E000339E6 /* IdentifiableClass.swift */; };
 		10289E6C27308746000339E6 /* BluetoothServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289E6B27308746000339E6 /* BluetoothServices.swift */; };
 		10289E6E27309327000339E6 /* CBPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289E6D27309327000339E6 /* CBPeripheral.swift */; };
-		10289E70273180A2000339E6 /* PeripheralManager+Omnipod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289E6F273180A2000339E6 /* PeripheralManager+Omnipod.swift */; };
+		10289E70273180A2000339E6 /* PeripheralManager+OmniBLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289E6F273180A2000339E6 /* PeripheralManager+OmniBLE.swift */; };
 		10289E7627347C69000339E6 /* Nonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289E7527347C69000339E6 /* Nonce.swift */; };
 		10289E782734D10D000339E6 /* EnDecrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289E772734D10C000339E6 /* EnDecrypt.swift */; };
 		10289E7B2739F886000339E6 /* EapMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289E7A2739F886000339E6 /* EapMessage.swift */; };
@@ -37,11 +37,10 @@
 		10289E7F2739F8A1000339E6 /* EapAkaAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289E7E2739F8A1000339E6 /* EapAkaAttribute.swift */; };
 		10289E812739F8E4000339E6 /* SessionKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289E802739F8E4000339E6 /* SessionKeys.swift */; };
 		10289E832739F917000339E6 /* SessionEstablisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289E822739F917000339E6 /* SessionEstablisher.swift */; };
-		10289E852739F939000339E6 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289E842739F939000339E6 /* Session.swift */; };
 		1029AE4827094D0E00B7F5B6 /* OmniBLEPumpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1029AE4627094D0E00B7F5B6 /* OmniBLEPumpManager.swift */; };
 		1029AE4927094D0E00B7F5B6 /* OmniBLEPumpManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1029AE4727094D0E00B7F5B6 /* OmniBLEPumpManagerState.swift */; };
 		1029AE4B27094DDC00B7F5B6 /* OmniBLEPumpManager+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1029AE4A27094DDC00B7F5B6 /* OmniBLEPumpManager+UI.swift */; };
-		1029AE4D27094DE200B7F5B6 /* OmniBLEHUDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1029AE4C27094DE200B7F5B6 /* OmniBLEHUDManager.swift */; };
+		1029AE4D27094DE200B7F5B6 /* OmniBLEHUDProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1029AE4C27094DE200B7F5B6 /* OmniBLEHUDProvider.swift */; };
 		1029AE4F27094E1900B7F5B6 /* OmniBLEUI.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1029AE4E27094E1900B7F5B6 /* OmniBLEUI.xcassets */; };
 		10389A2326FF7841002115E9 /* PodInfoPulseLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10389A0426FF7841002115E9 /* PodInfoPulseLog.swift */; };
 		10389A2426FF7841002115E9 /* VersionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10389A0526FF7841002115E9 /* VersionResponse.swift */; };
@@ -168,7 +167,7 @@
 		10289E69271B2A3E000339E6 /* IdentifiableClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifiableClass.swift; sourceTree = "<group>"; };
 		10289E6B27308746000339E6 /* BluetoothServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothServices.swift; sourceTree = "<group>"; };
 		10289E6D27309327000339E6 /* CBPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBPeripheral.swift; sourceTree = "<group>"; };
-		10289E6F273180A2000339E6 /* PeripheralManager+Omnipod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PeripheralManager+Omnipod.swift"; sourceTree = "<group>"; };
+		10289E6F273180A2000339E6 /* PeripheralManager+OmniBLE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PeripheralManager+OmniBLE.swift"; sourceTree = "<group>"; };
 		10289E7527347C69000339E6 /* Nonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nonce.swift; sourceTree = "<group>"; };
 		10289E772734D10C000339E6 /* EnDecrypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnDecrypt.swift; sourceTree = "<group>"; };
 		10289E7A2739F886000339E6 /* EapMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EapMessage.swift; sourceTree = "<group>"; };
@@ -176,11 +175,10 @@
 		10289E7E2739F8A1000339E6 /* EapAkaAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EapAkaAttribute.swift; sourceTree = "<group>"; };
 		10289E802739F8E4000339E6 /* SessionKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionKeys.swift; sourceTree = "<group>"; };
 		10289E822739F917000339E6 /* SessionEstablisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionEstablisher.swift; sourceTree = "<group>"; };
-		10289E842739F939000339E6 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		1029AE4627094D0E00B7F5B6 /* OmniBLEPumpManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmniBLEPumpManager.swift; sourceTree = "<group>"; };
 		1029AE4727094D0E00B7F5B6 /* OmniBLEPumpManagerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmniBLEPumpManagerState.swift; sourceTree = "<group>"; };
 		1029AE4A27094DDC00B7F5B6 /* OmniBLEPumpManager+UI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OmniBLEPumpManager+UI.swift"; sourceTree = "<group>"; };
-		1029AE4C27094DE200B7F5B6 /* OmniBLEHUDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmniBLEHUDManager.swift; sourceTree = "<group>"; };
+		1029AE4C27094DE200B7F5B6 /* OmniBLEHUDProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmniBLEHUDProvider.swift; sourceTree = "<group>"; };
 		1029AE4E27094E1900B7F5B6 /* OmniBLEUI.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = OmniBLEUI.xcassets; sourceTree = "<group>"; };
 		10389A0426FF7841002115E9 /* PodInfoPulseLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodInfoPulseLog.swift; sourceTree = "<group>"; };
 		10389A0526FF7841002115E9 /* VersionResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionResponse.swift; sourceTree = "<group>"; };
@@ -338,7 +336,6 @@
 				10289E7A2739F886000339E6 /* EapMessage.swift */,
 				1024E32C2746083800DE01F2 /* EapSqn.swift */,
 				10289E7C2739F893000339E6 /* Milenage.swift */,
-				10289E842739F939000339E6 /* Session.swift */,
 				10289E822739F917000339E6 /* SessionEstablisher.swift */,
 				10289E802739F8E4000339E6 /* SessionKeys.swift */,
 			);
@@ -464,7 +461,7 @@
 				84752EBF26ED13F5009FD801 /* Id.swift */,
 				84752EC826ED13F5009FD801 /* Ids.swift */,
 				1024E32A27446DB000DE01F2 /* MessagePacket.swift */,
-				10289E6F273180A2000339E6 /* PeripheralManager+Omnipod.swift */,
+				10289E6F273180A2000339E6 /* PeripheralManager+OmniBLE.swift */,
 				84752ECA26ED13F5009FD801 /* PeripheralManager.swift */,
 				84752EC926ED13F5009FD801 /* PeripheralManagerError.swift */,
 				D895BF5A275DE64000D51FC7 /* StringLengthPrefixEncoding.swift */,
@@ -526,7 +523,7 @@
 		8475311D26ED8246009FD801 /* PumpManagerUI */ = {
 			isa = PBXGroup;
 			children = (
-				1029AE4C27094DE200B7F5B6 /* OmniBLEHUDManager.swift */,
+				1029AE4C27094DE200B7F5B6 /* OmniBLEHUDProvider.swift */,
 				1029AE4A27094DDC00B7F5B6 /* OmniBLEPumpManager+UI.swift */,
 				8475314426ED83D2009FD801 /* OmniBLEPumpManager.storyboard */,
 				1029AE4E27094E1900B7F5B6 /* OmniBLEUI.xcassets */,
@@ -810,7 +807,7 @@
 				8475313926ED838B009FD801 /* OmniBLESettingsViewController.swift in Sources */,
 				10289E7627347C69000339E6 /* Nonce.swift in Sources */,
 				1029AE4927094D0E00B7F5B6 /* OmniBLEPumpManagerState.swift in Sources */,
-				1029AE4D27094DE200B7F5B6 /* OmniBLEHUDManager.swift in Sources */,
+				1029AE4D27094DE200B7F5B6 /* OmniBLEHUDProvider.swift in Sources */,
 				10289E7D2739F893000339E6 /* Milenage.swift in Sources */,
 				10389A3A26FF7841002115E9 /* SetInsulinScheduleCommand.swift in Sources */,
 				10389A3826FF7841002115E9 /* DetailedStatus.swift in Sources */,
@@ -849,7 +846,6 @@
 				84752EE126ED13F5009FD801 /* PayloadSplitter.swift in Sources */,
 				84752EDE26ED13F5009FD801 /* PeripheralManagerError.swift in Sources */,
 				10389A2526FF7841002115E9 /* PodInfoActivationTime.swift in Sources */,
-				10289E852739F939000339E6 /* Session.swift in Sources */,
 				1021114D2709467400784F13 /* PodComms.swift in Sources */,
 				10289E6E27309327000339E6 /* CBPeripheral.swift in Sources */,
 				1016325F27185EE5007A3BC2 /* BasalSchedule.swift in Sources */,
@@ -865,7 +861,7 @@
 				84752EE626ED13F5009FD801 /* LTKExchanger.swift in Sources */,
 				10389A2A26FF7841002115E9 /* MessageBlock.swift in Sources */,
 				8475313C26ED838B009FD801 /* ReplacePodViewController.swift in Sources */,
-				10289E70273180A2000339E6 /* PeripheralManager+Omnipod.swift in Sources */,
+				10289E70273180A2000339E6 /* PeripheralManager+OmniBLE.swift in Sources */,
 				1024E32B27446DB000DE01F2 /* MessagePacket.swift in Sources */,
 				8475314126ED838B009FD801 /* PairPodSetupViewController.swift in Sources */,
 				10289E7B2739F886000339E6 /* EapMessage.swift in Sources */,

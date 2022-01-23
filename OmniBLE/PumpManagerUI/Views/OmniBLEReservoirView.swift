@@ -1,16 +1,17 @@
 //
-//  OmnipodReservoirView.swift
-//  OmnipodKit
+//  OmniBLEReservoirView.swift
+//  OmniBLE
 //
+//  Based on OmniKitUI/Views/OmnipodReservoirView.swift
 //  Created by Pete Schwamb on 10/22/18.
 //  Copyright © 2018 Pete Schwamb. All rights reserved.
+//  Copyright © 2022 OmniBLE Authors. All rights reserved.
 //
 
 import UIKit
 import LoopKitUI
-import OmniKit
 
-public final class OmnipodReservoirView: LevelHUDView, NibLoadable {
+public final class OmniBLEReservoirView: LevelHUDView, NibLoadable {
     
     override public var orderPriority: HUDViewOrderPriority {
         return 11
@@ -27,8 +28,8 @@ public final class OmnipodReservoirView: LevelHUDView, NibLoadable {
         }
     }
     
-    public class func instantiate() -> OmnipodReservoirView {
-        return nib().instantiate(withOwner: nil, options: nil)[0] as! OmnipodReservoirView
+    public class func instantiate() -> OmniBLEReservoirView {
+        return nib().instantiate(withOwner: nil, options: nil)[0] as! OmniBLEReservoirView
     }
 
     override public func awakeFromNib() {

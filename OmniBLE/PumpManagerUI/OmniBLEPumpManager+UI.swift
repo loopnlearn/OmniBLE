@@ -1,9 +1,11 @@
 //
-//  OmnipodPumpManager+UI.swift
-//  OmnipodKit
+//  OmniBLEPumpManager+UI.swift
+//  OmniBLE
 //
+//  Based on OmniKitUI/PumpManager/OmnipodPumpManager+UI.swift
 //  Created by Pete Schwamb on 8/4/18.
 //  Copyright © 2018 Pete Schwamb. All rights reserved.
+//  Copyright © 2021 OmniBLE Authors. All rights reserved.
 //
 
 import Foundation
@@ -11,36 +13,35 @@ import Foundation
 import UIKit
 import LoopKit
 import LoopKitUI
-import OmniKit
 
-extension OmnipodPumpManager: PumpManagerUI {
+extension OmniBLEPumpManager: PumpManagerUI {
     
     static public func setupViewController() -> (UIViewController & PumpManagerSetupViewController & CompletionNotifying) {
-        return OmnipodPumpManagerSetupViewController.instantiateFromStoryboard()
+        return OmniBLEPumpManagerSetupViewController.instantiateFromStoryboard()
     }
     
     public func settingsViewController() -> (UIViewController & CompletionNotifying) {
-        let settings = OmnipodSettingsViewController(pumpManager: self)
+        let settings = OmniBLESettingsViewController(pumpManager: self)
         let nav = SettingsNavigationViewController(rootViewController: settings)
         return nav
     }
     
     public var smallImage: UIImage? {
-        return UIImage(named: "Pod", in: Bundle(for: OmnipodSettingsViewController.self), compatibleWith: nil)!
+        return UIImage(named: "Pod", in: Bundle(for: OmniBLESettingsViewController.self), compatibleWith: nil)!
     }
     
     public func hudProvider() -> HUDProvider? {
-        return OmnipodHUDProvider(pumpManager: self)
+        return OmniBLEHUDProvider(pumpManager: self)
     }
     
     public static func createHUDViews(rawValue: HUDProvider.HUDViewsRawState) -> [BaseHUDView] {
-        return OmnipodHUDProvider.createHUDViews(rawValue: rawValue)
+        return OmniBLEHUDProvider.createHUDViews(rawValue: rawValue)
     }
 
 }
 
 // MARK: - DeliveryLimitSettingsTableViewControllerSyncSource
-extension OmnipodPumpManager {
+extension OmniBLEPumpManager {
     public func syncDeliveryLimitSettings(for viewController: DeliveryLimitSettingsTableViewController, completion: @escaping (DeliveryLimitSettingsResult) -> Void) {
         guard let maxBasalRate = viewController.maximumBasalRatePerHour,
             let maxBolus = viewController.maximumBolus else
@@ -65,7 +66,7 @@ extension OmnipodPumpManager {
 }
 
 // MARK: - BasalScheduleTableViewControllerSyncSource
-extension OmnipodPumpManager {
+extension OmniBLEPumpManager {
 
     public func syncScheduleValues(for viewController: BasalScheduleTableViewController, completion: @escaping (SyncBasalScheduleResult<Double>) -> Void) {
         let newSchedule = BasalSchedule(repeatingScheduleValues: viewController.scheduleItems)

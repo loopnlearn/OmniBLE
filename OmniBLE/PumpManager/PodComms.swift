@@ -1,9 +1,11 @@
 //
 //  PodComms.swift
-//  OmnipodKit
+//  OmniBLE
 //
+//  Based on OmniKit/PumpManager/PodComms.swift
 //  Created by Pete Schwamb on 10/7/17.
 //  Copyright © 2017 Pete Schwamb. All rights reserved.
+//  Copyright © 2021 OmniBLE Authors. All rights reserved.
 //
 
 import Foundation
@@ -27,7 +29,7 @@ public class PodComms: CustomDebugStringConvertible {
     private let lotNo: UInt64?
     private let lotSeq: UInt32?
 
-//    private let configuredDevices: Locked<Set<Omnipod>> = Locked(Set())
+//    private let configuredDevices: Locked<Set<OmniBLE>> = Locked(Set())
 
     weak var delegate: PodCommsDelegate?
 
@@ -69,7 +71,7 @@ public class PodComms: CustomDebugStringConvertible {
         }
     }
 
-    public func connectToNewPod(_ completion: @escaping (Result<Omnipod, Error>) -> Void) {
+    public func connectToNewPod(_ completion: @escaping (Result<OmniBLE, Error>) -> Void) {
         let discoveryStartTime = Date()
 
         bluetoothManager.discoverPods { error in
@@ -434,9 +436,9 @@ public class PodComms: CustomDebugStringConvertible {
 
 }
 
-// MARK: - OmnipodConnectionDelegate
+// MARK: - OmniBLEConnectionDelegate
 
-extension PodComms: OmnipodConnectionDelegate {
+extension PodComms: OmniBLEConnectionDelegate {
     func omnipodPeripheralWasRestored(manager: PeripheralManager) {
         if let podState = podState, manager.peripheral.identifier.uuidString == podState.bleIdentifier {
             self.manager = manager
