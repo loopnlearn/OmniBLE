@@ -17,8 +17,6 @@ public struct OmniBLEPumpManagerState: RawRepresentable, Equatable {
     
     public var podState: PodState?
 
-    public var pairingAttemptAddress: UInt32?
-
     public var timeZone: TimeZone
     
     public var basalSchedule: BasalSchedule
@@ -28,6 +26,10 @@ public struct OmniBLEPumpManagerState: RawRepresentable, Equatable {
     public var expirationReminderDate: Date?
 
     public var confirmationBeeps: Bool
+
+    public var controllerId: UInt32 = 0
+
+    public var podId: UInt32 = 0
 
     // Temporal state not persisted
 
@@ -47,12 +49,20 @@ public struct OmniBLEPumpManagerState: RawRepresentable, Equatable {
     
     // MARK: -
 
-    public init(podState: PodState?, timeZone: TimeZone, basalSchedule: BasalSchedule) {
+    public init(podState: PodState?, timeZone: TimeZone, basalSchedule: BasalSchedule, controllerId: UInt32? = nil, podId: UInt32? = nil) {
         self.podState = podState
         self.timeZone = timeZone
         self.basalSchedule = basalSchedule
         self.unstoredDoses = []
         self.confirmationBeeps = false
+        if controllerId != nil && podId != nil {
+            self.controllerId = controllerId!
+            self.podId = podId!
+        } else {
+            let myId = createControllerId()
+            self.controllerId = myId
+            self.podId = myId + 1
+        }
     }
     
     public init?(rawValue: RawValue) {
@@ -97,10 +107,21 @@ public struct OmniBLEPumpManagerState: RawRepresentable, Equatable {
             timeZone = TimeZone.currentFixed
         }
 
+        var controllerId = rawValue["controllerId"] as? UInt32
+        var podId = rawValue["podId"] as? UInt32
+        if controllerId == nil || podId == nil {
+            // continue using the constant controllerId
+            // value until this pod is deactivated
+            controllerId = CONTROLLER_ID
+            podId = podState?.address
+        }
+
         self.init(
             podState: podState,
             timeZone: timeZone,
-            basalSchedule: basalSchedule
+            basalSchedule: basalSchedule,
+            controllerId: controllerId,
+            podId: podId
         )
 
         if let expirationReminderDate = rawValue["expirationReminderDate"] as? Date {
@@ -116,11 +137,6 @@ public struct OmniBLEPumpManagerState: RawRepresentable, Equatable {
         }
 
         self.confirmationBeeps = rawValue["confirmationBeeps"] as? Bool ?? rawValue["bolusBeeps"] as? Bool ?? false
-        
-        if let pairingAttemptAddress = rawValue["pairingAttemptAddress"] as? UInt32 {
-            self.pairingAttemptAddress = pairingAttemptAddress
-        }
-        
     }
     
     public var rawValue: RawValue {
@@ -134,7 +150,8 @@ public struct OmniBLEPumpManagerState: RawRepresentable, Equatable {
         
         value["podState"] = podState?.rawValue
         value["expirationReminderDate"] = expirationReminderDate
-        value["pairingAttemptAddress"] = pairingAttemptAddress
+        value["controllerId"] = controllerId
+        value["podId"] = podId
 
         return value
     }
@@ -171,7 +188,8 @@ extension OmniBLEPumpManagerState: CustomDebugStringConvertible {
             "* lastPumpDataReportDate: \(String(describing: lastPumpDataReportDate))",
             "* isPumpDataStale: \(String(describing: isPumpDataStale))",
             "* confirmationBeeps: \(String(describing: confirmationBeeps))",
-            "* pairingAttemptAddress: \(String(describing: pairingAttemptAddress))",
+            "* controllerId: \(String(format: "%08X", controllerId))",
+            "* podId: \(String(format: "%08X", podId))",
             String(reflecting: podState),
         ].joined(separator: "\n")
     }
