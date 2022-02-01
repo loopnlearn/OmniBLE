@@ -27,6 +27,8 @@ public struct OmniBLEPumpManagerState: RawRepresentable, Equatable {
 
     public var confirmationBeeps: Bool
 
+    public var automaticBolusBeeps: Bool
+
     public var controllerId: UInt32 = 0
 
     public var podId: UInt32 = 0
@@ -55,6 +57,7 @@ public struct OmniBLEPumpManagerState: RawRepresentable, Equatable {
         self.basalSchedule = basalSchedule
         self.unstoredDoses = []
         self.confirmationBeeps = false
+        self.automaticBolusBeeps = false
         if controllerId != nil && podId != nil {
             self.controllerId = controllerId!
             self.podId = podId!
@@ -137,6 +140,8 @@ public struct OmniBLEPumpManagerState: RawRepresentable, Equatable {
         }
 
         self.confirmationBeeps = rawValue["confirmationBeeps"] as? Bool ?? rawValue["bolusBeeps"] as? Bool ?? false
+
+        self.automaticBolusBeeps = rawValue["automaticBolusBeeps"] as? Bool ?? false
     }
     
     public var rawValue: RawValue {
@@ -146,6 +151,7 @@ public struct OmniBLEPumpManagerState: RawRepresentable, Equatable {
             "basalSchedule": basalSchedule.rawValue,
             "unstoredDoses": unstoredDoses.map { $0.rawValue },
             "confirmationBeeps": confirmationBeeps,
+            "automaticBolusBeeps": automaticBolusBeeps,
         ]
         
         value["podState"] = podState?.rawValue
@@ -188,6 +194,7 @@ extension OmniBLEPumpManagerState: CustomDebugStringConvertible {
             "* lastPumpDataReportDate: \(String(describing: lastPumpDataReportDate))",
             "* isPumpDataStale: \(String(describing: isPumpDataStale))",
             "* confirmationBeeps: \(String(describing: confirmationBeeps))",
+            "* automaticBolusBeeps: \(String(describing: automaticBolusBeeps))",
             "* controllerId: \(String(format: "%08X", controllerId))",
             "* podId: \(String(format: "%08X", podId))",
             String(reflecting: podState),
