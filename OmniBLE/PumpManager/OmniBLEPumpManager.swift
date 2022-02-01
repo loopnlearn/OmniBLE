@@ -188,6 +188,13 @@ public class OmniBLEPumpManager: DeviceManager {
         }
     }
 
+    // Not persisted
+    var provideHeartbeat: Bool = false
+
+    public func setMustProvideBLEHeartbeat(_ mustProvideBLEHeartbeat: Bool) {
+        provideHeartbeat = mustProvideBLEHeartbeat
+    }
+
     private let pumpDelegate = WeakSynchronizedDelegate<PumpManagerDelegate>()
 
     public let log = OSLog(category: "OmniBLEPumpManager")
@@ -1201,11 +1208,6 @@ extension OmniBLEPumpManager: PumpManager {
         statusObservers.removeElement(observer)
     }
 
-    public func setMustProvideBLEHeartbeat(_ mustProvideBLEHeartbeat: Bool) {
-        // We can't implement this service for Dash (unless we can find some Dash hook for this).
-        // XXX PumpManager protocol probably should be updated to not to assume that this service is always available.
-    }
-
     // Called only from pumpDelegate notify block
     private func recommendLoopIfNeeded(_ delegate: PumpManagerDelegate?) {
         if lastLoopRecommendation == nil || lastLoopRecommendation!.timeIntervalSinceNow < .minutes(-4.5) {
@@ -1627,5 +1629,12 @@ extension OmniBLEPumpManager: PodCommsDelegate {
             }
             state.podState = podState
         }
+
+        if self.provideHeartbeat {
+            pumpDelegate.notify { (delegate) in
+                delegate?.pumpManagerBLEHeartbeatDidFire(self)
+            }
+        }
+
     }
 }
