@@ -38,7 +38,7 @@ extension OmniBLEPumpManagerError: LocalizedError {
         case .podAlreadyPaired:
             return LocalizedString("Pod already paired", comment: "Error message shown when user cannot pair because pod is already paired")
         case .notReadyForCannulaInsertion:
-            return LocalizedString("Pod is not in a state ready for cannula insertion.", comment: "Error message when cannula insertion fails because the pod is in an unexpected state")
+            return LocalizedString("Pod is not in a state ready for cannula insertion", comment: "Error message when cannula insertion fails because the pod is in an unexpected state")
         }
     }
 
@@ -440,6 +440,33 @@ extension OmniBLEPumpManager {
     }
 
 
+    // MARK: Testing
+
+    #if targetEnvironment(simulator)
+    private func jumpStartPod(lotNo: UInt32, lotSeq: UInt32, fault: DetailedStatus? = nil, startDate: Date? = nil, mockFault: Bool) {
+        let start = startDate ?? Date()
+        let fakeLtk = Data(hexadecimalString: "fedcba98765432100123456789abcdef")!
+        var podState = PodState(address: state.podId, ltk: fakeLtk,
+            firmwareVersion: "jumpstarted", bleFirmwareVersion: "jumpstarted",
+            lotNo: lotNo, lotSeq: lotSeq, productId: dashProductId,
+            bleIdentifier: "0000-0000")
+
+        podState.setupProgress = .podPaired
+        podState.activatedAt = start
+        podState.expiresAt = start + .hours(72)
+
+        let fault = mockFault ? try? DetailedStatus(encodedData: Data(hexadecimalString: "020f0000000900345c000103ff0001000005ae056029")!) : nil
+        podState.fault = fault
+
+        self.podComms = PodComms(podState: podState, myId: state.controllerId, podId: state.podId)
+
+        setState({ (state) in
+            state.podState = podState
+            state.expirationReminderDate = start + .hours(70)
+        })
+    }
+    #endif
+
     // MARK: - Pairing
 
     func connectToNewPod(completion: @escaping (Result<OmniBLE, Error>) -> Void) {
@@ -448,7 +475,26 @@ extension OmniBLEPumpManager {
 
     // Called on the main thread
     public func pairAndPrime(completion: @escaping (PumpManagerResult<TimeInterval>) -> Void) {
-
+        #if targetEnvironment(simulator)
+        // If we're in the simulator, create a mock PodState
+        let mockFaultDuringPairing = false
+        let mockCommsErrorDuringPairing = false
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + .seconds(2)) {
+            self.jumpStartPod(lotNo: 135601809, lotSeq: 0800525, mockFault: mockFaultDuringPairing)
+            let fault: DetailedStatus? = self.setStateWithResult({ (state) in
+                state.podState?.setupProgress = .priming
+                return state.podState?.fault
+            })
+            if mockFaultDuringPairing {
+                completion(.failure(PodCommsError.podFault(fault: fault!)))
+            } else if mockCommsErrorDuringPairing {
+                completion(.failure(PodCommsError.noResponse))
+            } else {
+                let mockPrimeDuration = TimeInterval(.seconds(3))
+                completion(.success(mockPrimeDuration))
+            }
+        }
+        #else
         let primeSession = { (result: PodComms.SessionRunResult) in
             switch result {
             case .success(let session):
@@ -509,18 +555,21 @@ extension OmniBLEPumpManager {
                 primeSession(result)
             }
         }
+        #endif
     }
 
     // Called on the main thread
     public func insertCannula(completion: @escaping (PumpManagerResult<TimeInterval>) -> Void) {
         #if targetEnvironment(simulator)
         let mockDelay = TimeInterval(seconds: 3)
+        let mockFaultDuringInsertCannula = false
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + mockDelay) {
             let result = self.setStateWithResult({ (state) -> PumpManagerResult<TimeInterval> in
-                // Mock fault
-                //            let fault = try! DetailedStatus(encodedData: Data(hexadecimalString: "020d0000000e00c36a020703ff020900002899080082")!)
-                //            self.state.podState?.fault = fault
-                //            return .failure(PodCommsError.podFault(fault: fault))
+                if mockFaultDuringInsertCannula {
+                    let fault = try! DetailedStatus(encodedData: Data(hexadecimalString: "020d0000000e00c36a020703ff020900002899080082")!)
+                    state.podState?.fault = fault
+                    return .failure(PodCommsError.podFault(fault: fault))
+                }
 
                 // Mock success
                 state.podState?.setupProgress = .completed
