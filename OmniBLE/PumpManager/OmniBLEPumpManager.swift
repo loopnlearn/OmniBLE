@@ -1617,6 +1617,16 @@ extension OmniBLEPumpManager: MessageLogger {
 }
 
 extension OmniBLEPumpManager: PodCommsDelegate {
+
+    func podCommsDidEstablishSession(_ podComms: PodComms) {
+
+        if self.provideHeartbeat {
+            pumpDelegate.notify { (delegate) in
+                delegate?.pumpManagerBLEHeartbeatDidFire(self)
+            }
+        }
+    }
+
     func podComms(_ podComms: PodComms, didChange podState: PodState) {
         setState { (state) in
             // Check for any updates to bolus certainty, and log them
@@ -1629,12 +1639,5 @@ extension OmniBLEPumpManager: PodCommsDelegate {
             }
             state.podState = podState
         }
-
-        if self.provideHeartbeat {
-            pumpDelegate.notify { (delegate) in
-                delegate?.pumpManagerBLEHeartbeatDidFire(self)
-            }
-        }
-
     }
 }
