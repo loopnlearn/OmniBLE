@@ -106,6 +106,7 @@ public class OmniBLEPumpManager: DeviceManager {
         return setStateWithResult(changes)
     }
 
+    @discardableResult
     private func mutateState(_ changes: (_ state: inout OmniBLEPumpManagerState) -> Void) -> OmniBLEPumpManagerState {
         return setStateWithResult({ (state) -> OmniBLEPumpManagerState in
             changes(&state)
@@ -407,7 +408,7 @@ extension OmniBLEPumpManager {
     // MARK: - Pod comms
 
     // Does not support concurrent callers. Not thread-safe.
-    private func forgetPod(completion: @escaping () -> Void) {
+    public func forgetPod(completion: @escaping () -> Void) {
 
         self.podComms.forgetCurrentPod()
 
@@ -672,7 +673,7 @@ extension OmniBLEPumpManager {
         self.getPodStatus(storeDosesOnSuccess: false, emitConfirmationBeep: emitConfirmationBeep, completion: completion)
     }
 
-    private func getPodStatus(storeDosesOnSuccess: Bool, emitConfirmationBeep: Bool, completion: ((_ result: PumpManagerResult<StatusResponse>) -> Void)? = nil) {
+    public func getPodStatus(storeDosesOnSuccess: Bool, emitConfirmationBeep: Bool, completion: ((_ result: PumpManagerResult<StatusResponse>) -> Void)? = nil) {
         guard state.podState?.unfinalizedBolus?.scheduledCertainty == .uncertain || state.podState?.unfinalizedBolus?.isFinished != false else {
             self.log.info("Skipping status request due to unfinalized bolus in progress.")
             completion?(.failure(PodCommsError.unfinalizedBolus))
