@@ -1292,16 +1292,11 @@ extension OmniBLEPumpManager: PumpManager {
                 do {
                     let scheduleOffset = self.state.timeZone.scheduleOffset(forDate: Date())
                     let beep = self.confirmationBeeps
-<<<<<<< HEAD
-                    podStatus = try session.resumeBasal(schedule: self.state.basalSchedule, scheduleOffset: scheduleOffset, acknowledgementBeep: beep, completionBeep: beep)
-                    try session.cancelSuspendAlerts()
-=======
                     let podStatus = try session.resumeBasal(schedule: self.state.basalSchedule, scheduleOffset: scheduleOffset, acknowledgementBeep: beep, completionBeep: beep)
                     try session.cancelSuspendAlerts()
                     guard podStatus.deliveryStatus.bolusing == false else {
                         throw SetBolusError.certain(PodCommsError.unfinalizedBolus)
                     }
->>>>>>> f8e3d61 (Backport of OmniKit bolus & temp basal optimizations PR's to avoid unneeded comms)
                 } catch let error {
                     self.log.error("enactBolus: error resuming suspended pod: %@", String(describing: error))
                     completion(.failure(SetBolusError.certain(error as? PodCommsError ?? PodCommsError.commsError(error: error))))
@@ -1634,4 +1629,3 @@ extension OmniBLEPumpManager: PodCommsDelegate {
         }
     }
 }
-
