@@ -214,7 +214,7 @@ class BluetoothManager: NSObject {
             return
         }
 
-        // We will attempt to connect to all potential devices when in discovery mode
+        // We will attempt to connect to all pairable devices when in discovery mode
         discoveryModeEnabled = true
         for device in devices {
             let peripheral = device.manager.peripheral
@@ -297,8 +297,13 @@ extension BluetoothManager: CBCentralManagerDelegate {
             for peripheral in peripherals {
                 let device = addPeripheral(peripheral, podAdvertisement: nil)
                 
-                if autoConnectIDs.contains(peripheral.identifier.uuidString) && peripheral.state == .connected {
-                    connectionDelegate?.omnipodPeripheralWasRestored(manager: device.manager)
+                if autoConnectIDs.contains(peripheral.identifier.uuidString) {
+                    if peripheral.state == .connected {
+                        connectionDelegate?.omnipodPeripheralWasRestored(manager: device.manager)
+                    }
+                } else if peripheral.state == .connected || peripheral.state == .connecting {
+                    // For some reason iOS is maintaining a connection to a device that isn't in our list.
+                    manager.cancelPeripheralConnection(peripheral)
                 }
             }
         }
@@ -312,16 +317,18 @@ extension BluetoothManager: CBCentralManagerDelegate {
         if let podAdvertisement = PodAdvertisement(advertisementData) {
             addPeripheral(peripheral, podAdvertisement: podAdvertisement)
             
-            if discoveryModeEnabled && peripheral.state == .disconnected {
-                // Auto-connect to any available, during discovery
-                log.debug("Connecting to device in discovery mode")
+            if discoveryModeEnabled && peripheral.state == .disconnected && podAdvertisement.pairable {
+                // Connect to any pairable device, during discovery
+                log.default("Connecting to pairable device %{public} in discovery mode", peripheral)
                 manager.connect(peripheral, options: nil)
             } else if autoConnectIDs.contains(peripheral.identifier.uuidString) && peripheral.state == .disconnected {
                 log.debug("Reonnecting to autoconnect device")
                 manager.connect(peripheral, options: nil)
+            } else {
+                log.info("Ignoring paired or unconnectable peripheral: %{public}@", peripheral)
             }
         } else {
-            log.info("Ignoring peripheral with advertisement data: %{public}@", advertisementData)
+            log.info("Ignoring peripheral with unexpected advertisement data: %{public}@", advertisementData)
         }
         
         if !discoveryModeEnabled && central.isScanning && hasDiscoveredAllAutoConnectDevices {
@@ -340,7 +347,6 @@ extension BluetoothManager: CBCentralManagerDelegate {
             device.manager.centralManager(central, didConnect: peripheral)
             connectionDelegate?.omnipodPeripheralDidConnect(manager: device.manager)
         }
-
     }
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
