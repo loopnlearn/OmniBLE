@@ -79,7 +79,7 @@
 		84752EDD26ED13F5009FD801 /* Ids.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752EC826ED13F5009FD801 /* Ids.swift */; };
 		84752EDE26ED13F5009FD801 /* PeripheralManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752EC926ED13F5009FD801 /* PeripheralManagerError.swift */; };
 		84752EDF26ED13F5009FD801 /* PeripheralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752ECA26ED13F5009FD801 /* PeripheralManager.swift */; };
-		84752EE026ED13F5009FD801 /* BluetoothErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752ECB26ED13F5009FD801 /* BluetoothErrors.swift */; };
+		84752EE026ED13F5009FD801 /* PodProtocolError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752ECB26ED13F5009FD801 /* PodProtocolError.swift */; };
 		84752EE126ED13F5009FD801 /* PayloadSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752ECD26ED13F5009FD801 /* PayloadSplitter.swift */; };
 		84752EE226ED13F5009FD801 /* PayloadJoiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752ECE26ED13F5009FD801 /* PayloadJoiner.swift */; };
 		84752EE326ED13F5009FD801 /* BLEPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752ECF26ED13F5009FD801 /* BLEPacket.swift */; };
@@ -221,7 +221,7 @@
 		84752EC826ED13F5009FD801 /* Ids.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ids.swift; sourceTree = "<group>"; };
 		84752EC926ED13F5009FD801 /* PeripheralManagerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeripheralManagerError.swift; sourceTree = "<group>"; };
 		84752ECA26ED13F5009FD801 /* PeripheralManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeripheralManager.swift; sourceTree = "<group>"; };
-		84752ECB26ED13F5009FD801 /* BluetoothErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothErrors.swift; sourceTree = "<group>"; };
+		84752ECB26ED13F5009FD801 /* PodProtocolError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodProtocolError.swift; sourceTree = "<group>"; };
 		84752ECD26ED13F5009FD801 /* PayloadSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayloadSplitter.swift; sourceTree = "<group>"; };
 		84752ECE26ED13F5009FD801 /* PayloadJoiner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayloadJoiner.swift; sourceTree = "<group>"; };
 		84752ECF26ED13F5009FD801 /* BLEPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEPacket.swift; sourceTree = "<group>"; };
@@ -453,7 +453,7 @@
 		84752EBE26ED13F5009FD801 /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
-				84752ECB26ED13F5009FD801 /* BluetoothErrors.swift */,
+				84752ECB26ED13F5009FD801 /* PodProtocolError.swift */,
 				1016324C27137B1E007A3BC2 /* BluetoothManager.swift */,
 				10289E6B27308746000339E6 /* BluetoothServices.swift */,
 				10289E6D27309327000339E6 /* CBPeripheral.swift */,
@@ -792,7 +792,7 @@
 				84752EDD26ED13F5009FD801 /* Ids.swift in Sources */,
 				84752ED826ED13F5009FD801 /* OmniRandomByteGenerator.swift in Sources */,
 				1016324D27137B1E007A3BC2 /* BluetoothManager.swift in Sources */,
-				84752EE026ED13F5009FD801 /* BluetoothErrors.swift in Sources */,
+				84752EE026ED13F5009FD801 /* PodProtocolError.swift in Sources */,
 				C1D27A1B27911E9900C41EBA /* PodAdvertisement.swift in Sources */,
 				10289E7F2739F8A1000339E6 /* EapAkaAttribute.swift in Sources */,
 				1016325B27185EE5007A3BC2 /* Pod.swift in Sources */,
