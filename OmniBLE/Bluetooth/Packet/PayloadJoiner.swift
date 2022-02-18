@@ -25,11 +25,11 @@ class PayloadJoiner {
 
     func accumulate(packet: Data) throws {
         if (packet.count < 3) { // idx, size, at least 1 byte of payload
-            throw BluetoothErrors.IncorrectPacketException(packet, (expectedIndex + 1))
+            throw PodProtocolError.incorrectPacketException(packet, (expectedIndex + 1))
         }
         let idx = Int(packet[0])
         if (idx != expectedIndex + 1) {
-            throw BluetoothErrors.IncorrectPacketException(packet, (expectedIndex + 1))
+            throw PodProtocolError.incorrectPacketException(packet, (expectedIndex + 1))
         }
         expectedIndex += 1
         switch idx{
@@ -43,18 +43,18 @@ class PayloadJoiner {
         case let index where index == fullFragments + 1 && oneExtraPacket:
             fragments.append(try LastOptionalPlusOneBlePacket.parse(payload: packet))
         case let index where index > fullFragments:
-            throw BluetoothErrors.IncorrectPacketException(packet, idx)
+            throw PodProtocolError.incorrectPacketException(packet, idx)
         default:
-            throw BluetoothErrors.IncorrectPacketException(packet, idx)
+            throw PodProtocolError.incorrectPacketException(packet, idx)
         }
     }
 
     func finalize() throws -> Data {
         let payloads = fragments.map { x in x.payload }
         let bb = payloads.reduce(Data(), { acc, elem in acc + elem })
-        if (bb.crc32() != crc) {
-            print("uh oh")
-//            throw CrcMismatchException(bb.crc32(), crc, bb)
+        let computedCrc32 = bb.crc32()
+        if let crc32 = crc, crc32 != computedCrc32 {
+            throw PodProtocolError.invalidCrc(payloadCrc: crc32, computedCrc: computedCrc32)
         }
         return bb
     }

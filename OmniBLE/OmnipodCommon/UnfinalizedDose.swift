@@ -56,11 +56,13 @@ public struct UnfinalizedDose: RawRepresentable, Equatable, CustomStringConverti
     
     let doseType: DoseType
     public var units: Double
+    public var automatic: Bool      // Tracks if this dose was issued automatically or manually
     var scheduledUnits: Double?     // Tracks the scheduled units, as boluses may be canceled before finishing, at which point units would reflect actual delivered volume.
     var scheduledTempRate: Double?  // Tracks the original temp rate, as during finalization the units are discretized to pump pulses, changing the actual rate
     let startTime: Date
     var duration: TimeInterval?
     var scheduledCertainty: ScheduledCertainty
+    var isHighTemp: Bool = false    // Track this for situations where cancelling temp basal is unacknowledged, and recovery fails, and we have to assume the most possible delivery
     
     var finishTime: Date? {
         get {
@@ -71,28 +73,16 @@ public struct UnfinalizedDose: RawRepresentable, Equatable, CustomStringConverti
         }
     }
     
-    private var nominalProgress: Double {
+    public func progress(at date: Date = Date()) -> Double {
         guard let duration = duration else {
             return 0
         }
-        let elapsed = -startTime.timeIntervalSinceNow
-        return elapsed / duration
-    }
-
-    // A value from 0 to 1 giving the nominal progress percentage for a bolus or a temp basal
-    public var progress: Double {
-        return min(nominalProgress, 1)
+        let elapsed = -startTime.timeIntervalSince(date)
+        return min(elapsed / duration, 1)
     }
     
-    // Is a bolus or a temp basal nominally finished
-    public var isFinished: Bool {
-        return progress >= 1
-    }
-
-    // Has a bolus operation had enough time to positively finish
-    public var isBolusPositivelyFinished: Bool {
-        // Pod faults if any pulse takes 20% or more of nominal to deliver
-        return nominalProgress >= 1.2
+    public func isFinished(at date: Date = Date()) -> Bool {
+        return progress(at: date) >= 1
     }
     
     // Units per hour
@@ -104,28 +94,31 @@ public struct UnfinalizedDose: RawRepresentable, Equatable, CustomStringConverti
     }
 
     public var finalizedUnits: Double? {
-        guard isFinished else {
+        guard isFinished() else {
             return nil
         }
         return units
     }
 
-    init(bolusAmount: Double, startTime: Date, scheduledCertainty: ScheduledCertainty) {
+    init(bolusAmount: Double, startTime: Date, scheduledCertainty: ScheduledCertainty, automatic: Bool = false) {
         self.doseType = .bolus
         self.units = bolusAmount
         self.startTime = startTime
         self.duration = TimeInterval(bolusAmount / Pod.bolusDeliveryRate)
         self.scheduledCertainty = scheduledCertainty
         self.scheduledUnits = nil
+        self.automatic = automatic
     }
     
-    init(tempBasalRate: Double, startTime: Date, duration: TimeInterval, scheduledCertainty: ScheduledCertainty) {
+    init(tempBasalRate: Double, startTime: Date, duration: TimeInterval, isHighTemp: Bool, scheduledCertainty: ScheduledCertainty) {
         self.doseType = .tempBasal
         self.units = tempBasalRate * duration.hours
         self.startTime = startTime
         self.duration = duration
         self.scheduledCertainty = scheduledCertainty
         self.scheduledUnits = nil
+        self.automatic = true
+        self.isHighTemp = isHighTemp
     }
 
     init(suspendStartTime: Date, scheduledCertainty: ScheduledCertainty) {
@@ -133,6 +126,7 @@ public struct UnfinalizedDose: RawRepresentable, Equatable, CustomStringConverti
         self.units = 0
         self.startTime = suspendStartTime
         self.scheduledCertainty = scheduledCertainty
+        self.automatic = false
     }
 
     init(resumeStartTime: Date, scheduledCertainty: ScheduledCertainty) {
@@ -140,6 +134,7 @@ public struct UnfinalizedDose: RawRepresentable, Equatable, CustomStringConverti
         self.units = 0
         self.startTime = resumeStartTime
         self.scheduledCertainty = scheduledCertainty
+        self.automatic = false
     }
 
     public mutating func cancel(at date: Date, withRemaining remaining: Double? = nil) {
@@ -168,10 +163,10 @@ public struct UnfinalizedDose: RawRepresentable, Equatable, CustomStringConverti
         duration = newDuration
     }
 
-    public var isMutable: Bool {
+    public func isMutable(at date: Date = Date()) -> Bool {
         switch doseType {
         case .bolus, .tempBasal:
-            return !isFinished
+            return !isFinished(at: date)
         default:
             return false
         }
@@ -229,6 +224,18 @@ public struct UnfinalizedDose: RawRepresentable, Equatable, CustomStringConverti
         if let duration = rawValue["duration"] as? Double {
             self.duration = duration
         }
+        
+        if let automatic = rawValue["automatic"] as? Bool {
+            self.automatic = automatic
+        } else {
+            self.automatic = false
+        }
+
+        if let isHighTemp = rawValue["isHighTemp"] as? Bool {
+            self.isHighTemp = isHighTemp
+        } else {
+            self.isHighTemp = false
+        }
     }
     
     public var rawValue: RawValue {
@@ -236,7 +243,9 @@ public struct UnfinalizedDose: RawRepresentable, Equatable, CustomStringConverti
             "doseType": doseType.rawValue,
             "units": units,
             "startTime": startTime,
-            "scheduledCertainty": scheduledCertainty.rawValue
+            "scheduledCertainty": scheduledCertainty.rawValue,
+            "automatic": automatic,
+            "isHighTemp": isHighTemp,
         ]
         
         if let scheduledUnits = scheduledUnits {
@@ -271,7 +280,7 @@ extension NewPumpEvent {
     init(_ dose: UnfinalizedDose) {
         let title = String(describing: dose)
         let entry = DoseEntry(dose)
-        self.init(date: dose.startTime, dose: entry, isMutable: dose.isMutable, raw: dose.uniqueKey, title: title)
+        self.init(date: dose.startTime, dose: entry, isMutable: dose.isMutable(), raw: dose.uniqueKey, title: title)
     }
 }
 
@@ -289,3 +298,17 @@ extension DoseEntry {
         }
     }
 }
+
+extension StartProgram {
+    func unfinalizedDose(at programDate: Date, withCertainty certainty: UnfinalizedDose.ScheduledCertainty) -> UnfinalizedDose? {
+        switch self {
+        case .bolus(volume: let volume, automatic: let automatic):
+            return UnfinalizedDose(bolusAmount: volume, startTime: programDate, scheduledCertainty: certainty, automatic: automatic)
+        case .tempBasal(unitsPerHour: let rate, duration: let duration, let isHighTemp):
+            return UnfinalizedDose(tempBasalRate: rate, startTime: programDate, duration: duration, isHighTemp: isHighTemp, scheduledCertainty: certainty)
+        case .basalProgram:
+            return UnfinalizedDose(resumeStartTime: programDate, scheduledCertainty: certainty)
+        }
+    }
+}
+

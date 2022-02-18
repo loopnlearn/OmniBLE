@@ -284,7 +284,7 @@ extension OmniBLEPumpManager {
         case .disengaging:
             return .cancelingTempBasal
         case .stable:
-            if let tempBasal = podState.unfinalizedTempBasal, !tempBasal.isFinished {
+            if let tempBasal = podState.unfinalizedTempBasal, !tempBasal.isFinished() {
                 return .tempBasal(DoseEntry(tempBasal))
             }
             switch podState.suspendState {
@@ -307,7 +307,7 @@ extension OmniBLEPumpManager {
         case .disengaging:
             return .canceling
         case .stable:
-            if let bolus = podState.unfinalizedBolus, !bolus.isFinished {
+            if let bolus = podState.unfinalizedBolus, !bolus.isFinished() {
                 return .inProgress(DoseEntry(bolus))
             }
         }
@@ -674,7 +674,7 @@ extension OmniBLEPumpManager {
     }
 
     public func getPodStatus(storeDosesOnSuccess: Bool, emitConfirmationBeep: Bool, completion: ((_ result: PumpManagerResult<StatusResponse>) -> Void)? = nil) {
-        guard state.podState?.unfinalizedBolus?.scheduledCertainty == .uncertain || state.podState?.unfinalizedBolus?.isFinished != false else {
+        guard state.podState?.unfinalizedBolus?.scheduledCertainty == .uncertain || state.podState?.unfinalizedBolus?.isFinished() != false else {
             self.log.info("Skipping status request due to unfinalized bolus in progress.")
             completion?(.failure(PodCommsError.unfinalizedBolus))
             return
@@ -738,7 +738,7 @@ extension OmniBLEPumpManager {
             return
         }
 
-        guard state.podState?.unfinalizedBolus?.isFinished != false else {
+        guard state.podState?.unfinalizedBolus?.isFinished() != false else {
             completion(PodCommsError.unfinalizedBolus)
             return
         }
@@ -771,7 +771,7 @@ extension OmniBLEPumpManager {
                 return .success(false)
             }
 
-            guard state.podState?.unfinalizedBolus?.isFinished != false else {
+            guard state.podState?.unfinalizedBolus?.isFinished() != false else {
                 return .failure(PodCommsError.unfinalizedBolus)
             }
 
@@ -800,7 +800,7 @@ extension OmniBLEPumpManager {
                     switch result {
                     case .certainFailure(let error):
                         throw error
-                    case .uncertainFailure(let error):
+                    case .unacknowledged(let error):
                         throw error
                     case .success:
                         break
@@ -930,7 +930,7 @@ extension OmniBLEPumpManager {
             completion(OmniBLEPumpManagerError.noPodPaired)
             return
         }
-        guard state.podState?.unfinalizedBolus?.scheduledCertainty == .uncertain || state.podState?.unfinalizedBolus?.isFinished != false else {
+        guard state.podState?.unfinalizedBolus?.scheduledCertainty == .uncertain || state.podState?.unfinalizedBolus?.isFinished() != false else {
             self.log.info("Skipping Play Test Beeps due to bolus still in progress.")
             completion(PodCommsError.unfinalizedBolus)
             return
@@ -962,7 +962,7 @@ extension OmniBLEPumpManager {
             completion(.failure(OmniBLEPumpManagerError.noPodPaired))
             return
         }
-        guard state.podState?.isFaulted == true || state.podState?.unfinalizedBolus?.scheduledCertainty == .uncertain || state.podState?.unfinalizedBolus?.isFinished != false else
+        guard state.podState?.isFaulted == true || state.podState?.unfinalizedBolus?.scheduledCertainty == .uncertain || state.podState?.unfinalizedBolus?.isFinished() != false else
         {
             self.log.info("Skipping Read Pulse Log due to bolus still in progress.")
             completion(.failure(PodCommsError.unfinalizedBolus))
@@ -1149,7 +1149,7 @@ extension OmniBLEPumpManager: PumpManager {
             switch result {
             case .certainFailure(let error):
                 completion(error)
-            case .uncertainFailure(let error):
+            case .unacknowledged(let error):
                 completion(error)
             case .success:
                 session.dosesForStorage() { (doses) -> Bool in
@@ -1322,11 +1322,11 @@ extension OmniBLEPumpManager: PumpManager {
                 if unfinalizedBolus.scheduledCertainty == .uncertain {
                     self.log.info("enactBolus: doing getStatus with uncertain bolus scheduled certainty")
                     getStatusNeeded = true
-                } else if unfinalizedBolus.isFinished == false {
+                } else if unfinalizedBolus.isFinished() == false {
                      self.log.info("enactBolus: not enacting bolus because podState indicates unfinalized bolus in progress")
                      completion(.failure(SetBolusError.certain(PodCommsError.unfinalizedBolus)))
                      return
-                } else if unfinalizedBolus.isBolusPositivelyFinished == false {
+                } else if unfinalizedBolus.isFinished() == false {
                     self.log.info("enactBolus: doing getStatus to verify if bolus complete")
                     getStatusNeeded = true
                 } else {
@@ -1345,8 +1345,9 @@ extension OmniBLEPumpManager: PumpManager {
                     completion(.failure(SetBolusError.certain(error as? PodCommsError ?? PodCommsError.commsError(error: error))))
                     return
                 }
-            } else if finalizeFinishedDosesNeeded {
-                session.finalizeFinishedDoses()
+            // JPM Alert
+            //} else if finalizeFinishedDosesNeeded {  // JPM Alert
+            //    session.finalizeFinishedDoses()      // JPM Alert - PodCommsSession has no finalizeFinishedDoses()
             }
 
             let date = Date()
@@ -1371,7 +1372,7 @@ extension OmniBLEPumpManager: PumpManager {
                 completion(.success(dose))
             case .certainFailure(let error):
                 completion(.failure(SetBolusError.certain(error)))
-            case .uncertainFailure(let error):
+            case .unacknowledged(let error):
                 completion(.failure(SetBolusError.uncertain(error)))
             }
         }
@@ -1404,7 +1405,7 @@ extension OmniBLEPumpManager: PumpManager {
                     state.bolusEngageState = .disengaging
                 })
 
-                if let bolus = self.state.podState?.unfinalizedBolus, !bolus.isFinished, bolus.scheduledCertainty == .uncertain {
+                if let bolus = self.state.podState?.unfinalizedBolus, !bolus.isFinished(), bolus.scheduledCertainty == .uncertain {
                     let status = try session.getStatus()
 
                     if !status.deliveryStatus.bolusing {
@@ -1419,7 +1420,7 @@ extension OmniBLEPumpManager: PumpManager {
                 switch result {
                 case .certainFailure(let error):
                     throw error
-                case .uncertainFailure(let error):
+                case .unacknowledged(let error):
                     throw error
                 case .success(_, let canceledBolus):
                     session.dosesForStorage() { (doses) -> Bool in
@@ -1461,7 +1462,7 @@ extension OmniBLEPumpManager: PumpManager {
                 return
             }
 
-            guard self.state.podState?.unfinalizedBolus?.isFinished != false else {
+            guard self.state.podState?.unfinalizedBolus?.isFinished() != false else {
                 self.log.info("Not enacting temp basal because podState indicates unfinalized bolus in progress.")
                 completion(.failure(PodCommsError.unfinalizedBolus))
                 return
@@ -1487,7 +1488,7 @@ extension OmniBLEPumpManager: PumpManager {
                 case .certainFailure(let error):
                     completion(.failure(error))
                     return
-                case .uncertainFailure(let error):
+                case .unacknowledged(let error):
                     // TODO: Return PumpManagerError.uncertainDelivery and implement recovery if resumingNormalBasal
                     completion(.failure(error))
                     return
@@ -1533,7 +1534,8 @@ extension OmniBLEPumpManager: PumpManager {
                 })
 
                 let beep = self.confirmationBeeps && tempBasalConfirmationBeeps
-                let result = session.setTempBasal(rate: rate, duration: duration, acknowledgementBeep: beep, completionBeep: beep)
+                let isHighTemp = false // JPM Alert: need to properly configure this.
+                let result = session.setTempBasal(rate: rate, duration: duration, isHighTemp: isHighTemp, acknowledgementBeep: beep, completionBeep: beep)
                 let basalStart = Date()
                 let dose = DoseEntry(type: .tempBasal, startDate: basalStart, endDate: basalStart.addingTimeInterval(duration), value: rate, unit: .unitsPerHour)
                 session.dosesForStorage() { (doses) -> Bool in
@@ -1542,7 +1544,7 @@ extension OmniBLEPumpManager: PumpManager {
                 switch result {
                 case .success:
                     completion(.success(dose))
-                case .uncertainFailure(let error):
+                case .unacknowledged(let error):
                     // TODO: Return PumpManagerError.uncertainDelivery and implement recovery
                     self.log.error("Temp basal uncertain error: %@", String(describing: error))
                     completion(.success(dose))
@@ -1631,7 +1633,7 @@ extension OmniBLEPumpManager: PodCommsDelegate {
     func podComms(_ podComms: PodComms, didChange podState: PodState) {
         setState { (state) in
             // Check for any updates to bolus certainty, and log them
-            if let bolus = state.podState?.unfinalizedBolus, bolus.scheduledCertainty == .uncertain, !bolus.isFinished {
+            if let bolus = state.podState?.unfinalizedBolus, bolus.scheduledCertainty == .uncertain, !bolus.isFinished() {
                 if podState.unfinalizedBolus?.scheduledCertainty == .some(.certain) {
                     self.log.default("Resolved bolus uncertainty: did bolus")
                 } else if podState.unfinalizedBolus == nil {

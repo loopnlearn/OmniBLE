@@ -197,29 +197,44 @@ class PodMessageTransport: MessageTransport {
 
     /// Sends the given pod message over the encrypted Dash transport and returns the pod's response
     func sendMessage(_ message: Message) throws -> Message {
+        
+        guard manager.peripheral.state == .connected else {
+            throw PodCommsError.podNotConnected
+        }
 
         messageNumber = message.sequenceNum // reset our Omnipod message # to given value
+
         incrementMessageNumber() // bump to match expected Omnipod message # in response
 
         let dataToSend = message.encoded()
-        log.default("Send(Hex): %@", dataToSend.hexadecimalString)
+        log.default("Send(Hex): %{public}@", dataToSend.hexadecimalString)
         messageLogger?.didSend(dataToSend)
 
         let sendMessage = try getCmdMessage(cmd: message)
 
-        let writeResult = try manager.sendMessage(sendMessage)
-        guard ((writeResult as? MessageSendSuccess) != nil) else {
-            throw BluetoothErrors.MessageIOException("Could not write $msgType: \(writeResult)")
+        let writeResult = manager.sendMessage(sendMessage)
+        switch writeResult {
+        case .sentWithAcknowledgment:
+            break;
+        case .sentWithError(let error):
+            throw PodCommsError.unacknowledgedMessage(sequenceNumber: message.sequenceNum, error: error)
+        case .unsentWithError(let error):
+            throw PodCommsError.commsError(error: error)
         }
 
-        let response = try readAndAckResponse()
-        incrementMessageNumber() // bump the 4-bit Omnipod Message number
-
-        return response
+        do {
+            let response = try readAndAckResponse()
+            incrementMessageNumber() // bump the 4-bit Omnipod Message number
+            return response
+        } catch {
+            throw PodCommsError.unacknowledgedMessage(sequenceNumber: message.sequenceNum, error: error)
+        }
     }
     
     private func getCmdMessage(cmd: Message) throws -> MessagePacket {
-        guard let enDecrypt = self.enDecrypt else { throw PodCommsError.noPodAvailable }
+        guard let enDecrypt = self.enDecrypt else {
+            throw PodCommsError.podNotConnected
+        }
 
         incrementMsgSeq()
 
@@ -244,11 +259,11 @@ class PodMessageTransport: MessageTransport {
     }
     
     func readAndAckResponse() throws -> Message {
-        guard let enDecrypt = self.enDecrypt else { throw PodCommsError.noPodAvailable }
+        guard let enDecrypt = self.enDecrypt else { throw PodCommsError.podNotConnected }
 
         let readResponse = try manager.readMessage()
         guard let readMessage = readResponse else {
-            throw BluetoothErrors.MessageIOException("Could not read response")
+            throw PodProtocolError.messageIOException("Could not read response")
         }
 
         incrementNonceSeq()
@@ -258,24 +273,13 @@ class PodMessageTransport: MessageTransport {
 
         let response = try parseResponse(decrypted: decrypted)
 
-        /*if (!responseType.isInstance(response)) {
-            if (response is AlarmStatusResponse) {
-                throw PodAlarmException(response)
-            }
-            if (response is NakResponse) {
-                throw NakResponseException(response)
-            }
-            throw IllegalResponseException(responseType, response)
-        }
-         */
-
         incrementMsgSeq()
         incrementNonceSeq()
         let ack = try getAck(response: decrypted)
         log.debug("Sending ACK: %@ in packet $ack", ack.payload.hexadecimalString)
-        let ackResult = try manager.sendMessage(ack)
-        guard ((ackResult as? MessageSendSuccess) != nil) else {
-            throw BluetoothErrors.MessageIOException("Could not write $msgType: \(ackResult)")
+        let ackResult = manager.sendMessage(ack)
+        guard case .sentWithAcknowledgment = ackResult else {
+            throw PodProtocolError.messageIOException("Could not write $msgType: \(ackResult)")
         }
 
         // verify that the Omnipod message # matches the expected value
@@ -300,7 +304,7 @@ class PodMessageTransport: MessageTransport {
     }
     
     private func getAck(response: MessagePacket) throws -> MessagePacket {
-        guard let enDecrypt = self.enDecrypt else { throw PodCommsError.noPodAvailable }
+        guard let enDecrypt = self.enDecrypt else { throw PodCommsError.podNotConnected }
 
         let ackNumber = (UInt(response.sequenceNumber) + 1) & 0xff
         let msg = MessagePacket(

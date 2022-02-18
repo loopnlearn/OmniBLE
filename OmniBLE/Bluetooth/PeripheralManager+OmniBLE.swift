@@ -7,16 +7,10 @@
 //
 
 
-protocol MessageResult {
-    
-}
-
-struct MessageSendFailure: MessageResult {
-    var error: Error
-}
-
-struct MessageSendSuccess: MessageResult {
-    
+enum SendMessageResult {
+    case sentWithAcknowledgment
+    case sentWithError(Error)
+    case unsentWithError(Error)
 }
 
 extension PeripheralManager {
@@ -26,7 +20,7 @@ extension PeripheralManager {
         dispatchPrecondition(condition: .onQueue(queue))
 
         let controllerId = Id.fromUInt32(myId).address
-        log.debug("Sending Hello %s", controllerId.hexadecimalString)
+        log.default("Sending Hello %{public}@", controllerId.hexadecimalString)
         guard let characteristic = peripheral.getCommandCharacteristic() else {
             throw PeripheralManagerError.notReady
         }
@@ -46,12 +40,11 @@ extension PeripheralManager {
         try setNotifyValue(true, for: dataChar, timeout: .seconds(2))
     }
         
-    /// - Throws: PeripheralManagerError
-    func sendMessage(_ message: MessagePacket, _ forEncryption: Bool = false) throws -> MessageResult {
+    func sendMessage(_ message: MessagePacket, _ forEncryption: Bool = false) -> SendMessageResult {
         dispatchPrecondition(condition: .onQueue(queue))
-
-        var result: MessageResult = MessageSendSuccess()
         
+        var didSend = false
+
         do {
             try sendCommandType(PodCommand.RTS, timeout: 5)
             try readCommandType(PodCommand.CTS, timeout: 5)
@@ -59,7 +52,12 @@ extension PeripheralManager {
             let splitter = PayloadSplitter(payload: message.asData(forEncryption: forEncryption))
             let packets = splitter.splitInPackets()
 
-            for packet in packets {
+            for (index, packet) in packets.enumerated() {
+                // Consider starting the last packet send as the point at which the message may be received by the pod.
+                // A failure after data is actually sent, but before the sendData() returns can still be received.
+                if index == packets.count - 1 {
+                    didSend = true
+                }
                 try sendData(packet.toData(), timeout: 5)
                 try self.peekForNack()
             }
@@ -67,10 +65,13 @@ extension PeripheralManager {
             try readCommandType(PodCommand.SUCCESS, timeout: 5)
         }
         catch {
-            result = MessageSendFailure(error: error)
+            if didSend {
+                return .sentWithError(error)
+            } else {
+                return .unsentWithError(error)
+            }
         }
-
-        return result
+        return .sentWithAcknowledgment
     }
     
     /// - Throws: PeripheralManagerError
@@ -136,7 +137,7 @@ extension PeripheralManager {
         guard let characteristic = peripheral.getCommandCharacteristic() else {
             throw PeripheralManagerError.notReady
         }
-        log.debug("Writing Command Value %@", Data([command.rawValue]).hexadecimalString)
+        log.default("Writing Command Value %{public}@", Data([command.rawValue]).hexadecimalString)
         
         try writeValue(Data([command.rawValue]), for: characteristic, type: .withResponse, timeout: timeout)
     }
@@ -145,7 +146,7 @@ extension PeripheralManager {
     func readCommandType(_ command: PodCommand, timeout: TimeInterval = 5) throws {
         dispatchPrecondition(condition: .onQueue(queue))
 
-        log.debug("Read Command %@", Data([command.rawValue]).hexadecimalString)
+        log.default("Read Command %{public}@", Data([command.rawValue]).hexadecimalString)
         
         // Wait for data to be read.
         queueLock.lock()
@@ -180,7 +181,7 @@ extension PeripheralManager {
             throw PeripheralManagerError.notReady
         }
         
-        log.debug("Writing Data Value %@", value.hexadecimalString)
+        log.default("Writing Data Value %{public}@", value.hexadecimalString)
         
         try writeValue(value, for: characteristic, type: .withResponse, timeout: timeout)
     }

@@ -110,9 +110,9 @@ class InsertCannulaSetupViewController: SetupTableViewController {
                     errorText = localizedText + "."
                 }
             }
-            if let bluetoothError = lastError as? BluetoothErrors {
-                switch bluetoothError {
-                case .InvalidLTKKey(let message), .PairingException(let message), .MessageIOException(let message), .CouldNotParseMessageException(let message):
+            if let podProtocolError = lastError as? PodProtocolError {
+                switch podProtocolError {
+                case .invalidLTKKey(let message), .pairingException(let message), .messageIOException(let message), .couldNotParseMessageException(let message):
                     errorText = message
                 default:
                     break

@@ -371,7 +371,8 @@ class OmniBLESettingsViewController: UITableViewController {
 
                 let deliveredUnits: Double?
                 if let dose = podState.unfinalizedBolus {
-                    deliveredUnits = pumpManager.roundToSupportedBolusVolume(units: dose.progress * dose.units)
+                    // deliveredUnits = pumpManager.roundToSupportedBolusVolume(units: dose.progress * dose.units)   // JPM Alert
+                    deliveredUnits = nil  // JPM Alert
                 } else {
                     deliveredUnits = nil
                 }
@@ -981,10 +982,12 @@ private extension UITableViewCell {
         
         let progress = dose.progress
         if let units = self.insulinFormatter.string(from: dose.units), let deliveredUnits = self.insulinFormatter.string(from: delivered) {
-            if progress >= 1 {
+            // if progress >= 1 {  // JPM Alert
+            if true {  // JPM Alert
                 self.detailTextLabel?.text = String(format: LocalizedString("%@ U (Finished)", comment: "Format string for bolus progress when finished. (1: The localized amount)"), units)
             } else {
-                let progressFormatted = percentFormatter.string(from: progress * 100.0) ?? ""
+                // let progressFormatted = percentFormatter.string(from: progress * 100.0) ?? ""   // JPM Alert
+                let progressFormatted = 100 // JPM Alert
                 let progressStr = String(format: LocalizedString("%@%%", comment: "Format string for bolus percent progress. (1: Percent progress)"), progressFormatted)
                 self.detailTextLabel?.text = String(format: LocalizedString("%@ U of %@ U (%@)", comment: "Format string for bolus progress. (1: The delivered amount) (2: The programmed amount) (3: the percent progress)"), deliveredUnits, units, progressStr)
             }

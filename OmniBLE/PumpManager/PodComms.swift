@@ -53,7 +53,7 @@ public class PodComms: CustomDebugStringConvertible {
     private var needsSessionEstablishment: Bool = false
 
     private let bluetoothManager = BluetoothManager()
-
+    
     private var myId: UInt32
     private var podId: UInt32
 
@@ -68,12 +68,19 @@ public class PodComms: CustomDebugStringConvertible {
             bluetoothManager.connectToDevice(uuidString: podState.bleIdentifier)
         }
     }
-
+    
     public func forgetCurrentPod() {
+
         if let manager = manager {
             self.log.default("Removing %{public}@ from auto-connect ids", manager.peripheral)
             bluetoothManager.disconnectFromDevice(uuidString: manager.peripheral.identifier.uuidString)
         }
+    }
+
+    public func prepForNewPod(myId: UInt32 = 0, podId: UInt32 = 0) {
+        self.myId = myId
+        self.podId = podId
+        self.podState = nil
     }
 
     public func connectToNewPod(_ completion: @escaping (Result<OmniBLE, Error>) -> Void) {
@@ -87,7 +94,7 @@ public class PodComms: CustomDebugStringConvertible {
                     let devices = self.bluetoothManager.getConnectedDevices()
 
                     if devices.count > 1 {
-                        self.log.info("Multiple pods found while scanning")
+                        self.log.default("Multiple pods found while scanning")
                         self.bluetoothManager.endPodDiscovery()
                         completion(.failure(PodCommsError.tooManyPodsFound))
                         timer.invalidate()
@@ -97,7 +104,7 @@ public class PodComms: CustomDebugStringConvertible {
 
                     // If we've found a pod by 2 seconds, let's go.
                     if elapsed > TimeInterval(seconds: 2) && devices.count > 0 {
-                        self.log.debug("Found pod!")
+                        self.log.default("Found pod!")
                         let targetPod = devices.first!
                         self.bluetoothManager.connectToDevice(uuidString: targetPod.manager.peripheral.identifier.uuidString)
                         self.manager = targetPod.manager
@@ -108,9 +115,9 @@ public class PodComms: CustomDebugStringConvertible {
                     }
 
                     if elapsed > TimeInterval(seconds: 10) {
-                        self.log.info("No pods found while scanning")
+                        self.log.default("No pods found while scanning")
                         self.bluetoothManager.endPodDiscovery()
-                        completion(.failure(PodCommsError.noPodAvailable))
+                        completion(.failure(PodCommsError.noPodsFound))
                         timer.invalidate()
                     }
                 }
@@ -150,7 +157,7 @@ public class PodComms: CustomDebugStringConvertible {
     }
 
     private func pairPod() throws {
-        guard let manager = manager else { throw PodCommsError.noPodAvailable }
+        guard let manager = manager else { throw PodCommsError.podNotConnected }
         let ids = Ids(myId: self.myId, podId: self.podId)
 
         let ltkExchanger = LTKExchanger(manager: manager, ids: ids)
@@ -167,7 +174,7 @@ public class PodComms: CustomDebugStringConvertible {
             log.debug("pairPod: failed to create messageTransportState!")
             throw PodCommsError.noPodPaired
         }
-
+ 
         log.info("LTK and encrypted transport now ready, messageTransportState: %@", String(reflecting: messageTransportState))
 
         // If we get here, we have the LTK all set up and we should be able use encrypted pod messages
@@ -175,15 +182,15 @@ public class PodComms: CustomDebugStringConvertible {
         transport.messageLogger = messageLogger
 
         // For Dash this command is vestigal and doesn't actually assign the address (podId)
-        // any more as this is done earlier when the LTK is setup. But this Omnipod command is still
-        // needed albiet using 0xffffffff for the address while the Eros sets the podId on this call.
+        // any more as this is done earlier when the LTK is setup. But this Omnipod comamnd is still
+        // needed albiet using 0xffffffff for the address while the Eros sets the 0x1f0xxxxx ID.
         let assignAddress = AssignAddressCommand(address: 0xffffffff)
         let message = Message(address: 0xffffffff, messageBlocks: [assignAddress], sequenceNum: transport.messageNumber)
 
         let versionResponse = try sendPairMessage(transport: transport, message: message)
 
         // Now create the real PodState using the current transport state and the versionResponse info
-        log.debug("Creating PodState for versionResponse %{public}@ and transport %{public}@", String(describing: versionResponse), String(describing: transport.state))
+        log.debug("pairPod: creating PodState for versionResponse %{public}@ and transport %{public}@", String(describing: versionResponse), String(describing: transport.state))
         self.podState = PodState(
             address: self.podId,
             ltk: ltk,
@@ -203,6 +210,8 @@ public class PodComms: CustomDebugStringConvertible {
             self.podState?.setupProgress = .activationTimeout
             throw PodCommsError.activationTimeExceeded
         }
+
+        log.debug("pairPod: self.PodState messageTransportState now: %@", String(reflecting: self.podState?.messageTransportState))
     }
 
     private func establishSession(ltk: Data, eapSeq: Int, msgSeq: Int = 1)  throws -> MessageTransportState? {
@@ -260,13 +269,13 @@ public class PodComms: CustomDebugStringConvertible {
     }
 
     private func setupPod(podState: PodState, timeZone: TimeZone) throws {
-        guard let manager = manager else { throw PodCommsError.noPodAvailable }
+        guard let manager = manager else { throw PodCommsError.podNotConnected }
 
         let transport = PodMessageTransport(manager: manager, myId: self.myId, podId: self.podId, state: podState.messageTransportState)
         transport.messageLogger = messageLogger
 
         let dateComponents = SetupPodCommand.dateComponents(date: Date(), timeZone: timeZone)
-        let setupPod = SetupPodCommand(address: podState.address, dateComponents: dateComponents, lot: podState.lotNo, tid: podState.lotSeq)
+        let setupPod = SetupPodCommand(address: podState.address, dateComponents: dateComponents, lot: UInt32(podState.lotNo), tid: podState.lotSeq)
 
         let message = Message(address: 0xffffffff, messageBlocks: [setupPod], sequenceNum: transport.messageNumber)
 
@@ -319,8 +328,8 @@ public class PodComms: CustomDebugStringConvertible {
         _ block: @escaping (_ result: SessionRunResult) -> Void
     ) {
         guard let manager = manager else {
-            // no connected Dash pod to communicate with
-            block(.failure(PodCommsError.noPodAvailable))
+            // no available Dash pump to communicate with
+            block(.failure(PodCommsError.noResponse))
             return
         }
 
@@ -335,7 +344,7 @@ public class PodComms: CustomDebugStringConvertible {
                 try manager.sendHello(myId: myId)
                 try manager.enableNotifications() // Seemingly this cannot be done before the hello command, or the pod disconnects
 
-                if self.isPaired == false {
+                if (!self.isPaired) {
                     try self.pairPod()
                 } else {
                     try self.establishNewSession()
@@ -378,17 +387,16 @@ public class PodComms: CustomDebugStringConvertible {
     func runSession(withName name: String, _ block: @escaping (_ result: SessionRunResult) -> Void) {
 
         guard let manager = manager, manager.peripheral.state == .connected else {
-            block(.failure(PodCommsError.noPodAvailable))
+            block(.failure(PodCommsError.podNotConnected))
             return
         }
-
+        
         manager.runSession(withName: name) { () in
             guard self.podState != nil else {
                 block(.failure(PodCommsError.noPodPaired))
                 return
             }
 
-            // self.configureDevice(device, with: commandSession) no RL to configure
             let transport = PodMessageTransport(manager: manager, myId: self.myId, podId: self.podId, state: self.podState!.messageTransportState)
             transport.messageLogger = self.messageLogger
             let podSession = PodCommsSession(podState: self.podState!, transport: transport, delegate: self)
@@ -403,7 +411,6 @@ public class PodComms: CustomDebugStringConvertible {
             "## PodComms",
             "* myId: \(String(format: "%08X", myId))",
             "* podId: \(String(format: "%08X", podId))",
-            "podState: \(String(reflecting: podState))",
             "delegate: \(String(describing: delegate != nil))",
             ""
         ].joined(separator: "\n")
@@ -429,7 +436,7 @@ extension PodComms: OmniBLEConnectionDelegate {
 
     func omnipodPeripheralDidDisconnect(peripheral: CBPeripheral) {
         if let podState = podState, peripheral.identifier.uuidString == podState.bleIdentifier {
-            log.debug("omnipodPeripheralDidDisconnect... should auto-reconnect")
+            log.default("omnipodPeripheralDidDisconnect... should auto-reconnect")
         }
     }
 }
@@ -437,7 +444,7 @@ extension PodComms: OmniBLEConnectionDelegate {
 // MARK: - PeripheralManagerDelegate
 
 extension PodComms: PeripheralManagerDelegate {
-
+    
     func completeConfiguration(for manager: PeripheralManager) throws {
         log.default("PodComms completeConfiguration")
 
