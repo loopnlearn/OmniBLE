@@ -176,9 +176,3 @@ extension CommandResponseViewController {
 
 }
 
-extension Double {
-    var twoDecimals: String {
-        return String(format: "%.2f", self)
-    }
-}
-
