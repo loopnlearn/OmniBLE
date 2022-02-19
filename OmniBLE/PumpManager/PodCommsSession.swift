@@ -260,6 +260,7 @@ public class PodCommsSession {
 
             let message = Message(address: podState.address, messageBlocks: blocksToSend, sequenceNum: messageNumber)
 
+            self.podState.lastCommsOK = false // mark last comms as not OK until we get the expected response
             let response = try transport.sendMessage(message)
             
             // Simulate fault
@@ -782,6 +783,10 @@ public class PodCommsSession {
             podState.updateFromDetailedStatusResponse(detailedStatus)
         }
         return detailedStatus
+    }
+
+    public func finalizeFinishedDoses() {
+        podState.finalizeFinishedDoses()
     }
 
     @discardableResult

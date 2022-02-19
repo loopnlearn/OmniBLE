@@ -1345,9 +1345,8 @@ extension OmniBLEPumpManager: PumpManager {
                     completion(.failure(SetBolusError.certain(error as? PodCommsError ?? PodCommsError.commsError(error: error))))
                     return
                 }
-            // JPM Alert
-            //} else if finalizeFinishedDosesNeeded {  // JPM Alert
-            //    session.finalizeFinishedDoses()      // JPM Alert - PodCommsSession has no finalizeFinishedDoses()
+            } else if finalizeFinishedDosesNeeded {
+                session.finalizeFinishedDoses()
             }
 
             let date = Date()
