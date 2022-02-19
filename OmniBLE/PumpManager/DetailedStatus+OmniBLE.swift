@@ -1,4 +1,4 @@
-//  
+//
 //  DetailedStatus+OmniBLE.swift
 //  OmniBLE
 //
