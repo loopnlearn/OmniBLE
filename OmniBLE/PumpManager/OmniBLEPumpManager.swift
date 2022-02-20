@@ -196,6 +196,10 @@ public class OmniBLEPumpManager: DeviceManager {
         provideHeartbeat = mustProvideBLEHeartbeat
     }
 
+    var isConnected: Bool {
+        podComms.manager?.peripheral.state == .connected
+    }
+
     private let pumpDelegate = WeakSynchronizedDelegate<PumpManagerDelegate>()
 
     public let log = OSLog(category: "OmniBLEPumpManager")
@@ -501,7 +505,7 @@ extension OmniBLEPumpManager {
         let mockCommsErrorDuringPairing = false
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + .seconds(2)) {
             self.jumpStartPod(lotNo: 135601809, lotSeq: 0800525, mockFault: mockFaultDuringPairing)
-            let fault: DetailedStatus? = self.setStateWithResult({ (state) in
+            let _: DetailedStatus? = self.setStateWithResult({ (state) in
                 state.podState?.setupProgress = .priming
                 return state.podState?.fault
             })
@@ -914,7 +918,7 @@ extension OmniBLEPumpManager {
             case .success(let session):
                 do {
                     let beepType: BeepConfigType? = self.confirmationBeeps ? .beepBeepBeep : nil
-                    try session.testingCommands(confirmationBeepType: beepType)
+                    // JPM ALert // try session.testingCommands(confirmationBeepType: beepType)
                     completion(nil)
                 } catch let error {
                     completion(error)
@@ -1358,10 +1362,15 @@ extension OmniBLEPumpManager: PumpManager {
             let acknowledgementBeep = self.confirmationBeeps && (!automatic || self.automaticBolusBeeps)
             let completionBeep = self.confirmationBeeps && !automatic
 
-            // Use a maximum programReminderInterval value of 0x3F to denote an automatic bolus in the communication log
-            let programReminderInterval: TimeInterval = automatic ? TimeInterval(minutes: 0x3F) : 0
+            // Use bits for the program reminder interval (not used by app)
+            //   This trick enables determination, from just the hex messages
+            //     of the log file, whether bolus was manually initiated by the
+            //     user or automatically initiated by app.
+            //   The max possible "reminder" value, 0x3F, would cause the pod to beep
+            //      in 63 minutes if bolus had not completed by then.
+            let bolusWasAutomaticIndicator: TimeInterval = automatic ? TimeInterval(minutes: 0x3F) : 0
 
-            let result = session.bolus(units: enactUnits, acknowledgementBeep: acknowledgementBeep, completionBeep: completionBeep, programReminderInterval: programReminderInterval)
+            let result = session.bolus(units: enactUnits, acknowledgementBeep: acknowledgementBeep, completionBeep: completionBeep, programReminderInterval: bolusWasAutomaticIndicator)
             session.dosesForStorage() { (doses) -> Bool in
                 return self.store(doses: doses, in: session)
             }

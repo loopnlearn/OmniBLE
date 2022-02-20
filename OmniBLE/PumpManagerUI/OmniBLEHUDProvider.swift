@@ -11,7 +11,7 @@ import UIKit
 import LoopKit
 import LoopKitUI
 
-internal class OmniBLEHUDProvider: NSObject, HUDProvider, PodStateObserver {
+internal class OmniBLEHUDProvider: NSObject, HUDProvider {
     var managerIdentifier: String {
         return OmniBLEPumpManager.managerIdentifier
     }
@@ -63,7 +63,6 @@ internal class OmniBLEHUDProvider: NSObject, HUDProvider, PodStateObserver {
         self.pumpManager = pumpManager
         self.podState = pumpManager.state.podState
         super.init()
-        self.pumpManager.addPodStateObserver(self, queue: .main)
     }
     
     private func updateReservoirView() {

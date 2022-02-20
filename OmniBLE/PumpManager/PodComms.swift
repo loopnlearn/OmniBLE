@@ -431,12 +431,13 @@ extension PodComms: OmniBLEConnectionDelegate {
         if let podState = podState, manager.peripheral.identifier.uuidString == podState.bleIdentifier {
             needsSessionEstablishment = true
             self.manager = manager
+
         }
     }
 
     func omnipodPeripheralDidDisconnect(peripheral: CBPeripheral) {
         if let podState = podState, peripheral.identifier.uuidString == podState.bleIdentifier {
-            log.default("omnipodPeripheralDidDisconnect... should auto-reconnect")
+            log.default("omnipodPeripheralDidDisconnect... will auto-reconnect")
         }
     }
 }
