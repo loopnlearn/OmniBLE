@@ -14,7 +14,7 @@ import Foundation
 public struct DetailedStatus : PodInfo, Equatable {
     // CMD 1  2  3  4  5 6  7  8 9 10 1112 1314 1516 17 18 19 20 21 2223
     // DATA   0  1  2  3 4  5  6 7  8  910 1112 1314 15 16 17 18 19 2021
-    // 02 16 02 0J 0K LLLL MM NNNN PP QQQQ RRRR SSSS TT UU VV WW 0X YYYY
+    // 02 16 02 0J 0K LLLL MM NNNN PP QQQQ RRRR SSSS TT UU VV WW XX YYYY
 
     public let podInfoType: PodInfoResponseSubType = .detailedStatus
     public let podProgressStatus: PodProgressStatus
@@ -32,7 +32,7 @@ public struct DetailedStatus : PodInfo, Equatable {
     public let receiverLowGain: UInt8
     public let radioRSSI: UInt8
     public let previousPodProgressStatus: PodProgressStatus?
-    public let faultCallingAddress: UInt16? // only valid for pod faults on Dash pods
+    public let possibleFaultCallingAddress: UInt16?
     public let data: Data
     
     public init(encodedData: Data) throws {
@@ -77,25 +77,35 @@ public struct DetailedStatus : PodInfo, Equatable {
         self.faultAccessingTables = (encodedData[16] & 2) != 0
         
         if encodedData[17] == 0x00 {
-           self.errorEventInfo = nil // this byte is not valid (no fault has occurred)
+            // no fault has occurred, errorEventInfo and previousPodProgressStatus not valid
+            self.errorEventInfo = nil
+            self.previousPodProgressStatus = nil
         } else {
-            self.errorEventInfo = ErrorEventInfo(rawValue: encodedData[17])
+            // fault has occurred, VV byte contains valid fault info
+            let errorEventInfo = ErrorEventInfo(rawValue: encodedData[17])
+            self.errorEventInfo = errorEventInfo
+            // errorEventInfo.podProgressStatus is valid for both Eros and Dash on fault
+            self.previousPodProgressStatus = errorEventInfo.podProgressStatus
         }
         
+        // For Dash these values are always zeros
         self.receiverLowGain = UInt8(encodedData[18] >> 6)
         self.radioRSSI =  UInt8(encodedData[18] & 0x3F)
         
-        if encodedData[19] == 0xFF {
-            self.previousPodProgressStatus = nil // this byte is not valid (no fault has occurred)
-        } else {
-            self.previousPodProgressStatus = PodProgressStatus(rawValue: encodedData[19] & 0xF)!
-        }
+        // For Eros, encodedData[19] (XX) byte is the same previousPodProgressStatus nibble in the VV byte on fault.
+        // For Dash, encodedData[19] (XX) byte is uninitialized or unknown, so use VV byte for previousPodProgressStatus.
         
+        // Decode YYYY based on whether there was a pod fault
         if encodedData[8] == 0 {
-            self.faultCallingAddress = nil // YYYY is always garbage data for non-faults
+            // For non-faults, YYYY contents not valid (either uninitialized data for Eros or some unknown content for Dash).
+            self.possibleFaultCallingAddress = nil
         } else {
-            self.faultCallingAddress = encodedData[20...21].toBigEndian(UInt16.self) // only valid for Dash
+            // For Eros faults, YYYY is always uninitialized data from the previous command/response at the same buffer offset.
+            // For Dash faults, YYYY could be a calling address of the fault routine for the first return after a pod fault,
+            // subsequent returns will be byte swapped data from previous command/response at the same buffer offset.
+            self.possibleFaultCallingAddress = encodedData[20...21].toBigEndian(UInt16.self) // only potentially valid for Dash
         }
+
         self.data = Data(encodedData)
     }
 
@@ -107,7 +117,7 @@ public struct DetailedStatus : PodInfo, Equatable {
 extension DetailedStatus: CustomDebugStringConvertible {
     public typealias RawValue = Data
     public var debugDescription: String {
-        let faultCallingAddressString = faultCallingAddress != nil ? String(format: "0x%04X", faultCallingAddress!) : "NA"
+        let possibleFaultCallingAddressString = possibleFaultCallingAddress != nil ? String(format: "0x%04X", possibleFaultCallingAddress!) : "NA"
         return [
             "## DetailedStatus",
             "* rawHex: \(data.hexadecimalString)",
@@ -126,7 +136,7 @@ extension DetailedStatus: CustomDebugStringConvertible {
             "* receiverLowGain: \(receiverLowGain)",
             "* radioRSSI: \(radioRSSI)",
             "* previousPodProgressStatus: \(previousPodProgressStatus?.description ?? "NA")",
-            "* faultCallingAddress: \(faultCallingAddressString)",
+            "* possibleFaultCallingAddress: \(possibleFaultCallingAddressString)",
             "",
             ].joined(separator: "\n")
     }

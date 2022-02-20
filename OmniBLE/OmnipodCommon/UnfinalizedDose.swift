@@ -73,18 +73,32 @@ public struct UnfinalizedDose: RawRepresentable, Equatable, CustomStringConverti
         }
     }
     
-    public func progress(at date: Date = Date()) -> Double {
+    private func nominalProgress(at date: Date) -> Double {
         guard let duration = duration else {
             return 0
         }
         let elapsed = -startTime.timeIntervalSince(date)
-        return min(elapsed / duration, 1)
+        return elapsed / duration
+    }
+
+    // A value from 0 to 1 giving the nominal progress percentage for a bolus or a temp basal
+    public func progress(at date: Date = Date()) -> Double {
+        return min(nominalProgress(at: date), 1)
     }
     
+    // Is a bolus or a temp basal nominally finished
     public func isFinished(at date: Date = Date()) -> Bool {
         return progress(at: date) >= 1
     }
     
+    // Has a bolus operation had enough time to positively finish
+    public func isBolusPositivelyFinished(at date: Date = Date()) -> Bool {
+        // An extra long pad time for the bolus command to be received by the pod
+        let startupPad = TimeInterval(seconds: -5)
+        // Use 120% of nominal duration as pod will fault if any pulse takes 20% too long to deliver
+        return nominalProgress(at: date.addingTimeInterval(startupPad)) > 1.2
+    }
+
     // Units per hour
     public var rate: Double {
         guard let duration = duration else {

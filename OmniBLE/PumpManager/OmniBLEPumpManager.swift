@@ -181,10 +181,7 @@ public class OmniBLEPumpManager: DeviceManager {
     }
 
     private func logDeviceCommunication(_ message: String, type: DeviceLogEntryType = .send) {
-        var podAddress = "noPod"
-        if let podState = self.state.podState {
-            podAddress = String(format:"%04X", podState.address)
-        }
+        let podAddress = String(format: "%04X", self.state.podId)
         self.pumpDelegate.notify { (delegate) in
             delegate?.deviceManager(self, logEventForDeviceIdentifier: podAddress, type: type, message: message, completion: nil)
         }
@@ -925,7 +922,7 @@ extension OmniBLEPumpManager {
             case .success(let session):
                 do {
                     let beepType: BeepConfigType? = self.confirmationBeeps ? .beepBeepBeep : nil
-                    // JPM ALert // try session.testingCommands(confirmationBeepType: beepType)
+                    try session.testingCommands(confirmationBeepType: beepType)
                     completion(nil)
                 } catch let error {
                     completion(error)
@@ -1201,7 +1198,6 @@ extension OmniBLEPumpManager: PumpManager {
                 let scheduleOffset = self.state.timeZone.scheduleOffset(forDate: Date())
                 let beep = self.confirmationBeeps
                 let _ = try session.resumeBasal(schedule: self.state.basalSchedule, scheduleOffset: scheduleOffset, acknowledgementBeep: beep, completionBeep: beep)
-                try session.cancelSuspendAlerts()
                 session.dosesForStorage() { (doses) -> Bool in
                     return self.store(doses: doses, in: session)
                 }
@@ -1307,7 +1303,6 @@ extension OmniBLEPumpManager: PumpManager {
                     let scheduleOffset = self.state.timeZone.scheduleOffset(forDate: Date())
                     let beep = self.confirmationBeeps
                     let podStatus = try session.resumeBasal(schedule: self.state.basalSchedule, scheduleOffset: scheduleOffset, acknowledgementBeep: beep, completionBeep: beep)
-                    try session.cancelSuspendAlerts()
                     guard podStatus.deliveryStatus.bolusing == false else {
                         throw SetBolusError.certain(PodCommsError.unfinalizedBolus)
                     }
@@ -1337,7 +1332,7 @@ extension OmniBLEPumpManager: PumpManager {
                      self.log.info("enactBolus: not enacting bolus because podState indicates unfinalized bolus in progress")
                      completion(.failure(SetBolusError.certain(PodCommsError.unfinalizedBolus)))
                      return
-                } else if unfinalizedBolus.isFinished() == false {
+                } else if unfinalizedBolus.isBolusPositivelyFinished() == false {
                     self.log.info("enactBolus: doing getStatus to verify if bolus complete")
                     getStatusNeeded = true
                 } else {
@@ -1549,7 +1544,11 @@ extension OmniBLEPumpManager: PumpManager {
                 })
 
                 let beep = self.confirmationBeeps && tempBasalConfirmationBeeps
-                let isHighTemp = false // JPM Alert: need to properly configure this.
+                var calendar = Calendar(identifier: .gregorian)
+                calendar.timeZone = self.state.timeZone
+                let scheduledRate = self.state.basalSchedule.currentRate(using: calendar, at: Date())
+                let isHighTemp = rate > scheduledRate
+
                 let result = session.setTempBasal(rate: rate, duration: duration, isHighTemp: isHighTemp, acknowledgementBeep: beep, completionBeep: beep)
                 let basalStart = Date()
                 let dose = DoseEntry(type: .tempBasal, startDate: basalStart, endDate: basalStart.addingTimeInterval(duration), value: rate, unit: .unitsPerHour)

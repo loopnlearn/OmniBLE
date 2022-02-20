@@ -99,9 +99,6 @@ extension CommandResponseViewController {
             if let faultEventTimeSinceActivation = status.faultEventTimeSinceActivation, let faultTimeStr = formatter.string(from: faultEventTimeSinceActivation) {
                 result += String(format: LocalizedString("Fault time: %1$@\n", comment: "The format string for fault time: (1: fault time string)"), faultTimeStr)
             }
-            if let faultCallingAddress = status.faultCallingAddress {
-                result += String(format: LocalizedString("Fault calling address: 0x%1$04x\n", comment: "The format string for fault calling address: (1: fault calling address)"), faultCallingAddress)
-            }
         }
 
         return result
