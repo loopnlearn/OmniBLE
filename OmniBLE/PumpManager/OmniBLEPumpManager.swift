@@ -22,6 +22,7 @@ public enum ReservoirAlertState {
 
 public protocol PodStateObserver: AnyObject {
     func podStateDidUpdate(_ state: PodState?)
+    func podConnectionStateDidChange(isConnected: Bool)
 }
 
 public enum OmniBLEPumpManagerError: Error {
@@ -198,6 +199,12 @@ public class OmniBLEPumpManager: DeviceManager {
 
     var isConnected: Bool {
         podComms.manager?.peripheral.state == .connected
+    }
+
+    func podConnectionStateDidChange(isConnected: Bool) {
+        podStateObservers.forEach { (observer) in
+            observer.podConnectionStateDidChange(isConnected: isConnected)
+        }
     }
 
     private let pumpDelegate = WeakSynchronizedDelegate<PumpManagerDelegate>()

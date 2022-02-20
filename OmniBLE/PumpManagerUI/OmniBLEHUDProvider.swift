@@ -197,6 +197,10 @@ internal class OmniBLEHUDProvider: NSObject, HUDProvider {
         return [reservoirView, podLifeHUDView]
     }
     
+    func podConnectionStateDidChange(isConnected: Bool) {
+        // ignore for now
+    }
+
     func podStateDidUpdate(_ podState: PodState?) {
         self.podState = podState
     }

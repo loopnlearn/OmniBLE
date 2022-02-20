@@ -820,6 +820,10 @@ extension OmniBLESettingsViewController: PodStateObserver {
             alertCell.alerts = alerts
         }
     }
+
+    func podConnectionStateDidChange(isConnected: Bool) {
+        // ignore for now
+    }
 }
 
 extension OmniBLESettingsViewController: PumpManagerStatusObserver {
