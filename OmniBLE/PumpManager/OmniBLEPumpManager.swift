@@ -514,9 +514,9 @@ extension OmniBLEPumpManager {
                 return state.podState?.fault
             })
             if mockFaultDuringPairing {
-                completion(.failure(PodCommsError.podFault(fault: fault!)))
+                // completion(.failure(PodCommsError.podFault(fault: fault!)))
             } else if mockCommsErrorDuringPairing {
-                completion(.failure(PodCommsError.noResponse))
+                // completion(.failure(PodCommsError.noResponse))
             } else {
                 let mockPrimeDuration = TimeInterval(.seconds(3))
                 completion(.success(mockPrimeDuration))
