@@ -190,8 +190,20 @@ public class OmniBLEPumpManager: DeviceManager {
     // Not persisted
     var provideHeartbeat: Bool = false
 
+    private var lastHeartbeat: Date = .distantPast
+
     public func setMustProvideBLEHeartbeat(_ mustProvideBLEHeartbeat: Bool) {
         provideHeartbeat = mustProvideBLEHeartbeat
+    }
+
+    private func issueHeartbeatIfNeeded() {
+        let now = Date()
+        if self.provideHeartbeat, now.timeIntervalSince(lastHeartbeat) > .minutes(2) {
+            self.pumpDelegate.notify { (delegate) in
+                delegate?.pumpManagerBLEHeartbeatDidFire(self)
+            }
+            self.lastHeartbeat = now
+        }
     }
 
     var isConnected: Bool {
@@ -704,6 +716,7 @@ extension OmniBLEPumpManager {
                 case .failure(let error):
                     throw error
                 }
+                self.issueHeartbeatIfNeeded()
             } catch let error {
                 completion?(.failure(error))
                 self.log.error("Failed to fetch pod status: %{public}@", String(describing: error))
