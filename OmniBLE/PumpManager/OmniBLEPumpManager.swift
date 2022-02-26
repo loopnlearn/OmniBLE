@@ -1641,11 +1641,20 @@ extension OmniBLEPumpManager: PodCommsDelegate {
 
     func podCommsDidEstablishSession(_ podComms: PodComms) {
 
-        if self.provideHeartbeat {
-            pumpDelegate.notify { (delegate) in
-                delegate?.pumpManagerBLEHeartbeatDidFire(self)
+        podComms.runSession(withName: "Post-connect status fetch") { result in
+            switch result {
+            case .success(let session):
+                let _ = try? session.getStatus(confirmationBeepType: .none)
+                session.dosesForStorage() { (doses) -> Bool in
+                    return self.store(doses: doses, in: session)
+                }
+                self.issueHeartbeatIfNeeded()
+            case .failure:
+                // Errors can be ignored here.
+                break
             }
         }
+
     }
 
     func podComms(_ podComms: PodComms, didChange podState: PodState) {
