@@ -898,6 +898,9 @@ public class PodCommsSession {
             _ = try? readPodInfo(podInfoResponseSubType: .pulseLogPrevious)
         }
 
+        podState.resolveAnyPendingCommandWithUncertainty()
+        podState.finalizeFinishedDoses()
+
         do {
             let deactivatePod = DeactivatePodCommand(nonce: podState.currentNonce)
             let _: StatusResponse = try send([deactivatePod])

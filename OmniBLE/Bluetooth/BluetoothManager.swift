@@ -181,6 +181,16 @@ class BluetoothManager: NSObject {
         }
     }
     
+    func clearAutoConnectIDs() {
+        self.log.default("%{public}@ called with autoConnectIDs count %u", #function, autoConnectIDs.count)
+        managerQueue.async {
+            for uuidString in self.autoConnectIDs {
+                self.log.default("Removing uuid %{public}@ from autoConnectIDs", uuidString)
+                self.autoConnectIDs.remove(uuidString)
+            }
+        }
+    }
+
     private func updateConnections() {
         guard manager.state == .poweredOn else {
             log.default("Skipping updateConnections until state is poweredOn")
@@ -326,7 +336,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
                 log.default("Connecting to pairable device %{public} in discovery mode", peripheral)
                 manager.connect(peripheral, options: nil)
             } else if autoConnectIDs.contains(peripheral.identifier.uuidString) && peripheral.state == .disconnected {
-                log.default("Reonnecting to autoconnect device")
+                log.default("Reconnecting to autoconnect device")
                 manager.connect(peripheral, options: nil)
             } else {
                 log.info("Ignoring paired or unconnectable peripheral: %{public}@", peripheral)

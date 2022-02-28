@@ -33,8 +33,7 @@ public class PodComms: CustomDebugStringConvertible {
 
     public let log = OSLog(category: "PodComms")
 
-    /// The dispatch queue used to serialize PodComm operations
-    private let queue = DispatchQueue(label: "com.loopkit.PodComms.queue", qos: .unspecified)
+    private var podStateLock = NSLock()
 
     // Only valid to access on the session serial queue
     private var podState: PodState? {
@@ -45,7 +44,7 @@ public class PodComms: CustomDebugStringConvertible {
         }
     }
 
-    public var isPaired: Bool {
+    private var isPaired: Bool {
         get {
             return self.podState?.ltk != nil && (self.podState?.ltk.count ?? 0) > 0
         }
@@ -71,17 +70,7 @@ public class PodComms: CustomDebugStringConvertible {
     }
     
     public func forgetCurrentPod() {
-
-        if let manager = manager {
-            self.log.default("Removing %{public}@ from auto-connect ids", manager.peripheral)
-            bluetoothManager.disconnectFromDevice(uuidString: manager.peripheral.identifier.uuidString)
-        }
-    }
-
-    public func prepForNewPod(myId: UInt32 = 0, podId: UInt32 = 0) {
-        self.myId = myId
-        self.podId = podId
-        self.podState = nil
+        bluetoothManager.clearAutoConnectIDs() // clear all auto connect IDs
     }
 
     public func connectToNewPod(_ completion: @escaping (Result<OmniBLE, Error>) -> Void) {
@@ -128,6 +117,8 @@ public class PodComms: CustomDebugStringConvertible {
 
     // Handles all the common work to send and verify the version response for the two pairing pod commands, AssignAddress and SetupPod.
     private func sendPairMessage(transport: PodMessageTransport, message: Message) throws -> VersionResponse {
+        // We should already be holding podStateLock during calls to this function, so try() should fail
+        assert(!podStateLock.try(), "\(#function) should be invoked while holding podStateLock")
 
         defer {
             if self.podState != nil {
@@ -158,6 +149,9 @@ public class PodComms: CustomDebugStringConvertible {
     }
 
     private func pairPod() throws {
+        // We should already be holding podStateLock during calls to this function, so try() should fail
+        assert(!podStateLock.try(), "\(#function) should be invoked while holding podStateLock")
+
         guard let manager = manager else { throw PodCommsError.podNotConnected }
         let ids = Ids(myId: self.myId, podId: self.podId)
 
@@ -216,6 +210,9 @@ public class PodComms: CustomDebugStringConvertible {
     }
 
     private func establishSession(ltk: Data, eapSeq: Int, msgSeq: Int = 1)  throws -> MessageTransportState? {
+        // We should already be holding podStateLock during calls to this function, so try() should fail
+        assert(!podStateLock.try(), "\(#function) should be invoked while holding podStateLock")
+
         guard let manager = manager else { throw PodCommsError.noPodPaired }
         let eapAkaExchanger = try SessionEstablisher(manager: manager, ltk: ltk, eapSqn: eapSeq, myId: self.myId, podId: self.podId, msgSeq: msgSeq)
 
@@ -256,6 +253,9 @@ public class PodComms: CustomDebugStringConvertible {
     }
 
     private func establishNewSession() throws {
+        // We should already be holding podStateLock during calls to this function, so try() should fail
+        assert(!podStateLock.try(), "\(#function) should be invoked while holding podStateLock")
+
         guard self.podState != nil else {
             throw PodCommsError.noPodPaired
         }
@@ -269,14 +269,17 @@ public class PodComms: CustomDebugStringConvertible {
         }
     }
 
-    private func setupPod(podState: PodState, timeZone: TimeZone) throws {
+    private func setupPod(timeZone: TimeZone) throws {
         guard let manager = manager else { throw PodCommsError.podNotConnected }
 
-        let transport = PodMessageTransport(manager: manager, myId: self.myId, podId: self.podId, state: podState.messageTransportState)
+        // We should already be holding podStateLock during calls to this function, so try() should fail
+        assert(!podStateLock.try(), "\(#function) should be invoked while holding podStateLock")
+
+        let transport = PodMessageTransport(manager: manager, myId: self.myId, podId: self.podId, state: podState!.messageTransportState)
         transport.messageLogger = messageLogger
 
         let dateComponents = SetupPodCommand.dateComponents(date: Date(), timeZone: timeZone)
-        let setupPod = SetupPodCommand(address: podState.address, dateComponents: dateComponents, lot: UInt32(podState.lotNo), tid: podState.lotSeq)
+        let setupPod = SetupPodCommand(address: podState!.address, dateComponents: dateComponents, lot: UInt32(podState!.lotNo), tid: podState!.lotSeq)
 
         let message = Message(address: 0xffffffff, messageBlocks: [setupPod], sequenceNum: transport.messageNumber)
 
@@ -342,6 +345,12 @@ public class PodComms: CustomDebugStringConvertible {
             do {
                 guard let self = self else { fatalError() }
 
+                // Synchronize access to podState
+                self.podStateLock.lock()
+                defer {
+                    self.podStateLock.unlock()
+                }
+
                 try manager.sendHello(myId: myId)
                 try manager.enableNotifications() // Seemingly this cannot be done before the hello command, or the pod disconnects
 
@@ -357,7 +366,7 @@ public class PodComms: CustomDebugStringConvertible {
                 }
 
                 if self.podState!.setupProgress.isPaired == false {
-                    try self.setupPod(podState: self.podState!, timeZone: timeZone)
+                    try self.setupPod(timeZone: timeZone)
                 }
 
                 guard self.podState!.setupProgress.isPaired else {
@@ -393,6 +402,13 @@ public class PodComms: CustomDebugStringConvertible {
         }
         
         manager.runSession(withName: name) { () in
+
+            // Synchronize access to podState
+            self.podStateLock.lock()
+            defer {
+                self.podStateLock.unlock()
+            }
+
             guard self.podState != nil else {
                 block(.failure(PodCommsError.noPodPaired))
                 return
@@ -454,16 +470,23 @@ extension PodComms: PeripheralManagerDelegate {
         if self.isPaired && needsSessionEstablishment {
             let myId = self.myId
             manager.runSession(withName: "establish pod session") { [weak self] in
+
+                guard let self = self else {
+                    return
+                }
+
+                self.podStateLock.lock()
+                defer {
+                    self.podStateLock.unlock()
+                }
+
                 do {
                     try manager.sendHello(myId: myId)
                     try manager.enableNotifications() // Seemingly this cannot be done before the hello command, or the pod disconnects
-                    if let self = self {
-                        try self.establishNewSession()
-                        self.delegate?.podCommsDidEstablishSession(self)
-                    }
-                    // We can "runSession" from within session, as we're just adding to the operation queue; it will run after this block finishes
+                    try self.establishNewSession()
+                    self.delegate?.podCommsDidEstablishSession(self)
                 } catch {
-                    self?.log.error("Pod session sync error: %{public}@", String(describing: error))
+                    self.log.error("Pod session sync error: %{public}@", String(describing: error))
                 }
             }
         } else {
@@ -473,7 +496,11 @@ extension PodComms: PeripheralManagerDelegate {
 }
 
 extension PodComms: PodCommsSessionDelegate {
+    // We hold podStateLock for the duration of the PodCommsSession
     public func podCommsSession(_ podCommsSession: PodCommsSession, didChange state: PodState) {
+        // We should already be holding podStateLock during calls to this function, so try() should fail
+        assert(!podStateLock.try(), "\(#function) should be invoked while holding podStateLock")
+
         podCommsSession.assertOnSessionQueue()
         self.podState = state
     }
