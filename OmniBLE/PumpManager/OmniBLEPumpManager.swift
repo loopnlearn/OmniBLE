@@ -86,6 +86,10 @@ public class OmniBLEPumpManager: DeviceManager {
         self.init(state: state)
     }
 
+    public var deviceBLEName: String? {
+        return self.podComms.manager?.peripheral.name
+    }
+
     private var podComms: PodComms {
         get {
             return lockedPodComms.value
