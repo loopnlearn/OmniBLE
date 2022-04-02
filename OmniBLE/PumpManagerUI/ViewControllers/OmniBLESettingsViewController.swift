@@ -251,12 +251,11 @@ class OmniBLESettingsViewController: UITableViewController {
     }
     
     private enum PodDetailsRow: Int, CaseIterable {
-        case podAddress = 0
-        case lotNo
+        case lotNumber = 0
         case sequenceNumber
         case firmwareVersion
         case bleFirmwareVersion
-        case displayState
+        case bleDeviceName
     }
     
     private enum Diagnostics: Int, CaseIterable {
@@ -483,19 +482,14 @@ class OmniBLESettingsViewController: UITableViewController {
         case .podDetails:
             let podState = self.podState!
             switch PodDetailsRow(rawValue: indexPath.row)! {
-            case .podAddress:
+            case .lotNumber:
                 let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(SettingsTableViewCell.self), for: indexPath)
-                cell.textLabel?.text = LocalizedString("Assigned Address", comment: "The title text for the address assigned to the pod")
-                cell.detailTextLabel?.text = String(format:"%04X", podState.address)
-                return cell
-            case .lotNo:
-                let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(SettingsTableViewCell.self), for: indexPath)
-                cell.textLabel?.text = LocalizedString("Lot No", comment: "The title of the cell showing the pod lot number")
+                cell.textLabel?.text = LocalizedString("Lot Number", comment: "The title of the cell showing the pod lot number")
                 cell.detailTextLabel?.text = String(format:"%07u", podState.lotNo)
                 return cell
             case .sequenceNumber:
                 let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(SettingsTableViewCell.self), for: indexPath)
-                cell.textLabel?.text = LocalizedString("Sequence No", comment: "The title of the cell showing the pod sequence number")
+                cell.textLabel?.text = LocalizedString("Sequence Number", comment: "The title of the cell showing the pod sequence number")
                 cell.detailTextLabel?.text = String(format:"%07u", podState.lotSeq)
                 return cell
             case .firmwareVersion:
@@ -508,10 +502,10 @@ class OmniBLESettingsViewController: UITableViewController {
                 cell.textLabel?.text = LocalizedString("BLE Firmware Version", comment: "The title of the cell showing the BLE firmware version")
                 cell.detailTextLabel?.text = podState.bleFirmwareVersion
                 return cell
-            case .displayState:
+            case .bleDeviceName:
                 let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(SettingsTableViewCell.self), for: indexPath)
-                cell.textLabel?.text = LocalizedString("Display State", comment: "The title of the command to display state")
-                cell.accessoryType = .disclosureIndicator
+                cell.textLabel?.text = LocalizedString("BLE Device Name", comment: "The title of the cell showing the BLE device name")
+                cell.detailTextLabel?.text = pumpManager.deviceBLEName
                 return cell
             }
 
@@ -538,12 +532,7 @@ class OmniBLESettingsViewController: UITableViewController {
         case .configuration, .diagnostics, .deletePumpManager:
             return true
         case .podDetails:
-            switch PodDetailsRow(rawValue: indexPath.row)! {
-            case .displayState:
-                return true
-            default:
-                return false
-            }
+            return false
         }
     }
 
@@ -635,15 +624,7 @@ class OmniBLESettingsViewController: UITableViewController {
                 show(vc, sender: indexPath)
             }
         case .podDetails:
-            switch PodDetailsRow(rawValue: indexPath.row)! {
-            case .displayState:
-                let vc = CommandResponseViewController.displayState(pumpManager: pumpManager)
-                vc.title = sender?.textLabel?.text
-                show(vc, sender: indexPath)
-                break
-            default:
-                break
-            }
+            break
         case .deletePumpManager:
             let confirmVC = UIAlertController(pumpManagerDeletionHandler: {
                 self.pumpManager.notifyDelegateOfDeactivation {

@@ -165,11 +165,5 @@ extension CommandResponseViewController {
         }
     }
 
-    static func displayState(pumpManager: OmniBLEPumpManager) -> T {
-        return T { (completionHander) -> String in
-            return String(reflecting: pumpManager)
-        }
-    }
-
 }
 
