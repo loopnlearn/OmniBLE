@@ -12,7 +12,7 @@ import LoopKit
 import UserNotifications
 import os.log
 
-fileprivate let tempBasalConfirmationBeeps: Bool = false // whether to emit temp basal confirmation beeps (for testing use)
+fileprivate let tempBasalConfirmationBeeps: Bool = false // whether to emit temp basal confirmation beeps for non-manual operations
 
 public enum ReservoirAlertState {
     case ok
@@ -964,10 +964,8 @@ extension OmniBLEPumpManager {
         self.podComms.runSession(withName: "Play Test Beeps") { (result) in
             switch result {
             case .success(let session):
-                let basalCompletionBeep = self.confirmationBeeps
-                let tempBasalCompletionBeep = self.confirmationBeeps && tempBasalConfirmationBeeps
-                let bolusCompletionBeep = self.confirmationBeeps
-                let result = session.beepConfig(beepConfigType: .bipBeepBipBeepBipBeepBipBeep, basalCompletionBeep: basalCompletionBeep, tempBasalCompletionBeep: tempBasalCompletionBeep, bolusCompletionBeep: bolusCompletionBeep)
+                let enabled = self.confirmationBeeps
+                let result = session.beepConfig(beepConfigType: .bipBeepBipBeepBipBeepBipBeep, basalCompletionBeep: enabled, tempBasalCompletionBeep: enabled, bolusCompletionBeep: enabled)
 
                 switch result {
                 case .success:
@@ -1031,12 +1029,9 @@ extension OmniBLEPumpManager {
             switch result {
             case .success(let session):
                 let beepConfigType: BeepConfigType = enabled ? .bipBip : .noBeep
-                let basalCompletionBeep = enabled
-                let tempBasalCompletionBeep = enabled && tempBasalConfirmationBeeps
-                let bolusCompletionBeep = enabled
 
                 // enable/disable Pod completion beeps for any in-progress insulin delivery
-                let result = session.beepConfig(beepConfigType: beepConfigType, basalCompletionBeep: basalCompletionBeep, tempBasalCompletionBeep: tempBasalCompletionBeep, bolusCompletionBeep: bolusCompletionBeep)
+                let result = session.beepConfig(beepConfigType: beepConfigType, basalCompletionBeep: enabled, tempBasalCompletionBeep: enabled, bolusCompletionBeep: enabled)
 
                 switch result {
                 case .success:
@@ -1456,7 +1451,7 @@ extension OmniBLEPumpManager: PumpManager {
         }
     }
 
-    public func enactTempBasal(unitsPerHour: Double, for duration: TimeInterval, completion: @escaping (PumpManagerResult<DoseEntry>) -> Void) {
+    public func enactTempBasal(unitsPerHour: Double, for duration: TimeInterval, automatic: Bool, completion: @escaping (PumpManagerResult<DoseEntry>) -> Void) {
         guard self.hasActivePod else {
             completion(.failure(OmniBLEPumpManagerError.noPodPaired))
             return
@@ -1547,7 +1542,9 @@ extension OmniBLEPumpManager: PumpManager {
                         state.tempBasalEngageState = .engaging
                     })
 
-                    let beep = self.confirmationBeeps && tempBasalConfirmationBeeps
+                    // Use acknowlegement and completion beeps if confirmationBeeps are enabled
+                    // and this is a manual temp basal (or tempBasalConfirmationBeeps are enabled).
+                    let beep = self.confirmationBeeps && (!automatic || tempBasalConfirmationBeeps)
                     var calendar = Calendar(identifier: .gregorian)
                     calendar.timeZone = self.state.timeZone
                     let scheduledRate = self.state.basalSchedule.currentRate(using: calendar, at: Date())
