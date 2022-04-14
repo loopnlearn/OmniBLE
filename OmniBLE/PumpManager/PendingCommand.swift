@@ -15,7 +15,7 @@ public enum StartProgram: RawRepresentable {
 
     case bolus(volume: Double, automatic: Bool)
     case basalProgram(schedule: BasalSchedule)
-    case tempBasal(unitsPerHour: Double, duration: TimeInterval, isHighTemp: Bool)
+    case tempBasal(unitsPerHour: Double, duration: TimeInterval, automatic: Bool, isHighTemp: Bool)
     
     private enum StartProgramType: Int {
         case bolus, basalProgram, tempBasal
@@ -34,11 +34,12 @@ public enum StartProgram: RawRepresentable {
                 "programType": StartProgramType.basalProgram.rawValue,
                 "schedule": schedule.rawValue
             ]
-        case .tempBasal(let unitsPerHour, let duration, let isHighTemp):
+        case .tempBasal(let unitsPerHour, let duration, let automatic, let isHighTemp):
             return [
                 "programType": StartProgramType.tempBasal.rawValue,
                 "unitsPerHour": unitsPerHour,
                 "duration": duration,
+                "automatic": automatic,
                 "isHighTemp": isHighTemp
             ]
         }
@@ -68,11 +69,12 @@ public enum StartProgram: RawRepresentable {
         case .tempBasal:
             guard let unitsPerHour = rawValue["unitsPerHour"] as? Double,
                   let duration = rawValue["duration"] as? TimeInterval,
+                  let automatic = rawValue["automatic"] as? Bool,
                   let isHighTemp = rawValue["isHighTemp"] as? Bool else
             {
                 return nil
             }
-            self = .tempBasal(unitsPerHour: unitsPerHour, duration: duration, isHighTemp: isHighTemp)
+            self = .tempBasal(unitsPerHour: unitsPerHour, duration: duration, automatic: automatic, isHighTemp: isHighTemp)
         }
     }
     
@@ -82,8 +84,8 @@ public enum StartProgram: RawRepresentable {
             return lhsVolume == rhsVolume && lhsAutomatic == rhsAutomatic
         case (.basalProgram(let lhsSchedule), .basalProgram(let rhsSchedule)):
             return lhsSchedule == rhsSchedule
-        case (.tempBasal(let lhsUnitsPerHour, let lhsDuration, let lhsIsHighTemp), .tempBasal(let rhsUnitsPerHour, let rhsDuration, let rhsIsHighTemp)):
-            return lhsUnitsPerHour == rhsUnitsPerHour && lhsDuration == rhsDuration && lhsIsHighTemp == rhsIsHighTemp
+        case (.tempBasal(let lhsUnitsPerHour, let lhsDuration, let lhsAutomatic, let lhsIsHighTemp), .tempBasal(let rhsUnitsPerHour, let rhsDuration, let rhsAutomatic, let rhsIsHighTemp)):
+            return lhsUnitsPerHour == rhsUnitsPerHour && lhsDuration == rhsDuration && lhsAutomatic == rhsAutomatic && lhsIsHighTemp == rhsIsHighTemp
         default:
             return false
         }
