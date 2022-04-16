@@ -18,9 +18,9 @@
 
 /* Class = "UILabel"; text = "Please deactivate the pod. When deactivation is complete, remove pod from body."; ObjectID = "GK7-jb-tyY"; */
 "GK7-jb-tyY.text" = "Please deactivate the pod. When deactivation is complete, remove pod from body.";
-<
+
 /* Class = "UINavigationItem"; title = "Insert Cannula"; ObjectID = "HwT-30-f0y"; */
-"HwT-30-f0y.title" = "För in kanyl";
+"HwT-30-f0y.title" = "Insert Cannula";
 
 /* Class = "UILabel"; text = "Prepare site. Remove the pod's needle cap and adhesive backing. If pod is OK, apply to site."; ObjectID = "Iuv-5M-bDH"; */
 "Iuv-5M-bDH.text" = "Prepare site. Remove the pod's needle cap and adhesive backing. If pod is OK, apply to site.";
