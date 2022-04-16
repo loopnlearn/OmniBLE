@@ -1,0 +1,177 @@
+
+/* The text of the loading label when pairing */
+"Pairing…" = "Parkopplar…";
+
+/* The text of the loading label when priming */
+"Priming…" = "Fyller…";
+
+/* The text of the loading label when pod is primed */
+"Primed" = "Fylld";
+
+/* Additional pairing recovery suggestion on multiple pairing failures */
+"If the problem persists, move to a new area and try again" = "If the problem persists, move to a new area and try again";
+
+/* Button title to pair with pod during setup*/
+"Pair" = "Parkoppla";
+
+/* Button title to deactivate pod because of fault during setup */
+"Deactivate" = "Inaktivera";
+
+/* Confirmation message for shutting down a pod */
+"Are you sure you want to shutdown this pod?" = "Säkert att du vill stänga ner denna podd?";
+
+/* Button title to deactivate pod */
+"Deactivate Pod" = "Inaktivera podd";
+
+/* The title of the continue action in an action sheet */
+"Continue" = "Fortsätt";
+
+/* Title text for button to disable confirmation beeps" */
+"Disable Confirmation Beeps" = "Stäng av bekräftelsepip";
+
+/* Title text for button to enable confirmation beeps */
+"Enable Confirmation Beeps" = "Sätt på bekräftelsepip";
+
+/* Title text for button to disable automatic bolus beeps */
+"Disable Automatic Bolus Beeps" = "Stäng av pip vid automatiska bolusar";
+
+/* Title text for button to enable automatic bolus beeps */
+"Enable Automatic Bolus Beeps" = "Sätt på pip vid automatiska bolusar";
+
+/* Title of the pod settings view controller" */
+"Pod Settings" = "Poddinställningar";
+
+/* The title of the configuration section in settings */
+"Configuration" = "Konfiguration";
+
+/* The title of the diagnostics section in settings */
+"Diagnostics" = "Diagnostik";
+
+/* The title of the pod details section in settings */
+"Pod Details" = "Poddetaljer";
+
+/* The title of the cell showing alarm status */
+"Alarms" = "Larm";
+
+/* The title of the cell showing the pod expiration */
+"Expires" = "Utgår";
+
+/* The title of the cell showing the pod expiration after expiry */
+"Expired" = "Utgått";
+
+/* The title of the cell showing the pod active clock */
+"Pod Active Clock" = "Aktiv tid för podd";
+
+/* The title of the cell showing pod bolus status */
+"Bolus Delivery" = "Bolustillförsel";
+
+/* The title of the cell showing pod basal status */
+"Basal Delivery" = "Basaltillförsel";
+
+/* The title of the cell showing reservoir status */
+"Reservoir" = "Reservoar";
+
+/* The title of the cell showing delivered insulin */
+"Insulin Delivered" = "Doserat insulin";
+
+/* The title of the cell showing the pod expiration reminder date */
+"Expiration Reminder" = "Påminnelse om utgångsdatum";
+
+/* The title of the command to change pump time zone */
+"Change Time Zone" = "Byt tidszon";
+
+/* The title of the command to pair new pod */
+"Pair New Pod" = "Parkoppla ny podd";
+
+/* The title of the command to replace pod when there is a pod fault */
+"Replace Pod Now" = "Byt podd nu";
+
+/* The title of the command to finish pod setup */
+"Finish pod setup" = "Gör färdigt podinställning";
+
+/* The title of the command to replace pod */
+"Replace Pod" = "Byt podd";
+
+/* The title of the command to read the pod status" */
+"Read Pod Status" = "Läs poddstatus";
+
+/* The title of the command to play test beeps */
+"Play Test Beeps" = "Spela testljud";
+
+/* The title of the command to read the pulse log */
+"Read Pulse Log" = "Läs pulslogg";
+
+/* The title of the command to run the test command */
+"Test Command" = "Testa kommandon";
+
+/* The title of the cell showing the pod lot number" */
+"Lot Number" = "Lot-nummer";
+
+/* The title of the cell showing the pod sequence number */
+"Sequence Number" = "Sekvensnummer";
+
+/* The title of the cell showing the firmware version */
+"Firmware Version" = "Firmware-version";
+
+/* The title of the cell showing the BLE firmware version" */
+"BLE Firmware Version" = "BLE firmware-version";
+
+/* The title of the cell showing the BLE device name */
+"BLE Device Name" = "BLE-enhetsnamn";
+
+/* Title text for the button to delete Omnipod Dash PumpManager */
+"Switch from Omnipod Dash Pumps" = "Byt från Omnipod Dash pumpar";
+
+/* The alert title for a resume error */
+"Error Resuming" = "Kunde inte återuppta insulintillförsel";
+
+/* The alert title for a suspend error */
+"Error Suspending" = "Kunde inte pausa";
+
+/* The alert title for enable confirmation beeps error */
+"Error enabling confirmation beeps" = "Kunde inte sätta på bekräftelsepip";
+
+/* The alert title for disable confirmation beeps error */
+"Error disabling confirmation beeps" = "Kunde inte stänga av bekräftelsepip";
+
+/* Confirmation message for removing Omnipod Dash PumpManager */
+"Are you sure you want to stop using Omnipod Dash?" = "Säkert att du vill sluta använda Omnipod Dash?";
+
+/* Button title to delete Omnipod Dash PumpManager */
+"Delete Omnipod Dash" = "Ta bort Omnipod Dash";
+
+/* The title of the cancel action in an action sheet */
+"Cancel" = "Avbryt";
+
+/* Alerts detail when no alerts unacknowledged */
+"None" = "Ingen";
+
+/* The detail text of the basal row when pod is suspended */
+"Suspended" = "Pausad";
+
+/* Format string for temp basal rate. (1: The localized amount) */
+"%@ U/hour" = "%@ IE/h";
+
+/* The detail text of the basal row when pod is running scheduled basal */
+"Schedule" = "Schema";
+
+/* The detail text for bolus delivery when no bolus is being delivered */
+"None" = "Ingen";
+
+/* Format string for bolus progress when finished. (1: The localized amount) */
+"%@ U (Finished)" = "%@ IE (Färdig)";
+
+/* Format string for bolus progress. (1: The delivered amount) (2: The programmed amount) (3: the percent progress) */
+"%@ U of %@ U (%@)" = "%@ IE of %@ IE (%@)";
+
+/* The detail text for delivered insulin when no measurement is available */
+"Unknown" = "Okänd";
+
+/* Format string for delivered insulin. (1: The localized amount) */
+"%@ U" = "%@ IE";
+
+/* Format string for reservoir reading when above or equal to maximum reading. (1: The localized amount) */
+"%@+ U" = "%@+ IE";
+
+/* Format string for insulin remaining in reservoir. (1: The localized amount) */
+"%@ U" = "%@ IE";

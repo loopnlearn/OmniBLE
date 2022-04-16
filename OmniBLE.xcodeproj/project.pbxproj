@@ -71,6 +71,7 @@
 		10389A3F26FF7841002115E9 /* CRC16.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10389A2026FF7841002115E9 /* CRC16.swift */; };
 		10389A4126FF7841002115E9 /* MessageTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10389A2226FF7841002115E9 /* MessageTransport.swift */; };
 		19AD84E0280B2F3E006B0D07 /* OmniBLEPumpManager.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19AD84E2280B2F3E006B0D07 /* OmniBLEPumpManager.storyboard */; };
+		19AD8511280B7A92006B0D07 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 19AD850F280B7A92006B0D07 /* Localizable.strings */; };
 		84752E9126ED0FFE009FD801 /* OmniBLETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752E9026ED0FFE009FD801 /* OmniBLETests.swift */; };
 		84752E9326ED0FFE009FD801 /* OmniBLE.h in Headers */ = {isa = PBXBuildFile; fileRef = 84752E8526ED0FFE009FD801 /* OmniBLE.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84752E9E26ED10A0009FD801 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84752E9D26ED10A0009FD801 /* CoreBluetooth.framework */; };
@@ -243,6 +244,29 @@
 		19AD850A280B378D006B0D07 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/OmniBLEPumpManager.strings; sourceTree = "<group>"; };
 		19AD850C280B379A006B0D07 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/OmniBLEPumpManager.strings; sourceTree = "<group>"; };
 		19AD850E280B379D006B0D07 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/OmniBLEPumpManager.strings; sourceTree = "<group>"; };
+		19AD8510280B7A92006B0D07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD8512280B7AAB006B0D07 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD8513280B7AAC006B0D07 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD8514280B7AAD006B0D07 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		19AD8515280B7AAE006B0D07 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD8516280B7AB0006B0D07 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD8517280B7AB1006B0D07 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD8518280B7AB2006B0D07 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD8519280B7AB3006B0D07 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD851A280B7AB4006B0D07 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD851B280B7AB7006B0D07 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD851C280B7AB8006B0D07 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD851D280B7AB9006B0D07 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD851E280B7AB9006B0D07 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD851F280B7ABA006B0D07 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		19AD8520280B7ABE006B0D07 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD8521280B7AC0006B0D07 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD8522280B7AC1006B0D07 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD8523280B7AC1006B0D07 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD8524280B7AC2006B0D07 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD8525280B7AC3006B0D07 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD8526280B7AC6006B0D07 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19AD8527280B7AC6006B0D07 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		84752E8226ED0FFE009FD801 /* OmniBLE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OmniBLE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84752E8526ED0FFE009FD801 /* OmniBLE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OmniBLE.h; sourceTree = "<group>"; };
 		84752E8626ED0FFE009FD801 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -581,6 +605,7 @@
 		8475311D26ED8246009FD801 /* PumpManagerUI */ = {
 			isa = PBXGroup;
 			children = (
+				19AD850F280B7A92006B0D07 /* Localizable.strings */,
 				1029AE4C27094DE200B7F5B6 /* OmniBLEHUDProvider.swift */,
 				1029AE4A27094DDC00B7F5B6 /* OmniBLEPumpManager+UI.swift */,
 				19AD84E2280B2F3E006B0D07 /* OmniBLEPumpManager.storyboard */,
@@ -791,6 +816,7 @@
 				8475313626ED838B009FD801 /* OmniBLEReservoirView.xib in Resources */,
 				1029AE4F27094E1900B7F5B6 /* OmniBLEUI.xcassets in Resources */,
 				A9793B3C276E0264005354B3 /* README.md in Resources */,
+				19AD8511280B7A92006B0D07 /* Localizable.strings in Resources */,
 				8475313726ED838B009FD801 /* PodLifeHUDView.xib in Resources */,
 				8475313326ED838B009FD801 /* HUDAssets.xcassets in Resources */,
 				A91B2DEC276E1E5E001B0E95 /* README.md in Resources */,
@@ -1018,6 +1044,36 @@
 				19AD850E280B379D006B0D07 /* vi */,
 			);
 			name = OmniBLEPumpManager.storyboard;
+			sourceTree = "<group>";
+		};
+		19AD850F280B7A92006B0D07 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				19AD8510280B7A92006B0D07 /* Base */,
+				19AD8512280B7AAB006B0D07 /* en */,
+				19AD8513280B7AAC006B0D07 /* ar */,
+				19AD8514280B7AAD006B0D07 /* zh-Hans */,
+				19AD8515280B7AAE006B0D07 /* da */,
+				19AD8516280B7AB0006B0D07 /* nl */,
+				19AD8517280B7AB1006B0D07 /* fi */,
+				19AD8518280B7AB2006B0D07 /* fr */,
+				19AD8519280B7AB3006B0D07 /* de */,
+				19AD851A280B7AB4006B0D07 /* he */,
+				19AD851B280B7AB7006B0D07 /* it */,
+				19AD851C280B7AB8006B0D07 /* ja */,
+				19AD851D280B7AB9006B0D07 /* nb */,
+				19AD851E280B7AB9006B0D07 /* pl */,
+				19AD851F280B7ABA006B0D07 /* pt-BR */,
+				19AD8520280B7ABE006B0D07 /* ro */,
+				19AD8521280B7AC0006B0D07 /* ru */,
+				19AD8522280B7AC1006B0D07 /* sk */,
+				19AD8523280B7AC1006B0D07 /* es */,
+				19AD8524280B7AC2006B0D07 /* sv */,
+				19AD8525280B7AC3006B0D07 /* tr */,
+				19AD8526280B7AC6006B0D07 /* uk */,
+				19AD8527280B7AC6006B0D07 /* vi */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
