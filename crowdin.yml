@@ -1,0 +1,3 @@
+files:
+  - source: /OmniBLE/PumpManagerUI/en.lproj/OmniBLEPumpManager.strings
+    translation: /OmniBLE/PumpManagerUI/%osx_locale%.lproj/OmniBLEPumpManager.strings
