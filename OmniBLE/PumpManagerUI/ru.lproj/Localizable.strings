@@ -176,88 +176,88 @@
 "%@ U" = "%@ Eд";
 
 /* The text of the loading label when pairing */
-"Pairing…" = "Pairing…";
+"Pairing…" = "Производится Сопряжение";
 
 /* The text of the loading label when priming */
-"Priming…" = "Priming…";
+"Priming…" = "Производится заполнение канюли";
 
 /* The text of the loading label when pod is primed */
-"Primed" = "Primed";
+"Primed" = "Заполнено";
 
 /* Additional pairing recovery suggestion on multiple pairing failures */
-"If the problem persists, move to a new area and try again" = "If the problem persists, move to a new area and try again";
+"If the problem persists, move to a new area and try again" = "Если проблема не устранена, перейдите в другое место и попробуйте снова";
 
 /* Button title to pair with pod during setup*/
-"Pair" = "Pair";
+"Pair" = "Начать сопряжение";
 
 /* Button title to deactivate pod because of fault during setup */
-"Deactivate" = "Deactivate";
+"Deactivate" = "Деактивировать";
 
 /* Confirmation message for shutting down a pod */
-"Are you sure you want to shutdown this pod?" = "Are you sure you want to shutdown this pod?";
+"Are you sure you want to shutdown this pod?" = "Вы действительно хотите выключить этот под?";
 
 /* Button title to deactivate pod */
-"Deactivate Pod" = "Deactivate Pod";
+"Deactivate Pod" = "Деактивировать Pod";
 
 /* The title of the continue action in an action sheet */
-"Continue" = "Continue";
+"Continue" = "Продолжить";
 
 /* Title text for button to disable confirmation beeps" */
-"Disable Confirmation Beeps" = "Disable Confirmation Beeps";
+"Disable Confirmation Beeps" = "Запретить подтверждающие звуковые сигналы";
 
 /* Title text for button to enable confirmation beeps */
-"Enable Confirmation Beeps" = "Enable Confirmation Beeps";
+"Enable Confirmation Beeps" = "Разрешить подтверждающие звуковые сигналы";
 
 /* Title text for button to disable automatic bolus beeps */
-"Disable Automatic Bolus Beeps" = "Disable Automatic Bolus Beeps";
+"Disable Automatic Bolus Beeps" = "Выключить звуковые сигналы автоболюса";
 
 /* Title text for button to enable automatic bolus beeps */
-"Enable Automatic Bolus Beeps" = "Enable Automatic Bolus Beeps";
+"Enable Automatic Bolus Beeps" = "Включить звуковые сигналы автоболюса";
 
 /* Title of the pod settings view controller" */
-"Pod Settings" = "Pod Settings";
+"Pod Settings" = "Настройки пода";
 
 /* The title of the configuration section in settings */
-"Configuration" = "Configuration";
+"Configuration" = "Конфигурация";
 
 /* The title of the diagnostics section in settings */
-"Diagnostics" = "Diagnostics";
+"Diagnostics" = "Диагностика";
 
 /* The title of the pod details section in settings */
-"Pod Details" = "Pod Details";
+"Pod Details" = "Подробности пода";
 
 /* The title of the cell showing alarm status */
-"Alarms" = "Alarms";
+"Alarms" = "Оповещения";
 
 /* The title of the cell showing the pod expiration */
-"Expires" = "Expires";
+"Expires" = "Срок истекает";
 
 /* The title of the cell showing the pod expiration after expiry */
-"Expired" = "Expired";
+"Expired" = "Срок истек";
 
 /* The title of the cell showing the pod active clock */
-"Pod Active Clock" = "Pod Active Clock";
+"Pod Active Clock" = "Активные часы пода";
 
 /* The title of the cell showing pod bolus status */
-"Bolus Delivery" = "Bolus Delivery";
+"Bolus Delivery" = "Подача болюса";
 
 /* The title of the cell showing pod basal status */
-"Basal Delivery" = "Basal Delivery";
+"Basal Delivery" = "Подача базала";
 
 /* The title of the cell showing reservoir status */
-"Reservoir" = "Reservoir";
+"Reservoir" = "Резервуар";
 
 /* The title of the cell showing delivered insulin */
-"Insulin Delivered" = "Insulin Delivered";
+"Insulin Delivered" = "Подано инсулина";
 
 /* The title of the cell showing the pod expiration reminder date */
-"Expiration Reminder" = "Expiration Reminder";
+"Expiration Reminder" = "Напоминание об истечении срока";
 
 /* The title of the command to change pump time zone */
-"Change Time Zone" = "Change Time Zone";
+"Change Time Zone" = "Изменить часовой пояс";
 
 /* The title of the command to pair new pod */
-"Pair New Pod" = "Pair New Pod";
+"Pair New Pod" = "Установить сопряжение с новым подом";
 
 /* The title of the command to replace pod when there is a pod fault */
 "Replace Pod Now" = "Replace Pod Now";
