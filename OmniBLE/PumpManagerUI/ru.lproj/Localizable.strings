@@ -203,16 +203,16 @@
 "Continue" = "Продолжить";
 
 /* Title text for button to disable confirmation beeps" */
-"Disable Confirmation Beeps" = "Запретить подтверждающие звуковые сигналы";
+"Disable Confirmation Beeps" = "Запретить звуковые подтверждения";
 
 /* Title text for button to enable confirmation beeps */
-"Enable Confirmation Beeps" = "Разрешить подтверждающие звуковые сигналы";
+"Enable Confirmation Beeps" = "Разрешить звуковые подтверждения";
 
 /* Title text for button to disable automatic bolus beeps */
-"Disable Automatic Bolus Beeps" = "Выключить звуковые сигналы автоболюса";
+"Disable Automatic Bolus Beeps" = "Выключить звуковые подтверждения автоболюса";
 
 /* Title text for button to enable automatic bolus beeps */
-"Enable Automatic Bolus Beeps" = "Включить звуковые сигналы автоболюса";
+"Enable Automatic Bolus Beeps" = "Включить звуковые подтверждения автоболюса";
 
 /* Title of the pod settings view controller" */
 "Pod Settings" = "Настройки пода";
@@ -260,94 +260,94 @@
 "Pair New Pod" = "Установить сопряжение с новым подом";
 
 /* The title of the command to replace pod when there is a pod fault */
-"Replace Pod Now" = "Replace Pod Now";
+"Replace Pod Now" = "Немедленно замените под";
 
 /* The title of the command to finish pod setup */
-"Finish pod setup" = "Finish pod setup";
+"Finish pod setup" = "Завершить настройку Omnipod";
 
 /* The title of the command to replace pod */
-"Replace Pod" = "Replace Pod";
+"Replace Pod" = "Замените под";
 
 /* The title of the command to read the pod status" */
-"Read Pod Status" = "Read Pod Status";
+"Read Pod Status" = "Прочитать статус пода";
 
 /* The title of the command to play test beeps */
-"Play Test Beeps" = "Play Test Beeps";
+"Play Test Beeps" = "Воспроизвести тестовый звуковой сигнал";
 
 /* The title of the command to read the pulse log */
-"Read Pulse Log" = "Read Pulse Log";
+"Read Pulse Log" = "Читать журнал сигналов";
 
 /* The title of the command to run the test command */
-"Test Command" = "Test Command";
+"Test Command" = "Провести тест";
 
 /* The title of the cell showing the pod lot number" */
-"Lot Number" = "Lot Number";
+"Lot Number" = "Номер партии";
 
 /* The title of the cell showing the pod sequence number */
-"Sequence Number" = "Sequence Number";
+"Sequence Number" = "Порядковый номер";
 
 /* The title of the cell showing the firmware version */
-"Firmware Version" = "Firmware Version";
+"Firmware Version" = "Версия прошивки";
 
 /* The title of the cell showing the BLE firmware version" */
-"BLE Firmware Version" = "BLE Firmware Version";
+"BLE Firmware Version" = "Версия прошивки BLE";
 
 /* The title of the cell showing the BLE device name */
-"BLE Device Name" = "BLE Device Name";
+"BLE Device Name" = "Имя BLE устройства";
 
 /* Title text for the button to delete Omnipod Dash PumpManager */
-"Switch from Omnipod Dash Pumps" = "Switch from Omnipod Dash Pumps";
+"Switch from Omnipod Dash Pumps" = "Отключиться от помп Omnipod Dash";
 
 /* The alert title for a resume error */
-"Error Resuming" = "Error Resuming";
+"Error Resuming" = "Ошибка возобновления";
 
 /* The alert title for a suspend error */
-"Error Suspending" = "Error Suspending";
+"Error Suspending" = "Ошибка остановки";
 
 /* The alert title for enable confirmation beeps error */
-"Error enabling confirmation beeps" = "Error enabling confirmation beeps";
+"Error enabling confirmation beeps" = "Ошибка при включении звуков подтверждения";
 
 /* The alert title for disable confirmation beeps error */
-"Error disabling confirmation beeps" = "Error disabling confirmation beeps";
+"Error disabling confirmation beeps" = "Ошибка при отключении звуков подтверждения";
 
 /* Confirmation message for removing Omnipod Dash PumpManager */
-"Are you sure you want to stop using Omnipod Dash?" = "Are you sure you want to stop using Omnipod Dash?";
+"Are you sure you want to stop using Omnipod Dash?" = "Вы уверены, что хотите прекратить использование Omnipod Dash?";
 
 /* Button title to delete Omnipod Dash PumpManager */
-"Delete Omnipod Dash" = "Delete Omnipod Dash";
+"Delete Omnipod Dash" = "Удалить OmniPod Dash";
 
 /* The title of the cancel action in an action sheet */
-"Cancel" = "Cancel";
+"Cancel" = "Отмена";
 
 /* Alerts detail when no alerts unacknowledged */
-"None" = "None";
+"None" = "Не подан";
 
 /* The detail text of the basal row when pod is suspended */
-"Suspended" = "Suspended";
+"Suspended" = "Приостановлен";
 
 /* Format string for temp basal rate. (1: The localized amount) */
-"%@ U/hour" = "%@ U/hour";
+"%@ U/hour" = "%@ Ед/ч";
 
 /* The detail text of the basal row when pod is running scheduled basal */
-"Schedule" = "Schedule";
+"Schedule" = "Расписание";
 
 /* The detail text for bolus delivery when no bolus is being delivered */
-"None" = "None";
+"None" = "Не подан";
 
 /* Format string for bolus progress when finished. (1: The localized amount) */
-"%@ U (Finished)" = "%@ U (Finished)";
+"%@ U (Finished)" = "%@ ед (подано)";
 
 /* Format string for bolus progress. (1: The delivered amount) (2: The programmed amount) (3: the percent progress) */
-"%@ U of %@ U (%@)" = "%@ U of %@ U (%@)";
+"%@ U of %@ U (%@)" = "%@ ед из %@ ед (%@)";
 
 /* The detail text for delivered insulin when no measurement is available */
-"Unknown" = "Unknown";
+"Unknown" = "Неизвестно";
 
 /* Format string for delivered insulin. (1: The localized amount) */
-"%@ U" = "%@ U";
+"%@ U" = "%@ Eд";
 
 /* Format string for reservoir reading when above or equal to maximum reading. (1: The localized amount) */
-"%@+ U" = "%@+ U";
+"%@+ U" = "%@+ ед";
 
 /* Format string for insulin remaining in reservoir. (1: The localized amount) */
-"%@ U" = "%@ U";
+"%@ U" = "%@ Eд";
