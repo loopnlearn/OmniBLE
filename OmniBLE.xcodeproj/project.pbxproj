@@ -118,7 +118,6 @@
 		8475315C26EDA193009FD801 /* TimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8475314F26EDA193009FD801 /* TimeZone.swift */; };
 		8475315D26EDA193009FD801 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8475315026EDA193009FD801 /* Data.swift */; };
 		A91B2DE9276E114C001B0E95 /* OmniKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A91B2DE8276E114C001B0E95 /* OmniKit.framework */; };
-		A91B2DEC276E1E5E001B0E95 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A91B2DEB276E1E5E001B0E95 /* README.md */; };
 		A9793B3C276E0264005354B3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A9793B3B276E0264005354B3 /* README.md */; };
 		A9A5BCEF276C1E2D00B02C86 /* TestUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D054D427651D2400FAFEFB /* TestUtilities.swift */; };
 		A9A5BCF0276C1E2D00B02C86 /* HexConversionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D054CA2764FC8200FAFEFB /* HexConversionTests.swift */; };
@@ -819,7 +818,6 @@
 				19AD8511280B7A92006B0D07 /* Localizable.strings in Resources */,
 				8475313726ED838B009FD801 /* PodLifeHUDView.xib in Resources */,
 				8475313326ED838B009FD801 /* HUDAssets.xcassets in Resources */,
-				A91B2DEC276E1E5E001B0E95 /* README.md in Resources */,
 				19AD84E0280B2F3E006B0D07 /* OmniBLEPumpManager.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
