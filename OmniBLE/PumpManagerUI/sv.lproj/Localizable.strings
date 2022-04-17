@@ -8,7 +8,7 @@
 "Primed" = "Fylld";
 
 /* Additional pairing recovery suggestion on multiple pairing failures */
-"If the problem persists, move to a new area and try again" = "If the problem persists, move to a new area and try again";
+"If the problem persists, move to a new area and try again" = "Om problemet kvarstår, förflytta dig till ny plats och försök igen";
 
 /* Button title to pair with pod during setup*/
 "Pair" = "Parkoppla";
@@ -155,7 +155,7 @@
 "Schedule" = "Schema";
 
 /* The detail text for bolus delivery when no bolus is being delivered */
-"None" = "None";
+"None" = "Ingen";
 
 /* Format string for bolus progress when finished. (1: The localized amount) */
 "%@ U (Finished)" = "%@ IE (Färdig)";
@@ -173,181 +173,181 @@
 "%@+ U" = "%@+ IE";
 
 /* Format string for insulin remaining in reservoir. (1: The localized amount) */
-"%@ U" = "%@ U";
+"%@ U" = "%@ E";
 
 /* The text of the loading label when pairing */
-"Pairing…" = "Pairing…";
+"Pairing…" = "Parkopplar…";
 
 /* The text of the loading label when priming */
-"Priming…" = "Priming…";
+"Priming…" = "Fyller…";
 
 /* The text of the loading label when pod is primed */
-"Primed" = "Primed";
+"Primed" = "Podden är fylld";
 
 /* Additional pairing recovery suggestion on multiple pairing failures */
-"If the problem persists, move to a new area and try again" = "If the problem persists, move to a new area and try again";
+"If the problem persists, move to a new area and try again" = "Om problemet kvarstår, förflytta dig till ny plats och försök igen";
 
 /* Button title to pair with pod during setup*/
-"Pair" = "Pair";
+"Pair" = "Parkoppla";
 
 /* Button title to deactivate pod because of fault during setup */
-"Deactivate" = "Deactivate";
+"Deactivate" = "Inaktivera";
 
 /* Confirmation message for shutting down a pod */
-"Are you sure you want to shutdown this pod?" = "Are you sure you want to shutdown this pod?";
+"Are you sure you want to shutdown this pod?" = "Är du säker att du vill stänga av denna podd?";
 
 /* Button title to deactivate pod */
-"Deactivate Pod" = "Deactivate Pod";
+"Deactivate Pod" = "Inaktivera podd";
 
 /* The title of the continue action in an action sheet */
-"Continue" = "Continue";
+"Continue" = "Fortsätt";
 
 /* Title text for button to disable confirmation beeps" */
-"Disable Confirmation Beeps" = "Disable Confirmation Beeps";
+"Disable Confirmation Beeps" = "Stäng av bekräftelsepip";
 
 /* Title text for button to enable confirmation beeps */
-"Enable Confirmation Beeps" = "Enable Confirmation Beeps";
+"Enable Confirmation Beeps" = "Sätt på bekräftelsepip";
 
 /* Title text for button to disable automatic bolus beeps */
-"Disable Automatic Bolus Beeps" = "Disable Automatic Bolus Beeps";
+"Disable Automatic Bolus Beeps" = "Stäng av pip vid automatiska bolusar";
 
 /* Title text for button to enable automatic bolus beeps */
-"Enable Automatic Bolus Beeps" = "Enable Automatic Bolus Beeps";
+"Enable Automatic Bolus Beeps" = "Sätt på pip vid automatiska bolusar";
 
 /* Title of the pod settings view controller" */
-"Pod Settings" = "Pod Settings";
+"Pod Settings" = "Poddinställningar";
 
 /* The title of the configuration section in settings */
-"Configuration" = "Configuration";
+"Configuration" = "Konfiguration";
 
 /* The title of the diagnostics section in settings */
-"Diagnostics" = "Diagnostics";
+"Diagnostics" = "Diagnostik";
 
 /* The title of the pod details section in settings */
-"Pod Details" = "Pod Details";
+"Pod Details" = "Poddetaljer";
 
 /* The title of the cell showing alarm status */
-"Alarms" = "Alarms";
+"Alarms" = "Larm";
 
 /* The title of the cell showing the pod expiration */
-"Expires" = "Expires";
+"Expires" = "Utgår";
 
 /* The title of the cell showing the pod expiration after expiry */
-"Expired" = "Expired";
+"Expired" = "Utgått";
 
 /* The title of the cell showing the pod active clock */
-"Pod Active Clock" = "Pod Active Clock";
+"Pod Active Clock" = "Aktiv tid för podd";
 
 /* The title of the cell showing pod bolus status */
-"Bolus Delivery" = "Bolus Delivery";
+"Bolus Delivery" = "Bolustillförsel";
 
 /* The title of the cell showing pod basal status */
-"Basal Delivery" = "Basal Delivery";
+"Basal Delivery" = "Basaltillförsel";
 
 /* The title of the cell showing reservoir status */
-"Reservoir" = "Reservoir";
+"Reservoir" = "Reservoar";
 
 /* The title of the cell showing delivered insulin */
-"Insulin Delivered" = "Insulin Delivered";
+"Insulin Delivered" = "Doserat insulin";
 
 /* The title of the cell showing the pod expiration reminder date */
-"Expiration Reminder" = "Expiration Reminder";
+"Expiration Reminder" = "Påminnelse om utgångsdatum";
 
 /* The title of the command to change pump time zone */
-"Change Time Zone" = "Change Time Zone";
+"Change Time Zone" = "Byt tidszon";
 
 /* The title of the command to pair new pod */
-"Pair New Pod" = "Pair New Pod";
+"Pair New Pod" = "Parkoppla ny podd";
 
 /* The title of the command to replace pod when there is a pod fault */
-"Replace Pod Now" = "Replace Pod Now";
+"Replace Pod Now" = "Byt podd nu";
 
 /* The title of the command to finish pod setup */
-"Finish pod setup" = "Finish pod setup";
+"Finish pod setup" = "Gör färdigt podinställning";
 
 /* The title of the command to replace pod */
-"Replace Pod" = "Replace Pod";
+"Replace Pod" = "Byt podd";
 
 /* The title of the command to read the pod status" */
-"Read Pod Status" = "Read Pod Status";
+"Read Pod Status" = "Läs poddstatus";
 
 /* The title of the command to play test beeps */
-"Play Test Beeps" = "Play Test Beeps";
+"Play Test Beeps" = "Spela testljud";
 
 /* The title of the command to read the pulse log */
-"Read Pulse Log" = "Read Pulse Log";
+"Read Pulse Log" = "Läs pulslogg";
 
 /* The title of the command to run the test command */
-"Test Command" = "Test Command";
+"Test Command" = "Kommandotest";
 
 /* The title of the cell showing the pod lot number" */
-"Lot Number" = "Lot Number";
+"Lot Number" = "Partinummer";
 
 /* The title of the cell showing the pod sequence number */
-"Sequence Number" = "Sequence Number";
+"Sequence Number" = "Sekvensnummer";
 
 /* The title of the cell showing the firmware version */
-"Firmware Version" = "Firmware Version";
+"Firmware Version" = "Firmware-version";
 
 /* The title of the cell showing the BLE firmware version" */
-"BLE Firmware Version" = "BLE Firmware Version";
+"BLE Firmware Version" = "BLE firmware-version";
 
 /* The title of the cell showing the BLE device name */
-"BLE Device Name" = "BLE Device Name";
+"BLE Device Name" = "BLE-enhetsnamn";
 
 /* Title text for the button to delete Omnipod Dash PumpManager */
-"Switch from Omnipod Dash Pumps" = "Switch from Omnipod Dash Pumps";
+"Switch from Omnipod Dash Pumps" = "Byt från Omnipod Dash pumpar";
 
 /* The alert title for a resume error */
-"Error Resuming" = "Error Resuming";
+"Error Resuming" = "Kunde inte återuppta insulintillförsel";
 
 /* The alert title for a suspend error */
-"Error Suspending" = "Error Suspending";
+"Error Suspending" = "Kunde inte pausa";
 
 /* The alert title for enable confirmation beeps error */
-"Error enabling confirmation beeps" = "Error enabling confirmation beeps";
+"Error enabling confirmation beeps" = "Kunde inte sätta på bekräftelsepip";
 
 /* The alert title for disable confirmation beeps error */
-"Error disabling confirmation beeps" = "Error disabling confirmation beeps";
+"Error disabling confirmation beeps" = "Kunde inte stänga av bekräftelsepip";
 
 /* Confirmation message for removing Omnipod Dash PumpManager */
-"Are you sure you want to stop using Omnipod Dash?" = "Are you sure you want to stop using Omnipod Dash?";
+"Are you sure you want to stop using Omnipod Dash?" = "Säkert att du vill sluta använda Omnipod Dash?";
 
 /* Button title to delete Omnipod Dash PumpManager */
-"Delete Omnipod Dash" = "Delete Omnipod Dash";
+"Delete Omnipod Dash" = "Ta bort Omnipod Dash";
 
 /* The title of the cancel action in an action sheet */
-"Cancel" = "Cancel";
+"Cancel" = "Avbryt";
 
 /* Alerts detail when no alerts unacknowledged */
-"None" = "None";
+"None" = "Ingen";
 
 /* The detail text of the basal row when pod is suspended */
-"Suspended" = "Suspended";
+"Suspended" = "Pausad";
 
 /* Format string for temp basal rate. (1: The localized amount) */
-"%@ U/hour" = "%@ U/hour";
+"%@ U/hour" = "%@ IE/h";
 
 /* The detail text of the basal row when pod is running scheduled basal */
-"Schedule" = "Schedule";
+"Schedule" = "Schema";
 
 /* The detail text for bolus delivery when no bolus is being delivered */
-"None" = "None";
+"None" = "Ingen";
 
 /* Format string for bolus progress when finished. (1: The localized amount) */
-"%@ U (Finished)" = "%@ U (Finished)";
+"%@ U (Finished)" = "%@ IE (färdigt)";
 
 /* Format string for bolus progress. (1: The delivered amount) (2: The programmed amount) (3: the percent progress) */
-"%@ U of %@ U (%@)" = "%@ U of %@ U (%@)";
+"%@ U of %@ U (%@)" = "%@ IE of %@ IE (%@)";
 
 /* The detail text for delivered insulin when no measurement is available */
-"Unknown" = "Unknown";
+"Unknown" = "Okänd";
 
 /* Format string for delivered insulin. (1: The localized amount) */
-"%@ U" = "%@ U";
+"%@ U" = "%@ IE";
 
 /* Format string for reservoir reading when above or equal to maximum reading. (1: The localized amount) */
-"%@+ U" = "%@+ U";
+"%@+ U" = "%@+ IE";
 
 /* Format string for insulin remaining in reservoir. (1: The localized amount) */
-"%@ U" = "%@ U";
+"%@ U" = "%@ IE";

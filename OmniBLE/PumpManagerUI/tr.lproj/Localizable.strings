@@ -59,100 +59,100 @@
 "Expired" = "Süresi doldu";
 
 /* The title of the cell showing the pod active clock */
-"Pod Active Clock" = "Pod Aktif Saati";
+"Pod Active Clock" = "Pod Etkin Saati";
 
 /* The title of the cell showing pod bolus status */
-"Bolus Delivery" = "Bolus Delivery";
+"Bolus Delivery" = "Bolus İletimi";
 
 /* The title of the cell showing pod basal status */
-"Basal Delivery" = "Basal Delivery";
+"Basal Delivery" = "Bazal İletimi";
 
 /* The title of the cell showing reservoir status */
-"Reservoir" = "Reservoir";
+"Reservoir" = "Rezervuar";
 
 /* The title of the cell showing delivered insulin */
-"Insulin Delivered" = "Insulin Delivered";
+"Insulin Delivered" = "İnsülin Gönderildi";
 
 /* The title of the cell showing the pod expiration reminder date */
-"Expiration Reminder" = "Expiration Reminder";
+"Expiration Reminder" = "Süre Sonu Hatırlatıcısı";
 
 /* The title of the command to change pump time zone */
-"Change Time Zone" = "Change Time Zone";
+"Change Time Zone" = "Zaman dilimini Değiştir";
 
 /* The title of the command to pair new pod */
-"Pair New Pod" = "Pair New Pod";
+"Pair New Pod" = "Yeni Pod Eşleştir";
 
 /* The title of the command to replace pod when there is a pod fault */
-"Replace Pod Now" = "Replace Pod Now";
+"Replace Pod Now" = "Pod'u şimdi değiştir";
 
 /* The title of the command to finish pod setup */
-"Finish pod setup" = "Finish pod setup";
+"Finish pod setup" = "Pod kurulumunu tamamlayın";
 
 /* The title of the command to replace pod */
-"Replace Pod" = "Replace Pod";
+"Replace Pod" = "Pod'u değiştir";
 
 /* The title of the command to read the pod status" */
-"Read Pod Status" = "Read Pod Status";
+"Read Pod Status" = "Pod Durumunu Oku";
 
 /* The title of the command to play test beeps */
-"Play Test Beeps" = "Play Test Beeps";
+"Play Test Beeps" = "Test Bip Sesi Çal";
 
 /* The title of the command to read the pulse log */
-"Read Pulse Log" = "Read Pulse Log";
+"Read Pulse Log" = "Sinyal Kaydını Oku";
 
 /* The title of the command to run the test command */
-"Test Command" = "Test Command";
+"Test Command" = "Komutu Dene";
 
 /* The title of the cell showing the pod lot number" */
-"Lot Number" = "Lot Number";
+"Lot Number" = "Lot Numarası";
 
 /* The title of the cell showing the pod sequence number */
-"Sequence Number" = "Sequence Number";
+"Sequence Number" = "Sıra Numarası";
 
 /* The title of the cell showing the firmware version */
-"Firmware Version" = "Firmware Version";
+"Firmware Version" = "Donanım Yazılımı Sürümü";
 
 /* The title of the cell showing the BLE firmware version" */
-"BLE Firmware Version" = "BLE Firmware Version";
+"BLE Firmware Version" = "BLE Donanım Yazılımı Sürümü";
 
 /* The title of the cell showing the BLE device name */
-"BLE Device Name" = "BLE Device Name";
+"BLE Device Name" = "BLE Aygıt Adı";
 
 /* Title text for the button to delete Omnipod Dash PumpManager */
-"Switch from Omnipod Dash Pumps" = "Switch from Omnipod Dash Pumps";
+"Switch from Omnipod Dash Pumps" = "Omnipod Dash Pompalarından Geçiş Yapın";
 
 /* The alert title for a resume error */
-"Error Resuming" = "Error Resuming";
+"Error Resuming" = "Sürdürme Hatası";
 
 /* The alert title for a suspend error */
-"Error Suspending" = "Error Suspending";
+"Error Suspending" = "Askıya alırken Hata Oluştu";
 
 /* The alert title for enable confirmation beeps error */
-"Error enabling confirmation beeps" = "Error enabling confirmation beeps";
+"Error enabling confirmation beeps" = "Onay Uyarılarını Etkinleştirken hata oluştu";
 
 /* The alert title for disable confirmation beeps error */
-"Error disabling confirmation beeps" = "Error disabling confirmation beeps";
+"Error disabling confirmation beeps" = "Onay Uyarılarını devre dışı bırakırken hata oluştu";
 
 /* Confirmation message for removing Omnipod Dash PumpManager */
-"Are you sure you want to stop using Omnipod Dash?" = "Are you sure you want to stop using Omnipod Dash?";
+"Are you sure you want to stop using Omnipod Dash?" = "Omnipod Dash'ı kullanmayı bırakmak istediğinizden emin misiniz?";
 
 /* Button title to delete Omnipod Dash PumpManager */
-"Delete Omnipod Dash" = "Delete Omnipod Dash";
+"Delete Omnipod Dash" = "Omnipod Dash'ı Sill";
 
 /* The title of the cancel action in an action sheet */
-"Cancel" = "Cancel";
+"Cancel" = "İptal";
 
 /* Alerts detail when no alerts unacknowledged */
-"None" = "None";
+"None" = "Hiçbiri";
 
 /* The detail text of the basal row when pod is suspended */
-"Suspended" = "Suspended";
+"Suspended" = "Askıya Alındı";
 
 /* Format string for temp basal rate. (1: The localized amount) */
-"%@ U/hour" = "%@ U/hour";
+"%@ U/hour" = "%@ Ü/saat";
 
 /* The detail text of the basal row when pod is running scheduled basal */
-"Schedule" = "Schedule";
+"Schedule" = "Planlama";
 
 /* The detail text for bolus delivery when no bolus is being delivered */
 "None" = "None";
