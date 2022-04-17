@@ -70,8 +70,8 @@
 		10389A3C26FF7841002115E9 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10389A1D26FF7841002115E9 /* Message.swift */; };
 		10389A3F26FF7841002115E9 /* CRC16.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10389A2026FF7841002115E9 /* CRC16.swift */; };
 		10389A4126FF7841002115E9 /* MessageTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10389A2226FF7841002115E9 /* MessageTransport.swift */; };
+		194CC4A2280CB7C500E458B1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 19AD850F280B7A92006B0D07 /* Localizable.strings */; };
 		19AD84E0280B2F3E006B0D07 /* OmniBLEPumpManager.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19AD84E2280B2F3E006B0D07 /* OmniBLEPumpManager.storyboard */; };
-		19AD8511280B7A92006B0D07 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 19AD850F280B7A92006B0D07 /* Localizable.strings */; };
 		84752E9126ED0FFE009FD801 /* OmniBLETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752E9026ED0FFE009FD801 /* OmniBLETests.swift */; };
 		84752E9326ED0FFE009FD801 /* OmniBLE.h in Headers */ = {isa = PBXBuildFile; fileRef = 84752E8526ED0FFE009FD801 /* OmniBLE.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84752E9E26ED10A0009FD801 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84752E9D26ED10A0009FD801 /* CoreBluetooth.framework */; };
@@ -811,11 +811,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				194CC4A2280CB7C500E458B1 /* Localizable.strings in Resources */,
 				8475313526ED838B009FD801 /* ExpirationReminderDateTableViewCell.xib in Resources */,
 				8475313626ED838B009FD801 /* OmniBLEReservoirView.xib in Resources */,
 				1029AE4F27094E1900B7F5B6 /* OmniBLEUI.xcassets in Resources */,
 				A9793B3C276E0264005354B3 /* README.md in Resources */,
-				19AD8511280B7A92006B0D07 /* Localizable.strings in Resources */,
 				8475313726ED838B009FD801 /* PodLifeHUDView.xib in Resources */,
 				8475313326ED838B009FD801 /* HUDAssets.xcassets in Resources */,
 				19AD84E0280B2F3E006B0D07 /* OmniBLEPumpManager.storyboard in Resources */,
