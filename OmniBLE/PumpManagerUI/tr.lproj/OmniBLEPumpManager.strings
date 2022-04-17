@@ -1,14 +1,14 @@
 /* Class = "UITableViewSection"; headerTitle = "Remove POD"; ObjectID = "1LF-te-Bdd"; */
-"1LF-te-Bdd.headerTitle" = "Remove POD";
+"1LF-te-Bdd.headerTitle" = "POD'u çıkart";
 
 /* Class = "UITableViewController"; title = "Pod Settings"; ObjectID = "6vo-Ov-UpE"; */
-"6vo-Ov-UpE.title" = "Pod Settings";
+"6vo-Ov-UpE.title" = "Pod Ayarları";
 
 /* Class = "UITableViewController"; title = "Pump Setup"; ObjectID = "91O-Un-vKc"; */
-"91O-Un-vKc.title" = "Pump Setup";
+"91O-Un-vKc.title" = "Pompa Kurulumu";
 
 /* Class = "UITableViewSection"; footerTitle = "NOTE: Do not remove the pod's needle cap at this time."; ObjectID = "EUt-xk-Rmp"; */
-"EUt-xk-Rmp.footerTitle" = "NOTE: Do not remove the pod's needle cap at this time.";
+"EUt-xk-Rmp.footerTitle" = "NOT: Şu anda pod'un plastik iğne kapağını çıkarmayın.";
 
 /* Class = "UITableViewSection"; headerTitle = "Prepare Pod"; ObjectID = "EUt-xk-Rmp"; */
 "EUt-xk-Rmp.headerTitle" = "Prepare Pod";
@@ -35,13 +35,13 @@
 "bJ5-iH-fnF.text" = "Your Pod is ready for use.";
 
 /* Class = "UILabel"; text = "Reminder"; ObjectID = "ePA-6p-q8C"; */
-"ePA-6p-q8C.text" = "Reminder";
+"ePA-6p-q8C.text" = "Hatırlatıcı";
 
 /* Class = "UINavigationItem"; title = "Pod Pairing"; ObjectID = "jVO-Ut-MhL"; */
-"jVO-Ut-MhL.title" = "Pod Pairing";
+"jVO-Ut-MhL.title" = "Pod Eşleştiriliyor";
 
 /* Class = "UITableViewController"; title = "Pump Setup"; ObjectID = "k1Y-x4-m0a"; */
-"k1Y-x4-m0a.title" = "Pump Setup";
+"k1Y-x4-m0a.title" = "Pompa Kurulumu";
 
 /* Class = "UILabel"; text = "Review your settings below. They will be programmed into the pod during pairing. You can change these settings at any time in Loopʼs Settings screen."; ObjectID = "kLL-SQ-K0a"; */
 "kLL-SQ-K0a.text" = "Review your settings below. They will be programmed into the pod during pairing. You can change these settings at any time in Loopʼs Settings screen.";
