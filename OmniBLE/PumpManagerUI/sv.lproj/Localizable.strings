@@ -167,7 +167,7 @@
 "Unknown" = "Okänd";
 
 /* Format string for delivered insulin. (1: The localized amount) */
-"%@ U" = "%@ IE";
+"%@ U" = "%@ E";
 
 /* Format string for reservoir reading when above or equal to maximum reading. (1: The localized amount) */
 "%@+ U" = "%@+ IE";
@@ -227,13 +227,13 @@
 "Invalid LTK Key: %1$@" = "Ogiltig LTK Key: %1$@";
 
 /* The format string for PodProtocolError.pairingException (1: message associated with error)" */
-"Pairing Exception: %1$@" = "Pairing Exception: %1$@";
+"Pairing Exception: %1$@" = "Parkopplingsundantag: %1$@";
 
 /* The format string for PodProtocolError.messageIOException (1: message associated with error)" */
-"Message IO Exception: %1$@" = "Message IO Exception: %1$@";
+"Message IO Exception: %1$@" = "Meddelande IO-undantag: %1$@";
 
 /* The format string for PodProtocolError.couldNotParseMessageException (1: message associated with error) */
-"Could not parse message: %1$@" = "Could not parse message: %1$@";
+"Could not parse message: %1$@" = "Kunde inte tolka meddelande: %1$@";
 
 /* The format string for PodProtocolError.incorrectPacketException (1: payload)(2: location) */
 "Incorrect Packet Exception: %1$@ (location=%2$d)" = "Incorrect Packet Exception: %1$@ (location=%2$d)";
@@ -336,7 +336,7 @@
 "Pod expired" = "Pod har utgått";
 
 /* Format string for pod fault code */
-"Pod Fault: %1$@" = "Podfel: %1$@";
+"Pod Fault: %1$@" = "Poddfel: %1$@";
 
 /* Error message when cannula insertion fails because the pod is in an unexpected state */
 "Pod is not in a state ready for cannula insertion." = "Pod är inte klar för att föra in kanyl";
@@ -345,7 +345,7 @@
 "Pod is not in a state ready for priming." = "Pod är inte klar för att fyllas";
 
 /* Error message action could not be performed because pod is suspended */
-"Pod is suspended" = "Pod är pausad";
+"Pod is suspended" = "Podd är pausad";
 
 /* Pod state when prime or cannula insertion has not completed in the time allotted */
 "Pod setup window expired" = "Tid för podinställning är överskriden";
@@ -397,16 +397,16 @@
 "Uncertain" = "Osäker";
 
 /* Error message shown when empty response from pod was received */
-"Unexpected response from pod" = "Oväntat svar från din pod";
+"Unexpected response from pod" = "Oväntat svar från podd";
 
 /* The format string for Unknown pod fault (1: The fault code value) */
 "Unknown pod fault %1$03d" = "Okänt podfel %1$03d";
 
 /* Recovery suggestion when operation could not be completed due to existing bolus in progress */
-"Wait for existing bolus to finish, or cancel bolus" = "Vänta på att pågående bolus är färdig, eller avbryt bolus";
+"Wait for existing bolus to finish, or cancel bolus" = "Vänta på att pågåpende bolus är färdig eller avbryt bolus";
 
 /* Recovery suggestion when operation could not be completed due to existing temp basal in progress */
-"Wait for existing temp basal to finish, or suspend to cancel" = "Vänta på nuvarande temporära basal, eller pausa för att avbryta";
+"Wait for existing temp basal to finish, or suspend to cancel" = "Vänta på pågpende temp. basal, alternativt pausa eller avbryt";
 
 /* Description waiting for pairing reminder */
 "Waiting for pairing reminder" = "Väntar på påminnelse för parkoppling";
@@ -430,7 +430,7 @@
 "Pod Fault: %1$@" = "Poddfel: %1$@";
 
 /* Error message when command is rejected because an unacknowledged command is pending. */
-"Communication issue: Unacknowledged command pending." = "Communication issue: Unacknowledged command pending.";
+"Communication issue: Unacknowledged command pending." = "Kommunikationsproblem: Obekräftat kommando väntar.";
 
 /* Format string for invalid message error code (1: error code number) */
 "Command error %1$u" = "Kommandofel %1$u";
@@ -466,10 +466,10 @@
 "Make sure your pod is nearby and try again." = "Säkerställ att din podd är nära och försök igen.";
 
 /* Recovery suggestion when operation could not be completed due to existing bolus in progress */
-"Wait for existing bolus to finish, or cancel bolus" = "Vänta på att pågåpende bolus är färdig eller avbryt bolus";
+"Wait for existing bolus to finish, or cancel bolus" = "Vänta på att pågående bolus blir färdig eller avbryt bolus";
 
 /* Recovery suggestion when operation could not be completed due to existing temp basal in progress */
-"Wait for existing temp basal to finish, or suspend to cancel" = "Vänta på pågpende temp. basal, alternativt pausa eller avbryt";
+"Wait for existing temp basal to finish, or suspend to cancel" = "Vänta på pågående temp. basal, alternativt pausa eller avbryt";
 
 /* Recovery suggestion when pod is suspended" */
 "Resume delivery" = "Återuppta insulintillförsel";
