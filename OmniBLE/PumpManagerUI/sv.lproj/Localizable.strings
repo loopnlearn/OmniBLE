@@ -1,4 +1,3 @@
-
 /* The text of the loading label when pairing */
 "Pairing…" = "Parkopplar…";
 
@@ -156,7 +155,7 @@
 "Schedule" = "Schema";
 
 /* The detail text for bolus delivery when no bolus is being delivered */
-"None" = "Ingen";
+"None" = "None";
 
 /* Format string for bolus progress when finished. (1: The localized amount) */
 "%@ U (Finished)" = "%@ IE (Färdig)";
@@ -174,4 +173,4 @@
 "%@+ U" = "%@+ IE";
 
 /* Format string for insulin remaining in reservoir. (1: The localized amount) */
-"%@ U" = "%@ IE";
+"%@ U" = "%@ U";

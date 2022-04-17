@@ -1,123 +1,122 @@
-
 /* The text of the loading label when pairing */
-"Pairing…" = "Pairing…";
+"Pairing…" = "Kobler sammen…";
 
 /* The text of the loading label when priming */
-"Priming…" = "Priming…";
+"Priming…" = "Fyller…";
 
 /* The text of the loading label when pod is primed */
-"Primed" = "Primed";
+"Primed" = "Fylt";
 
 /* Additional pairing recovery suggestion on multiple pairing failures */
-"If the problem persists, move to a new area and try again" = "If the problem persists, move to a new area and try again";
+"If the problem persists, move to a new area and try again" = "Hvis problemet vedvarer, flytt til et nytt område og prøv igjen";
 
 /* Button title to pair with pod during setup*/
-"Pair" = "Pair";
+"Pair" = "Koble sammen";
 
 /* Button title to deactivate pod because of fault during setup */
-"Deactivate" = "Deactivate";
+"Deactivate" = "Deaktiver";
 
 /* Confirmation message for shutting down a pod */
-"Are you sure you want to shutdown this pod?" = "Are you sure you want to shutdown this pod?";
+"Are you sure you want to shutdown this pod?" = "Er du sikker på at du vil avslutte denne poden?";
 
 /* Button title to deactivate pod */
-"Deactivate Pod" = "Deactivate Pod";
+"Deactivate Pod" = "Deaktiver Pod";
 
 /* The title of the continue action in an action sheet */
-"Continue" = "Continue";
+"Continue" = "Fortsett";
 
 /* Title text for button to disable confirmation beeps" */
-"Disable Confirmation Beeps" = "Disable Confirmation Beeps";
+"Disable Confirmation Beeps" = "Slå av lyd for bekreftelse";
 
 /* Title text for button to enable confirmation beeps */
-"Enable Confirmation Beeps" = "Enable Confirmation Beeps";
+"Enable Confirmation Beeps" = "Slå på lyd for bekreftelse";
 
 /* Title text for button to disable automatic bolus beeps */
-"Disable Automatic Bolus Beeps" = "Disable Automatic Bolus Beeps";
+"Disable Automatic Bolus Beeps" = "Slå av lyd for bekreftelse av Auto-bolus";
 
 /* Title text for button to enable automatic bolus beeps */
-"Enable Automatic Bolus Beeps" = "Enable Automatic Bolus Beeps";
+"Enable Automatic Bolus Beeps" = "Slå på lyd for bekreftelse av Auto-bolus";
 
 /* Title of the pod settings view controller" */
-"Pod Settings" = "Pod Settings";
+"Pod Settings" = "Pod-innstillinger";
 
 /* The title of the configuration section in settings */
-"Configuration" = "Configuration";
+"Configuration" = "Konfigurasjon";
 
 /* The title of the diagnostics section in settings */
-"Diagnostics" = "Diagnostics";
+"Diagnostics" = "Diagnostikk";
 
 /* The title of the pod details section in settings */
-"Pod Details" = "Pod Details";
+"Pod Details" = "Pod-info";
 
 /* The title of the cell showing alarm status */
-"Alarms" = "Alarms";
+"Alarms" = "Alarmer";
 
 /* The title of the cell showing the pod expiration */
-"Expires" = "Expires";
+"Expires" = "Utløper";
 
 /* The title of the cell showing the pod expiration after expiry */
-"Expired" = "Expired";
+"Expired" = "Utløpt";
 
 /* The title of the cell showing the pod active clock */
-"Pod Active Clock" = "Pod Active Clock";
+"Pod Active Clock" = "Pod aktiv";
 
 /* The title of the cell showing pod bolus status */
-"Bolus Delivery" = "Bolus Delivery";
+"Bolus Delivery" = "Bolus-leveranse";
 
 /* The title of the cell showing pod basal status */
-"Basal Delivery" = "Basal Delivery";
+"Basal Delivery" = "Basal-leveranse";
 
 /* The title of the cell showing reservoir status */
-"Reservoir" = "Reservoir";
+"Reservoir" = "Reservoar";
 
 /* The title of the cell showing delivered insulin */
-"Insulin Delivered" = "Insulin Delivered";
+"Insulin Delivered" = "Levert insulin";
 
 /* The title of the cell showing the pod expiration reminder date */
-"Expiration Reminder" = "Expiration Reminder";
+"Expiration Reminder" = "Utløpspåminnelse";
 
 /* The title of the command to change pump time zone */
-"Change Time Zone" = "Change Time Zone";
+"Change Time Zone" = "Endre tidssone";
 
 /* The title of the command to pair new pod */
-"Pair New Pod" = "Pair New Pod";
+"Pair New Pod" = "Koble sammen ny pod";
 
 /* The title of the command to replace pod when there is a pod fault */
-"Replace Pod Now" = "Replace Pod Now";
+"Replace Pod Now" = "Bytt pod nå";
 
 /* The title of the command to finish pod setup */
-"Finish pod setup" = "Finish pod setup";
+"Finish pod setup" = "Fullfør oppsett for pod";
 
 /* The title of the command to replace pod */
-"Replace Pod" = "Replace Pod";
+"Replace Pod" = "Bytt pod";
 
 /* The title of the command to read the pod status" */
-"Read Pod Status" = "Read Pod Status";
+"Read Pod Status" = "Les Pod-status";
 
 /* The title of the command to play test beeps */
-"Play Test Beeps" = "Play Test Beeps";
+"Play Test Beeps" = "Spill test-toner";
 
 /* The title of the command to read the pulse log */
-"Read Pulse Log" = "Read Pulse Log";
+"Read Pulse Log" = "Les pulslogg";
 
 /* The title of the command to run the test command */
-"Test Command" = "Test Command";
+"Test Command" = "Test kommando";
 
 /* The title of the cell showing the pod lot number" */
-"Lot Number" = "Lot Number";
+"Lot Number" = "LOT-nummer";
 
 /* The title of the cell showing the pod sequence number */
-"Sequence Number" = "Sequence Number";
+"Sequence Number" = "Sekvensnummer";
 
 /* The title of the cell showing the firmware version */
-"Firmware Version" = "Firmware Version";
+"Firmware Version" = "Fastvareversjon";
 
 /* The title of the cell showing the BLE firmware version" */
-"BLE Firmware Version" = "BLE Firmware Version";
+"BLE Firmware Version" = "BLE fastvareversjon";
 
 /* The title of the cell showing the BLE device name */
-"BLE Device Name" = "BLE Device Name";
+"BLE Device Name" = "BLE enhetsnavn";
 
 /* Title text for the button to delete Omnipod Dash PumpManager */
 "Switch from Omnipod Dash Pumps" = "Switch from Omnipod Dash Pumps";
