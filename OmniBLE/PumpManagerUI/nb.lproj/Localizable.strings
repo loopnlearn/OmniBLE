@@ -74,49 +74,49 @@
 "Insulin Delivered" = "Levert insulin";
 
 /* The title of the cell showing the pod expiration reminder date */
-"Expiration Reminder" = "Expiration Reminder";
+"Expiration Reminder" = "Utløpspåminnelse";
 
 /* The title of the command to change pump time zone */
-"Change Time Zone" = "Change Time Zone";
+"Change Time Zone" = "Endre tidssone";
 
 /* The title of the command to pair new pod */
-"Pair New Pod" = "Pair New Pod";
+"Pair New Pod" = "Koble sammen ny pod";
 
 /* The title of the command to replace pod when there is a pod fault */
-"Replace Pod Now" = "Replace Pod Now";
+"Replace Pod Now" = "Bytt pod nå";
 
 /* The title of the command to finish pod setup */
-"Finish pod setup" = "Finish pod setup";
+"Finish pod setup" = "Fullfør oppsett for pod";
 
 /* The title of the command to replace pod */
-"Replace Pod" = "Replace Pod";
+"Replace Pod" = "Bytt pod";
 
 /* The title of the command to read the pod status" */
-"Read Pod Status" = "Read Pod Status";
+"Read Pod Status" = "Les Pod-status";
 
 /* The title of the command to play test beeps */
-"Play Test Beeps" = "Play Test Beeps";
+"Play Test Beeps" = "Spill test-toner";
 
 /* The title of the command to read the pulse log */
-"Read Pulse Log" = "Read Pulse Log";
+"Read Pulse Log" = "Les pulslogg";
 
 /* The title of the command to run the test command */
-"Test Command" = "Test Command";
+"Test Command" = "Test kommando";
 
 /* The title of the cell showing the pod lot number" */
-"Lot Number" = "Lot Number";
+"Lot Number" = "LOT-nummer";
 
 /* The title of the cell showing the pod sequence number */
-"Sequence Number" = "Sequence Number";
+"Sequence Number" = "Sekvensnummer";
 
 /* The title of the cell showing the firmware version */
-"Firmware Version" = "Firmware Version";
+"Firmware Version" = "Fastvareversjon";
 
 /* The title of the cell showing the BLE firmware version" */
-"BLE Firmware Version" = "BLE Firmware Version";
+"BLE Firmware Version" = "BLE fastvareversjon";
 
 /* The title of the cell showing the BLE device name */
-"BLE Device Name" = "BLE Device Name";
+"BLE Device Name" = "BLE enhetsnavn";
 
 /* Title text for the button to delete Omnipod Dash PumpManager */
 "Switch from Omnipod Dash Pumps" = "Switch from Omnipod Dash Pumps";
