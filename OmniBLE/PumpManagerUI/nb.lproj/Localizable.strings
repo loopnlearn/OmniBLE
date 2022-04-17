@@ -174,3 +174,180 @@
 
 /* Format string for insulin remaining in reservoir. (1: The localized amount) */
 "%@ U" = "%@ U";
+
+/* The text of the loading label when pairing */
+"Pairing…" = "Pairing…";
+
+/* The text of the loading label when priming */
+"Priming…" = "Priming…";
+
+/* The text of the loading label when pod is primed */
+"Primed" = "Primed";
+
+/* Additional pairing recovery suggestion on multiple pairing failures */
+"If the problem persists, move to a new area and try again" = "If the problem persists, move to a new area and try again";
+
+/* Button title to pair with pod during setup*/
+"Pair" = "Pair";
+
+/* Button title to deactivate pod because of fault during setup */
+"Deactivate" = "Deactivate";
+
+/* Confirmation message for shutting down a pod */
+"Are you sure you want to shutdown this pod?" = "Are you sure you want to shutdown this pod?";
+
+/* Button title to deactivate pod */
+"Deactivate Pod" = "Deactivate Pod";
+
+/* The title of the continue action in an action sheet */
+"Continue" = "Continue";
+
+/* Title text for button to disable confirmation beeps" */
+"Disable Confirmation Beeps" = "Disable Confirmation Beeps";
+
+/* Title text for button to enable confirmation beeps */
+"Enable Confirmation Beeps" = "Enable Confirmation Beeps";
+
+/* Title text for button to disable automatic bolus beeps */
+"Disable Automatic Bolus Beeps" = "Disable Automatic Bolus Beeps";
+
+/* Title text for button to enable automatic bolus beeps */
+"Enable Automatic Bolus Beeps" = "Enable Automatic Bolus Beeps";
+
+/* Title of the pod settings view controller" */
+"Pod Settings" = "Pod Settings";
+
+/* The title of the configuration section in settings */
+"Configuration" = "Configuration";
+
+/* The title of the diagnostics section in settings */
+"Diagnostics" = "Diagnostics";
+
+/* The title of the pod details section in settings */
+"Pod Details" = "Pod Details";
+
+/* The title of the cell showing alarm status */
+"Alarms" = "Alarms";
+
+/* The title of the cell showing the pod expiration */
+"Expires" = "Expires";
+
+/* The title of the cell showing the pod expiration after expiry */
+"Expired" = "Expired";
+
+/* The title of the cell showing the pod active clock */
+"Pod Active Clock" = "Pod Active Clock";
+
+/* The title of the cell showing pod bolus status */
+"Bolus Delivery" = "Bolus Delivery";
+
+/* The title of the cell showing pod basal status */
+"Basal Delivery" = "Basal Delivery";
+
+/* The title of the cell showing reservoir status */
+"Reservoir" = "Reservoir";
+
+/* The title of the cell showing delivered insulin */
+"Insulin Delivered" = "Insulin Delivered";
+
+/* The title of the cell showing the pod expiration reminder date */
+"Expiration Reminder" = "Expiration Reminder";
+
+/* The title of the command to change pump time zone */
+"Change Time Zone" = "Change Time Zone";
+
+/* The title of the command to pair new pod */
+"Pair New Pod" = "Pair New Pod";
+
+/* The title of the command to replace pod when there is a pod fault */
+"Replace Pod Now" = "Replace Pod Now";
+
+/* The title of the command to finish pod setup */
+"Finish pod setup" = "Finish pod setup";
+
+/* The title of the command to replace pod */
+"Replace Pod" = "Replace Pod";
+
+/* The title of the command to read the pod status" */
+"Read Pod Status" = "Read Pod Status";
+
+/* The title of the command to play test beeps */
+"Play Test Beeps" = "Play Test Beeps";
+
+/* The title of the command to read the pulse log */
+"Read Pulse Log" = "Read Pulse Log";
+
+/* The title of the command to run the test command */
+"Test Command" = "Test Command";
+
+/* The title of the cell showing the pod lot number" */
+"Lot Number" = "Lot Number";
+
+/* The title of the cell showing the pod sequence number */
+"Sequence Number" = "Sequence Number";
+
+/* The title of the cell showing the firmware version */
+"Firmware Version" = "Firmware Version";
+
+/* The title of the cell showing the BLE firmware version" */
+"BLE Firmware Version" = "BLE Firmware Version";
+
+/* The title of the cell showing the BLE device name */
+"BLE Device Name" = "BLE Device Name";
+
+/* Title text for the button to delete Omnipod Dash PumpManager */
+"Switch from Omnipod Dash Pumps" = "Switch from Omnipod Dash Pumps";
+
+/* The alert title for a resume error */
+"Error Resuming" = "Error Resuming";
+
+/* The alert title for a suspend error */
+"Error Suspending" = "Error Suspending";
+
+/* The alert title for enable confirmation beeps error */
+"Error enabling confirmation beeps" = "Error enabling confirmation beeps";
+
+/* The alert title for disable confirmation beeps error */
+"Error disabling confirmation beeps" = "Error disabling confirmation beeps";
+
+/* Confirmation message for removing Omnipod Dash PumpManager */
+"Are you sure you want to stop using Omnipod Dash?" = "Are you sure you want to stop using Omnipod Dash?";
+
+/* Button title to delete Omnipod Dash PumpManager */
+"Delete Omnipod Dash" = "Delete Omnipod Dash";
+
+/* The title of the cancel action in an action sheet */
+"Cancel" = "Cancel";
+
+/* Alerts detail when no alerts unacknowledged */
+"None" = "None";
+
+/* The detail text of the basal row when pod is suspended */
+"Suspended" = "Suspended";
+
+/* Format string for temp basal rate. (1: The localized amount) */
+"%@ U/hour" = "%@ U/hour";
+
+/* The detail text of the basal row when pod is running scheduled basal */
+"Schedule" = "Schedule";
+
+/* The detail text for bolus delivery when no bolus is being delivered */
+"None" = "None";
+
+/* Format string for bolus progress when finished. (1: The localized amount) */
+"%@ U (Finished)" = "%@ U (Finished)";
+
+/* Format string for bolus progress. (1: The delivered amount) (2: The programmed amount) (3: the percent progress) */
+"%@ U of %@ U (%@)" = "%@ U of %@ U (%@)";
+
+/* The detail text for delivered insulin when no measurement is available */
+"Unknown" = "Unknown";
+
+/* Format string for delivered insulin. (1: The localized amount) */
+"%@ U" = "%@ U";
+
+/* Format string for reservoir reading when above or equal to maximum reading. (1: The localized amount) */
+"%@+ U" = "%@+ U";
+
+/* Format string for insulin remaining in reservoir. (1: The localized amount) */
+"%@ U" = "%@ U";

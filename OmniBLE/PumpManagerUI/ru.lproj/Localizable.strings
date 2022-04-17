@@ -1,4 +1,181 @@
 /* The text of the loading label when pairing */
+"Pairing…" = "Сопряжение...";
+
+/* The text of the loading label when priming */
+"Priming…" = "Заполнение…";
+
+/* The text of the loading label when pod is primed */
+"Primed" = "Заполнено";
+
+/* Additional pairing recovery suggestion on multiple pairing failures */
+"If the problem persists, move to a new area and try again" = "Если проблема не устранена, перейдите в другое место и попробуйте снова";
+
+/* Button title to pair with pod during setup*/
+"Pair" = "Сопряжение";
+
+/* Button title to deactivate pod because of fault during setup */
+"Deactivate" = "Деактивировать";
+
+/* Confirmation message for shutting down a pod */
+"Are you sure you want to shutdown this pod?" = "Вы действительно хотите выключить этот под?";
+
+/* Button title to deactivate pod */
+"Deactivate Pod" = "Деактивировать Pod";
+
+/* The title of the continue action in an action sheet */
+"Continue" = "Продолжить";
+
+/* Title text for button to disable confirmation beeps" */
+"Disable Confirmation Beeps" = "Запретить подтверждающие звуковые сигналы";
+
+/* Title text for button to enable confirmation beeps */
+"Enable Confirmation Beeps" = "Разрешить подтверждающие звуковые сигналы";
+
+/* Title text for button to disable automatic bolus beeps */
+"Disable Automatic Bolus Beeps" = "Выключить звуковые сигналы автоматического болюса";
+
+/* Title text for button to enable automatic bolus beeps */
+"Enable Automatic Bolus Beeps" = "Включить звуковые сигналы автоматического болюса";
+
+/* Title of the pod settings view controller" */
+"Pod Settings" = "Настройки Pod";
+
+/* The title of the configuration section in settings */
+"Configuration" = "Конфигурация";
+
+/* The title of the diagnostics section in settings */
+"Diagnostics" = "Диагностика";
+
+/* The title of the pod details section in settings */
+"Pod Details" = "Подробности пода";
+
+/* The title of the cell showing alarm status */
+"Alarms" = "Оповещения";
+
+/* The title of the cell showing the pod expiration */
+"Expires" = "Срок истекает";
+
+/* The title of the cell showing the pod expiration after expiry */
+"Expired" = "Срок истек";
+
+/* The title of the cell showing the pod active clock */
+"Pod Active Clock" = "Активные часы Pod-а";
+
+/* The title of the cell showing pod bolus status */
+"Bolus Delivery" = "Подача болюса";
+
+/* The title of the cell showing pod basal status */
+"Basal Delivery" = "Подача базала";
+
+/* The title of the cell showing reservoir status */
+"Reservoir" = "Резервуар";
+
+/* The title of the cell showing delivered insulin */
+"Insulin Delivered" = "Инсулин подан";
+
+/* The title of the cell showing the pod expiration reminder date */
+"Expiration Reminder" = "Напоминание об истечении срока";
+
+/* The title of the command to change pump time zone */
+"Change Time Zone" = "Изменить часовой пояс";
+
+/* The title of the command to pair new pod */
+"Pair New Pod" = "Установить сопряжение";
+
+/* The title of the command to replace pod when there is a pod fault */
+"Replace Pod Now" = "Немедленно замените Pod";
+
+/* The title of the command to finish pod setup */
+"Finish pod setup" = "Завершить настройку Omnipod";
+
+/* The title of the command to replace pod */
+"Replace Pod" = "Заменить Pod";
+
+/* The title of the command to read the pod status" */
+"Read Pod Status" = "Получить состояние Pod-а";
+
+/* The title of the command to play test beeps */
+"Play Test Beeps" = "Воспроизвести тестовый звуковой сигнал";
+
+/* The title of the command to read the pulse log */
+"Read Pulse Log" = "Читать журнал сигналов";
+
+/* The title of the command to run the test command */
+"Test Command" = "Провести тест";
+
+/* The title of the cell showing the pod lot number" */
+"Lot Number" = "Номер партии";
+
+/* The title of the cell showing the pod sequence number */
+"Sequence Number" = "Порядковый номер";
+
+/* The title of the cell showing the firmware version */
+"Firmware Version" = "Версия прошивки";
+
+/* The title of the cell showing the BLE firmware version" */
+"BLE Firmware Version" = "Версия прошивки";
+
+/* The title of the cell showing the BLE device name */
+"BLE Device Name" = "Имя BLE устройства";
+
+/* Title text for the button to delete Omnipod Dash PumpManager */
+"Switch from Omnipod Dash Pumps" = "Отключиться от помп Omnipod Dash";
+
+/* The alert title for a resume error */
+"Error Resuming" = "Ошибка возобновления";
+
+/* The alert title for a suspend error */
+"Error Suspending" = "Ошибка остановки";
+
+/* The alert title for enable confirmation beeps error */
+"Error enabling confirmation beeps" = "Ошибка при включении звуков подтверждения";
+
+/* The alert title for disable confirmation beeps error */
+"Error disabling confirmation beeps" = "Ошибка при отключении подтверждений";
+
+/* Confirmation message for removing Omnipod Dash PumpManager */
+"Are you sure you want to stop using Omnipod Dash?" = "Вы уверены, что хотите прекратить использование Omnipod Dash?";
+
+/* Button title to delete Omnipod Dash PumpManager */
+"Delete Omnipod Dash" = "Удалить OmniPod Dash";
+
+/* The title of the cancel action in an action sheet */
+"Cancel" = "Отмена";
+
+/* Alerts detail when no alerts unacknowledged */
+"None" = "Не подан";
+
+/* The detail text of the basal row when pod is suspended */
+"Suspended" = "Остановлено";
+
+/* Format string for temp basal rate. (1: The localized amount) */
+"%@ U/hour" = "%@ Ед/ч";
+
+/* The detail text of the basal row when pod is running scheduled basal */
+"Schedule" = "Расписание";
+
+/* The detail text for bolus delivery when no bolus is being delivered */
+"None" = "Не подан";
+
+/* Format string for bolus progress when finished. (1: The localized amount) */
+"%@ U (Finished)" = "%@ ед (подано)";
+
+/* Format string for bolus progress. (1: The delivered amount) (2: The programmed amount) (3: the percent progress) */
+"%@ U of %@ U (%@)" = "%@ ед из %@ ед (%@)";
+
+/* The detail text for delivered insulin when no measurement is available */
+"Unknown" = "Неизвестно";
+
+/* Format string for delivered insulin. (1: The localized amount) */
+"%@ U" = "%@ Eд";
+
+/* Format string for reservoir reading when above or equal to maximum reading. (1: The localized amount) */
+"%@+ U" = "%@+ ед";
+
+/* Format string for insulin remaining in reservoir. (1: The localized amount) */
+"%@ U" = "%@ Eд";
+
+/* The text of the loading label when pairing */
 "Pairing…" = "Pairing…";
 
 /* The text of the loading label when priming */

@@ -175,95 +175,179 @@
 /* Format string for insulin remaining in reservoir. (1: The localized amount) */
 "%@ U" = "%@ U";
 
-/* Error message shown when no pod is paired */
-"No pod paired" = "Ingen podd är parkopplad";
+/* The text of the loading label when pairing */
+"Pairing…" = "Pairing…";
 
-/* Error message shown when no response from pod was received */
-"No response from pod" = "Inget svar från podd";
+/* The text of the loading label when priming */
+"Priming…" = "Priming…";
 
-/* Error message shown when empty response from pod was received */
-"Empty response from pod" = "Tomt svar från podd";
+/* The text of the loading label when pod is primed */
+"Primed" = "Primed";
 
-/* Error message shown when pod sends ack instead of response */
-"Pod sent ack instead of response" = "Podd skickade 'ack' istället för svar";
+/* Additional pairing recovery suggestion on multiple pairing failures */
+"If the problem persists, move to a new area and try again" = "If the problem persists, move to a new area and try again";
 
-/* Error message shown when empty response from pod was received */
-"Unexpected response from pod" = "Oväntat svar från podd";
+/* Button title to pair with pod during setup*/
+"Pair" = "Pair";
 
-/* Error message for when unexpected address is received (1: received address) (2: expected address) */
-"Invalid address 0x%x. Expected 0x%x" = "Ogiltig address 0x%x. Färväntade 0x%x";
+/* Button title to deactivate pod because of fault during setup */
+"Deactivate" = "Deactivate";
 
-/* Error message shown when the pod is not connected. */
-"Pod not connected" = "Podd inte ansluten";
+/* Confirmation message for shutting down a pod */
+"Are you sure you want to shutdown this pod?" = "Are you sure you want to shutdown this pod?";
 
-/* Error message shown when operation could not be completed due to existing bolus in progress */
-"Bolus in progress" = "Bolus pågår";
+/* Button title to deactivate pod */
+"Deactivate Pod" = "Deactivate Pod";
 
-/* Error message shown when temp basal could not be set due to existing temp basal in progress */
-"Temp basal in progress" = "Temp. basal pågår";
+/* The title of the continue action in an action sheet */
+"Continue" = "Continue";
 
-/* Error message action could not be performed because pod is suspended */
-"Pod is suspended" = "Pod är pausad";
+/* Title text for button to disable confirmation beeps" */
+"Disable Confirmation Beeps" = "Disable Confirmation Beeps";
 
-/* Format string for pod fault code */
-"Pod Fault: %1$@" = "Poddfel: %1$@";
+/* Title text for button to enable confirmation beeps */
+"Enable Confirmation Beeps" = "Enable Confirmation Beeps";
 
-/* Error message when command is rejected because an unacknowledged command is pending. */
-"Communication issue: Unacknowledged command pending." = "Kommunikationsproblem: Obekräftat kommando väntande.";
+/* Title text for button to disable automatic bolus beeps */
+"Disable Automatic Bolus Beeps" = "Disable Automatic Bolus Beeps";
 
-/* "Format string for invalid message error code (1: error code number) */
-"Command error %1$u" = "Kommandofel %1$u";
+/* Title text for button to enable automatic bolus beeps */
+"Enable Automatic Bolus Beeps" = "Enable Automatic Bolus Beeps";
 
-/* Format string for unexpected pod change */
-"Unexpected pod change" = "Oväntat poddbyte";
+/* Title of the pod settings view controller" */
+"Pod Settings" = "Pod Settings";
 
-/* Format string for activation time exceeded */
-"Activation time exceeded" = "Aktiveringstid överskriden";
+/* The title of the configuration section in settings */
+"Configuration" = "Configuration";
 
-/* Format string for poor pod signal strength */
-"Poor signal strength" = "Dålig signalstyrka";
+/* The title of the diagnostics section in settings */
+"Diagnostics" = "Diagnostics";
 
-/* Format string for pod signal strength too high */
-"Signal strength too high" = "Signalstyrka för hög";
+/* The title of the pod details section in settings */
+"Pod Details" = "Pod Details";
 
-/* Error message for PodCommsError.noPodsFound */
-"No pods found" = "Inga poddar funna";
+/* The title of the cell showing alarm status */
+"Alarms" = "Alarms";
 
-/* Error message for PodCommsError.tooManyPodsFound */
-"Too many pods found" = "För många poddar funna";
+/* The title of the cell showing the pod expiration */
+"Expires" = "Expires";
 
-/* Recovery suggestion when no response is received from pod */
-"Make sure iPhone is nearby the active pod" = "Säkerställ att din iPhone är nära din aktiva podd";
+/* The title of the cell showing the pod expiration after expiry */
+"Expired" = "Expired";
 
-/* Recovery suggestion when ack received instead of response */
-"Try again" = "Försok igen";
+/* The title of the cell showing the pod active clock */
+"Pod Active Clock" = "Pod Active Clock";
 
-/* Recovery suggestion when unexpected address received */
-"Crosstalk possible. Please move to a new location" = "Möjlig överhörning. Pröva att flytta till en annan plats";
+/* The title of the cell showing pod bolus status */
+"Bolus Delivery" = "Bolus Delivery";
 
-/* Recovery suggestion when no pod is available */
-"Make sure your pod is nearby and try again." = "Säkerställ att podd är nära och försök igen.";
+/* The title of the cell showing pod basal status */
+"Basal Delivery" = "Basal Delivery";
 
-/* Recovery suggestion when operation could not be completed due to existing bolus in progress */
-"Wait for existing bolus to finish, or cancel bolus" = "Vänta på pågående bolus eller avbryt bolus";
+/* The title of the cell showing reservoir status */
+"Reservoir" = "Reservoir";
 
-/* Recovery suggestion when operation could not be completed due to existing temp basal in progress */
-"Wait for existing temp basal to finish, or suspend to cancel" = "Vänta på pågående temporär basal att avslutas eller pausa eller avbryt.";
+/* The title of the cell showing delivered insulin */
+"Insulin Delivered" = "Insulin Delivered";
 
-/* Recovery suggestion when pod is suspended */
-"Resume delivery" = "Återuppta insulintillförsel";
+/* The title of the cell showing the pod expiration reminder date */
+"Expiration Reminder" = "Expiration Reminder";
 
-/* Recovery suggestion on unexpected pod change */
-"Please bring only original pod in range or deactivate original pod" = "Placera endast originalpodden nära eller inaktivera din origianalpodd";
+/* The title of the command to change pump time zone */
+"Change Time Zone" = "Change Time Zone";
 
-/* Recovery suggestion when pairing signal strength is too low */
-"Please reposition iPhone relative to the pod" = "Försök att förflytta telefon i förhållande till din podd";
+/* The title of the command to pair new pod */
+"Pair New Pod" = "Pair New Pod";
 
-/* Recovery suggestion when pairing signal strength is too high */
-"Please reposition iPhone further from the pod" = "Förflytta telefon längre ifrån din podd";
+/* The title of the command to replace pod when there is a pod fault */
+"Replace Pod Now" = "Replace Pod Now";
 
-/* Recovery suggestion for PodCommsError.noPodsFound */
-"Make sure your pod is filled and nearby." = "Säkerställ att podden är fylld och nära.";
+/* The title of the command to finish pod setup */
+"Finish pod setup" = "Finish pod setup";
 
-/* Recovery suggestion for PodCommsError.tooManyPodsFound */
-"Move to a new area away from any other pods and try again." = "Förflytta dig till ny plats bort ifrån andra poddar och försök igen.";
+/* The title of the command to replace pod */
+"Replace Pod" = "Replace Pod";
+
+/* The title of the command to read the pod status" */
+"Read Pod Status" = "Read Pod Status";
+
+/* The title of the command to play test beeps */
+"Play Test Beeps" = "Play Test Beeps";
+
+/* The title of the command to read the pulse log */
+"Read Pulse Log" = "Read Pulse Log";
+
+/* The title of the command to run the test command */
+"Test Command" = "Test Command";
+
+/* The title of the cell showing the pod lot number" */
+"Lot Number" = "Lot Number";
+
+/* The title of the cell showing the pod sequence number */
+"Sequence Number" = "Sequence Number";
+
+/* The title of the cell showing the firmware version */
+"Firmware Version" = "Firmware Version";
+
+/* The title of the cell showing the BLE firmware version" */
+"BLE Firmware Version" = "BLE Firmware Version";
+
+/* The title of the cell showing the BLE device name */
+"BLE Device Name" = "BLE Device Name";
+
+/* Title text for the button to delete Omnipod Dash PumpManager */
+"Switch from Omnipod Dash Pumps" = "Switch from Omnipod Dash Pumps";
+
+/* The alert title for a resume error */
+"Error Resuming" = "Error Resuming";
+
+/* The alert title for a suspend error */
+"Error Suspending" = "Error Suspending";
+
+/* The alert title for enable confirmation beeps error */
+"Error enabling confirmation beeps" = "Error enabling confirmation beeps";
+
+/* The alert title for disable confirmation beeps error */
+"Error disabling confirmation beeps" = "Error disabling confirmation beeps";
+
+/* Confirmation message for removing Omnipod Dash PumpManager */
+"Are you sure you want to stop using Omnipod Dash?" = "Are you sure you want to stop using Omnipod Dash?";
+
+/* Button title to delete Omnipod Dash PumpManager */
+"Delete Omnipod Dash" = "Delete Omnipod Dash";
+
+/* The title of the cancel action in an action sheet */
+"Cancel" = "Cancel";
+
+/* Alerts detail when no alerts unacknowledged */
+"None" = "None";
+
+/* The detail text of the basal row when pod is suspended */
+"Suspended" = "Suspended";
+
+/* Format string for temp basal rate. (1: The localized amount) */
+"%@ U/hour" = "%@ U/hour";
+
+/* The detail text of the basal row when pod is running scheduled basal */
+"Schedule" = "Schedule";
+
+/* The detail text for bolus delivery when no bolus is being delivered */
+"None" = "None";
+
+/* Format string for bolus progress when finished. (1: The localized amount) */
+"%@ U (Finished)" = "%@ U (Finished)";
+
+/* Format string for bolus progress. (1: The delivered amount) (2: The programmed amount) (3: the percent progress) */
+"%@ U of %@ U (%@)" = "%@ U of %@ U (%@)";
+
+/* The detail text for delivered insulin when no measurement is available */
+"Unknown" = "Unknown";
+
+/* Format string for delivered insulin. (1: The localized amount) */
+"%@ U" = "%@ U";
+
+/* Format string for reservoir reading when above or equal to maximum reading. (1: The localized amount) */
+"%@+ U" = "%@+ U";
+
+/* Format string for insulin remaining in reservoir. (1: The localized amount) */
+"%@ U" = "%@ U";
