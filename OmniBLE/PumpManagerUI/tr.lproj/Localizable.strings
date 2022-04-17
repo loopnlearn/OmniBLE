@@ -1,65 +1,65 @@
 /* The text of the loading label when pairing */
-"Pairing…" = "Pairing…";
+"Pairing…" = "Eşleştiriliyor…";
 
 /* The text of the loading label when priming */
-"Priming…" = "Priming…";
+"Priming…" = "Hazırlanıyor…";
 
 /* The text of the loading label when pod is primed */
-"Primed" = "Primed";
+"Primed" = "Hazırlandı";
 
 /* Additional pairing recovery suggestion on multiple pairing failures */
-"If the problem persists, move to a new area and try again" = "If the problem persists, move to a new area and try again";
+"If the problem persists, move to a new area and try again" = "Eğer problem devam ederse, başka bir yere geçip tekrar deneyiniz";
 
 /* Button title to pair with pod during setup*/
-"Pair" = "Pair";
+"Pair" = "Eşleştir";
 
 /* Button title to deactivate pod because of fault during setup */
-"Deactivate" = "Deactivate";
+"Deactivate" = "Devredışı bırak";
 
 /* Confirmation message for shutting down a pod */
-"Are you sure you want to shutdown this pod?" = "Are you sure you want to shutdown this pod?";
+"Are you sure you want to shutdown this pod?" = "Bu pod'u iptal etmek istediğinizden emin misiniz?";
 
 /* Button title to deactivate pod */
-"Deactivate Pod" = "Deactivate Pod";
+"Deactivate Pod" = "Pod'u devredışı bırak";
 
 /* The title of the continue action in an action sheet */
-"Continue" = "Continue";
+"Continue" = "Devam et";
 
 /* Title text for button to disable confirmation beeps" */
-"Disable Confirmation Beeps" = "Disable Confirmation Beeps";
+"Disable Confirmation Beeps" = "Onay Uyarılarını Devre Dışı Bırak";
 
 /* Title text for button to enable confirmation beeps */
-"Enable Confirmation Beeps" = "Enable Confirmation Beeps";
+"Enable Confirmation Beeps" = "Onay Uyarılarını Etkinleştir";
 
 /* Title text for button to disable automatic bolus beeps */
-"Disable Automatic Bolus Beeps" = "Disable Automatic Bolus Beeps";
+"Disable Automatic Bolus Beeps" = "Otomatik Bolus Uyarılarını Devre Dışı Bırak";
 
 /* Title text for button to enable automatic bolus beeps */
-"Enable Automatic Bolus Beeps" = "Enable Automatic Bolus Beeps";
+"Enable Automatic Bolus Beeps" = "Otomatik Bolus Uyarılarını Etkinleştir";
 
 /* Title of the pod settings view controller" */
-"Pod Settings" = "Pod Settings";
+"Pod Settings" = "Pod Ayarları";
 
 /* The title of the configuration section in settings */
-"Configuration" = "Configuration";
+"Configuration" = "Yapılandırma";
 
 /* The title of the diagnostics section in settings */
-"Diagnostics" = "Diagnostics";
+"Diagnostics" = "Teşhis";
 
 /* The title of the pod details section in settings */
-"Pod Details" = "Pod Details";
+"Pod Details" = "Pod Ayrıntıları";
 
 /* The title of the cell showing alarm status */
-"Alarms" = "Alarms";
+"Alarms" = "Alarmlar";
 
 /* The title of the cell showing the pod expiration */
-"Expires" = "Expires";
+"Expires" = "Süresi doluyor";
 
 /* The title of the cell showing the pod expiration after expiry */
-"Expired" = "Expired";
+"Expired" = "Süresi doldu";
 
 /* The title of the cell showing the pod active clock */
-"Pod Active Clock" = "Pod Active Clock";
+"Pod Active Clock" = "Pod Aktif Saati";
 
 /* The title of the cell showing pod bolus status */
 "Bolus Delivery" = "Bolus Delivery";
