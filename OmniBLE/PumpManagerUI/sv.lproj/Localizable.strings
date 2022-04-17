@@ -174,3 +174,96 @@
 
 /* Format string for insulin remaining in reservoir. (1: The localized amount) */
 "%@ U" = "%@ U";
+
+/* Error message shown when no pod is paired */
+"No pod paired" = "Ingen podd är parkopplad";
+
+/* Error message shown when no response from pod was received */
+"No response from pod" = "Inget svar från podd";
+
+/* Error message shown when empty response from pod was received */
+"Empty response from pod" = "Tomt svar från podd";
+
+/* Error message shown when pod sends ack instead of response */
+"Pod sent ack instead of response" = "Podd skickade 'ack' istället för svar";
+
+/* Error message shown when empty response from pod was received */
+"Unexpected response from pod" = "Oväntat svar från podd";
+
+/* Error message for when unexpected address is received (1: received address) (2: expected address) */
+"Invalid address 0x%x. Expected 0x%x" = "Ogiltig address 0x%x. Färväntade 0x%x";
+
+/* Error message shown when the pod is not connected. */
+"Pod not connected" = "Podd inte ansluten";
+
+/* Error message shown when operation could not be completed due to existing bolus in progress */
+"Bolus in progress" = "Bolus pågår";
+
+/* Error message shown when temp basal could not be set due to existing temp basal in progress */
+"Temp basal in progress" = "Temp. basal pågår";
+
+/* Error message action could not be performed because pod is suspended */
+"Pod is suspended" = "Pod är pausad";
+
+/* Format string for pod fault code */
+"Pod Fault: %1$@" = "Poddfel: %1$@";
+
+/* Error message when command is rejected because an unacknowledged command is pending. */
+"Communication issue: Unacknowledged command pending." = "Kommunikationsproblem: Obekräftat kommando väntande.";
+
+/* "Format string for invalid message error code (1: error code number) */
+"Command error %1$u" = "Kommandofel %1$u";
+
+/* Format string for unexpected pod change */
+"Unexpected pod change" = "Oväntat poddbyte";
+
+/* Format string for activation time exceeded */
+"Activation time exceeded" = "Aktiveringstid överskriden";
+
+/* Format string for poor pod signal strength */
+"Poor signal strength" = "Dålig signalstyrka";
+
+/* Format string for pod signal strength too high */
+"Signal strength too high" = "Signalstyrka för hög";
+
+/* Error message for PodCommsError.noPodsFound */
+"No pods found" = "Inga poddar funna";
+
+/* Error message for PodCommsError.tooManyPodsFound */
+"Too many pods found" = "För många poddar funna";
+
+/* Recovery suggestion when no response is received from pod */
+"Make sure iPhone is nearby the active pod" = "Säkerställ att din iPhone är nära din aktiva podd";
+
+/* Recovery suggestion when ack received instead of response */
+"Try again" = "Försok igen";
+
+/* Recovery suggestion when unexpected address received */
+"Crosstalk possible. Please move to a new location" = "Möjlig överhörning. Pröva att flytta till en annan plats";
+
+/* Recovery suggestion when no pod is available */
+"Make sure your pod is nearby and try again." = "Säkerställ att podd är nära och försök igen.";
+
+/* Recovery suggestion when operation could not be completed due to existing bolus in progress */
+"Wait for existing bolus to finish, or cancel bolus" = "Vänta på pågående bolus eller avbryt bolus";
+
+/* Recovery suggestion when operation could not be completed due to existing temp basal in progress */
+"Wait for existing temp basal to finish, or suspend to cancel" = "Vänta på pågående temporär basal att avslutas eller pausa eller avbryt.";
+
+/* Recovery suggestion when pod is suspended */
+"Resume delivery" = "Återuppta insulintillförsel";
+
+/* Recovery suggestion on unexpected pod change */
+"Please bring only original pod in range or deactivate original pod" = "Placera endast originalpodden nära eller inaktivera din origianalpodd";
+
+/* Recovery suggestion when pairing signal strength is too low */
+"Please reposition iPhone relative to the pod" = "Försök att förflytta telefon i förhållande till din podd";
+
+/* Recovery suggestion when pairing signal strength is too high */
+"Please reposition iPhone further from the pod" = "Förflytta telefon längre ifrån din podd";
+
+/* Recovery suggestion for PodCommsError.noPodsFound */
+"Make sure your pod is filled and nearby." = "Säkerställ att podden är fylld och nära.";
+
+/* Recovery suggestion for PodCommsError.tooManyPodsFound */
+"Move to a new area away from any other pods and try again." = "Förflytta dig till ny plats bort ifrån andra poddar och försök igen.";
