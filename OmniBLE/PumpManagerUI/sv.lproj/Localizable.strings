@@ -403,10 +403,10 @@
 "Unknown pod fault %1$03d" = "Okänt podfel %1$03d";
 
 /* Recovery suggestion when operation could not be completed due to existing bolus in progress */
-"Wait for existing bolus to finish, or cancel bolus" = "Vänta på att pågåpende bolus är färdig eller avbryt bolus";
+"Wait for existing bolus to finish, or cancel bolus" = "Vänta på att pågående bolus blir färdig eller avbryt bolus";
 
 /* Recovery suggestion when operation could not be completed due to existing temp basal in progress */
-"Wait for existing temp basal to finish, or suspend to cancel" = "Vänta på pågpende temp. basal, alternativt pausa eller avbryt";
+"Wait for existing temp basal to finish, or suspend to cancel" = "Vänta på pågående temp. basal, alternativt pausa eller avbryt";
 
 /* Description waiting for pairing reminder */
 "Waiting for pairing reminder" = "Väntar på påminnelse för parkoppling";
@@ -488,3 +488,15 @@
 
 /* Recovery suggestion for PodCommsError.tooManyPodsFound */
 "Move to a new area away from any other pods and try again." = "Förflytta dig till en ny plats bort ifrån andra poddar och försök sedan igen";
+
+/* Title text for delivery limits */
+"Delivery Limits" = "Maxvärden";
+
+/* The title text for the basal rate schedule */
+"Basal Rates" = "Basaldoser";
+
+/* The error message shown when Loop's basal schedule has more entries than the pod can support */
+"Too many entries" = "För många basaldoser";
+
+/* The error message shown when Loop's basal schedule has an unsupported rate */
+"Invalid entry" = "Ogiltig inmatning";

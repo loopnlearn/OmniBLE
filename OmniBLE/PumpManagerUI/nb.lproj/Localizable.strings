@@ -488,3 +488,15 @@
 
 /* Recovery suggestion for PodCommsError.tooManyPodsFound */
 "Move to a new area away from any other pods and try again." = "Move to a new area away from any other pods and try again.";
+
+/* Title text for delivery limits */
+"Delivery Limits" = "Delivery Limits";
+
+/* The title text for the basal rate schedule */
+"Basal Rates" = "Basal Rates";
+
+/* The error message shown when Loop's basal schedule has more entries than the pod can support */
+"Too many entries" = "Too many entries";
+
+/* The error message shown when Loop's basal schedule has an unsupported rate */
+"Invalid entry" = "Invalid entry";

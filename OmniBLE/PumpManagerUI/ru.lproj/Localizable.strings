@@ -146,7 +146,7 @@
 "None" = "Не подан";
 
 /* The detail text of the basal row when pod is suspended */
-"Suspended" = "Остановлено";
+"Suspended" = "Приостановлен";
 
 /* Format string for temp basal rate. (1: The localized amount) */
 "%@ U/hour" = "%@ Ед/ч";
@@ -176,115 +176,115 @@
 "%@ U" = "%@ Eд";
 
 /* Error description for BluetoothManagerError.bluetoothNotAvailable(.poweredOff) */
-"Bluetooth is powered off" = "Bluetooth is powered off";
+"Bluetooth is powered off" = "Bluetooth отключен";
 
 /* Error description for BluetoothManagerError.bluetoothNotAvailable(.resetting) */
-"Bluetooth is resetting" = "Bluetooth is resetting";
+"Bluetooth is resetting" = "Bluetooth перезапускается";
 
 /* Error description for BluetoothManagerError.bluetoothNotAvailable(.unauthorized) */
-"Bluetooth use is unauthorized" = "Bluetooth use is unauthorized";
+"Bluetooth use is unauthorized" = "Использование Bluetooth не авторизовано";
 
 /* Error description for BluetoothManagerError.bluetoothNotAvailable(.unsupported) */
-"Bluetooth use unsupported on this device" = "Bluetooth use unsupported on this device";
+"Bluetooth use unsupported on this device" = "Использование Bluetooth на этом устройстве не поддерживается";
 
 /* Error description for BluetoothManagerError.bluetoothNotAvailable(.unknown) */
-"Bluetooth is unavailable for an unknown reason." = "Bluetooth is unavailable for an unknown reason.";
+"Bluetooth is unavailable for an unknown reason." = "Bluetooth недоступен по неизвестной причине.";
 
 /* The format string for BluetoothManagerError.bluetoothNotAvailable for unknown state (1: the unknown state) */
-"Bluetooth is unavailable: %1$@" = "Bluetooth is unavailable: %1$@";
+"Bluetooth is unavailable: %1$@" = "Bluetooth недоступен: %1$@";
 
 /* recoverySuggestion for BluetoothManagerError.bluetoothNotAvailable(.poweredOff) */
-"Turn bluetooth on" = "Turn bluetooth on";
+"Turn bluetooth on" = "Включите Bluetooth";
 
 /* recoverySuggestion for BluetoothManagerError.bluetoothNotAvailable(.resetting) */
-"Try again" = "Try again";
+"Try again" = "Попробуйте еще раз";
 
 /* recoverySuggestion for BluetoothManagerError.bluetoothNotAvailable(.unauthorized) */
-"Please enable bluetooth permissions for this app in system settings" = "Please enable bluetooth permissions for this app in system settings";
+"Please enable bluetooth permissions for this app in system settings" = "Пожалуйста, включите разрешения Bluetooth для этого приложения в системных настройках";
 
 /* recoverySuggestion for BluetoothManagerError.bluetoothNotAvailable(.unsupported) */
-"Please use a different device with bluetooth capabilities" = "Please use a different device with bluetooth capabilities";
+"Please use a different device with bluetooth capabilities" = "Пожалуйста, используйте другое устройство с функциями Bluetooth";
 
 /* Error message description for PeripheralManagerError.notReady */
-"Peripheral Not Ready" = "Peripheral Not Ready";
+"Peripheral Not Ready" = "Периферия не готова";
 
 /* Error message description for PeripheralManagerError.incorrectResponse */
-"Incorrect Response" = "Incorrect Response";
+"Incorrect Response" = "Некорректный ответ";
 
 /* Error message description for PeripheralManagerError.timeout */
-"Timeout" = "Timeout";
+"Timeout" = "Время ожидания истекло";
 
 /* Error message description for PeripheralManagerError.emptyValue */
-"Empty Value" = "Empty Value";
+"Empty Value" = "Отсутствует значение";
 
 /* Error message description for PeripheralManagerError.unknownCharacteristic */
-"Unknown Characteristic" = "Unknown Characteristic";
+"Unknown Characteristic" = "Неизвестная характеристика";
 
 /* Error message description for PeripheralManagerError.nack */
 "Nack" = "Nack";
 
 /* The format string for PodProtocolError.invalidLTKKey (1: message associated with error) */
-"Invalid LTK Key: %1$@" = "Invalid LTK Key: %1$@";
+"Invalid LTK Key: %1$@" = "Неверный ключ LTK: %1$@";
 
 /* The format string for PodProtocolError.pairingException (1: message associated with error)" */
-"Pairing Exception: %1$@" = "Pairing Exception: %1$@";
+"Pairing Exception: %1$@" = "Исключение соединения: %1$@";
 
 /* The format string for PodProtocolError.messageIOException (1: message associated with error)" */
-"Message IO Exception: %1$@" = "Message IO Exception: %1$@";
+"Message IO Exception: %1$@" = "Сообщение IO Исключение: %1$@";
 
 /* The format string for PodProtocolError.couldNotParseMessageException (1: message associated with error) */
-"Could not parse message: %1$@" = "Could not parse message: %1$@";
+"Could not parse message: %1$@" = "Не удалось разобрать сообщение: %1$@";
 
 /* The format string for PodProtocolError.incorrectPacketException (1: payload)(2: location) */
-"Incorrect Packet Exception: %1$@ (location=%2$d)" = "Incorrect Packet Exception: %1$@ (location=%2$d)";
+"Incorrect Packet Exception: %1$@ (location=%2$d)" = "Неправильное исключение пакета: %1$@ (расположение=%2$d)";
 
 /* The format string for description of PodProtocolError.invalidCrc (1:payload crc)(2:computed crc) */
-"Payload crc32 %1$@ does not match computed crc32 %2$@" = "Payload crc32 %1$@ does not match computed crc32 %2$@";
+"Payload crc32 %1$@ does not match computed crc32 %2$@" = "Ошибка загрузки контрольной суммы %1$@ не совпадает с вычисленной %2$@";
 
 /* Description for auto-off alarm */
-"Auto-off alarm" = "Auto-off alarm";
+"Auto-off alarm" = "Авто отключение сигнала";
 
 /* Pod state when running below fifty units */
-"Below 50 units" = "Below 50 units";
+"Below 50 units" = "Менее 50 единиц";
 
 /* Error message shown when operation could not be completed due to existing bolus in progress */
-"Bolus in progress" = "Bolus in progress";
+"Bolus in progress" = "Подается болюс";
 
 /* The format string describing a bolus. (1: The amount delivered)(2: Start time of the dose)(3: duration)(4: scheduled certainty) */
-"Bolus: %1$@U %2$@ %3$@ %4$@" = "Bolus: %1$@U %2$@ %3$@ %4$@";
+"Bolus: %1$@U %2$@ %3$@ %4$@" = "Болюс: %1$@ед %2$@ %3$@ %4$@";
 
 /* Delivery status when bolusing */
-"Bolusing" = "Bolusing";
+"Bolusing" = "Подается болюс";
 
 /* Delivery status when bolusing and temp basal is running */
-"Bolusing with temp basal" = "Bolusing with temp basal";
+"Bolusing with temp basal" = "Подача болюса при временном базале";
 
 /* Pod state when inserting cannula */
-"Cannula inserting" = "Cannula inserting";
+"Cannula inserting" = "Установка катетера";
 
 /* String describing a dose that was certainly scheduled */
-"Certain" = "Certain";
+"Certain" = "Определенно";
 
 /* Pod state when pod has been deactivated */
-"Deactivated" = "Deactivated";
+"Deactivated" = "Деактивирован";
 
 /* Description for Empty reservoir pod fault */
-"Empty reservoir" = "Empty reservoir";
+"Empty reservoir" = "Резервуар пуст";
 
 /* Error message shown when empty response from pod was received */
-"Empty response from pod" = "Empty response from pod";
+"Empty response from pod" = "Пустой ответ от пода";
 
 /* Pod state error event logged shutting down */
-"Error event logged, shutting down" = "Error event logged, shutting down";
+"Error event logged, shutting down" = "Событие ошибки записано, выключение";
 
 /* Description for expiration alert */
-"Expiration alert" = "Expiration alert";
+"Expiration alert" = "Оповещение об истечении срока";
 
 /* Description for finish setup */
-"Finish setup " = "Finish setup ";
+"Finish setup " = "Завершение настройки ";
 
 /* Pod inititialized */
-"Initialized" = "Initialized";
+"Initialized" = "Активирован";
 
 /* The format string for Internal pod fault (1: The fault code value) */
 "Internal pod fault %1$03d" = "Internal pod fault %1$03d";
@@ -488,3 +488,15 @@
 
 /* Recovery suggestion for PodCommsError.tooManyPodsFound */
 "Move to a new area away from any other pods and try again." = "Move to a new area away from any other pods and try again.";
+
+/* Title text for delivery limits */
+"Delivery Limits" = "Delivery Limits";
+
+/* The title text for the basal rate schedule */
+"Basal Rates" = "Basal Rates";
+
+/* The error message shown when Loop's basal schedule has more entries than the pod can support */
+"Too many entries" = "Too many entries";
+
+/* The error message shown when Loop's basal schedule has an unsupported rate */
+"Invalid entry" = "Invalid entry";
