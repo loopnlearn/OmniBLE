@@ -176,318 +176,318 @@
 "%@ U" = "%@ U";
 
 /* Error description for BluetoothManagerError.bluetoothNotAvailable(.poweredOff) */
-"Bluetooth is powered off" = "Bluetooth is powered off";
+"Bluetooth is powered off" = "O Bluetooth está desligado";
 
 /* Error description for BluetoothManagerError.bluetoothNotAvailable(.resetting) */
-"Bluetooth is resetting" = "Bluetooth is resetting";
+"Bluetooth is resetting" = "O Bluetooth está reiniciando";
 
 /* Error description for BluetoothManagerError.bluetoothNotAvailable(.unauthorized) */
-"Bluetooth use is unauthorized" = "Bluetooth use is unauthorized";
+"Bluetooth use is unauthorized" = "Uso de Bluetooth não autorizado";
 
 /* Error description for BluetoothManagerError.bluetoothNotAvailable(.unsupported) */
-"Bluetooth use unsupported on this device" = "Bluetooth use unsupported on this device";
+"Bluetooth use unsupported on this device" = "Uso de Bluetooth não suportado neste dispositivo";
 
 /* Error description for BluetoothManagerError.bluetoothNotAvailable(.unknown) */
-"Bluetooth is unavailable for an unknown reason." = "Bluetooth is unavailable for an unknown reason.";
+"Bluetooth is unavailable for an unknown reason." = "O Bluetooth não está disponível por motivos desconhecidos.";
 
 /* The format string for BluetoothManagerError.bluetoothNotAvailable for unknown state (1: the unknown state) */
-"Bluetooth is unavailable: %1$@" = "Bluetooth is unavailable: %1$@";
+"Bluetooth is unavailable: %1$@" = "Bluetooth indisponível: %1$@";
 
 /* recoverySuggestion for BluetoothManagerError.bluetoothNotAvailable(.poweredOff) */
-"Turn bluetooth on" = "Turn bluetooth on";
+"Turn bluetooth on" = "Ativar o Bluetooth";
 
 /* recoverySuggestion for BluetoothManagerError.bluetoothNotAvailable(.resetting) */
-"Try again" = "Try again";
+"Try again" = "Tente novamente";
 
 /* recoverySuggestion for BluetoothManagerError.bluetoothNotAvailable(.unauthorized) */
-"Please enable bluetooth permissions for this app in system settings" = "Please enable bluetooth permissions for this app in system settings";
+"Please enable bluetooth permissions for this app in system settings" = "Por favor, ative as permissões de bluetooth para este aplicativo nas configurações do sistema";
 
 /* recoverySuggestion for BluetoothManagerError.bluetoothNotAvailable(.unsupported) */
-"Please use a different device with bluetooth capabilities" = "Please use a different device with bluetooth capabilities";
+"Please use a different device with bluetooth capabilities" = "Por favor, use um dispositivo diferente com recursos do bluetooth";
 
 /* Error message description for PeripheralManagerError.notReady */
-"Peripheral Not Ready" = "Peripheral Not Ready";
+"Peripheral Not Ready" = "Periférico Não Pronto";
 
 /* Error message description for PeripheralManagerError.incorrectResponse */
-"Incorrect Response" = "Incorrect Response";
+"Incorrect Response" = "Resposta Incorreta";
 
 /* Error message description for PeripheralManagerError.timeout */
-"Timeout" = "Timeout";
+"Timeout" = "Tempo Esgotado";
 
 /* Error message description for PeripheralManagerError.emptyValue */
-"Empty Value" = "Empty Value";
+"Empty Value" = "Valor Vazio";
 
 /* Error message description for PeripheralManagerError.unknownCharacteristic */
-"Unknown Characteristic" = "Unknown Characteristic";
+"Unknown Characteristic" = "Característica Desconhecida";
 
 /* Error message description for PeripheralManagerError.nack */
 "Nack" = "Nack";
 
 /* The format string for PodProtocolError.invalidLTKKey (1: message associated with error) */
-"Invalid LTK Key: %1$@" = "Invalid LTK Key: %1$@";
+"Invalid LTK Key: %1$@" = "Chave LTK inválida: %1$@";
 
 /* The format string for PodProtocolError.pairingException (1: message associated with error)" */
-"Pairing Exception: %1$@" = "Pairing Exception: %1$@";
+"Pairing Exception: %1$@" = "Exceção de Pareamento: %1$@";
 
 /* The format string for PodProtocolError.messageIOException (1: message associated with error)" */
-"Message IO Exception: %1$@" = "Message IO Exception: %1$@";
+"Message IO Exception: %1$@" = "Exceção de Mensagem IO: %1$@";
 
 /* The format string for PodProtocolError.couldNotParseMessageException (1: message associated with error) */
-"Could not parse message: %1$@" = "Could not parse message: %1$@";
+"Could not parse message: %1$@" = "Não foi possível processar a mensagem: %1$@";
 
 /* The format string for PodProtocolError.incorrectPacketException (1: payload)(2: location) */
-"Incorrect Packet Exception: %1$@ (location=%2$d)" = "Incorrect Packet Exception: %1$@ (location=%2$d)";
+"Incorrect Packet Exception: %1$@ (location=%2$d)" = "Exceção de Pacote Incorreto: %1$@ (local=%2$d)";
 
 /* The format string for description of PodProtocolError.invalidCrc (1:payload crc)(2:computed crc) */
-"Payload crc32 %1$@ does not match computed crc32 %2$@" = "Payload crc32 %1$@ does not match computed crc32 %2$@";
+"Payload crc32 %1$@ does not match computed crc32 %2$@" = "Crc32 %1$@ do Payload não coincide com crc32 %2$@ calculado";
 
 /* Description for auto-off alarm */
-"Auto-off alarm" = "Auto-off alarm";
+"Auto-off alarm" = "Alarme de desligamento automático";
 
 /* Pod state when running below fifty units */
-"Below 50 units" = "Below 50 units";
+"Below 50 units" = "Abaixo de 50 unidades";
 
 /* Error message shown when operation could not be completed due to existing bolus in progress */
-"Bolus in progress" = "Bolus in progress";
+"Bolus in progress" = "Bolus em andamento";
 
 /* The format string describing a bolus. (1: The amount delivered)(2: Start time of the dose)(3: duration)(4: scheduled certainty) */
 "Bolus: %1$@U %2$@ %3$@ %4$@" = "Bolus: %1$@U %2$@ %3$@ %4$@";
 
 /* Delivery status when bolusing */
-"Bolusing" = "Bolusing";
+"Bolusing" = "Aplicando bolus";
 
 /* Delivery status when bolusing and temp basal is running */
-"Bolusing with temp basal" = "Bolusing with temp basal";
+"Bolusing with temp basal" = "Aplicando bolus com basal temporária";
 
 /* Pod state when inserting cannula */
-"Cannula inserting" = "Cannula inserting";
+"Cannula inserting" = "Inserindo cânula";
 
 /* String describing a dose that was certainly scheduled */
-"Certain" = "Certain";
+"Certain" = "Certo";
 
 /* Pod state when pod has been deactivated */
-"Deactivated" = "Deactivated";
+"Deactivated" = "Desativado";
 
 /* Description for Empty reservoir pod fault */
-"Empty reservoir" = "Empty reservoir";
+"Empty reservoir" = "Reservatório vazio";
 
 /* Error message shown when empty response from pod was received */
-"Empty response from pod" = "Empty response from pod";
+"Empty response from pod" = "Resposta do pod vazia";
 
 /* Pod state error event logged shutting down */
-"Error event logged, shutting down" = "Error event logged, shutting down";
+"Error event logged, shutting down" = "Evento de erro registrado, desligando";
 
 /* Description for expiration alert */
-"Expiration alert" = "Expiration alert";
+"Expiration alert" = "Alerta de expiração";
 
 /* Description for finish setup */
-"Finish setup " = "Finish setup ";
+"Finish setup " = "Concluir configuração ";
 
 /* Pod inititialized */
-"Initialized" = "Initialized";
+"Initialized" = "Inicializado";
 
 /* The format string for Internal pod fault (1: The fault code value) */
-"Internal pod fault %1$03d" = "Internal pod fault %1$03d";
+"Internal pod fault %1$03d" = "Falha interna do pod %1$03d";
 
 /* The format string describing a bolus that was interrupted. (1: The amount delivered)(2: The amount scheduled)(3: Start time of the dose)(4: duration)(5: scheduled certainty) */
-"InterruptedBolus: %1$@ U (%2$@ U scheduled) %3$@ %4$@ %5$@" = "InterruptedBolus: %1$@ U (%2$@ U scheduled) %3$@ %4$@ %5$@";
+"InterruptedBolus: %1$@ U (%2$@ U scheduled) %3$@ %4$@ %5$@" = "BolusInterrompido: %1$@ U (%2$@ U agendado) %3$@ %4$@ %5$@";
 
 /* Description for low reservoir alarm */
-"Low reservoir advisory alarm" = "Low reservoir advisory alarm";
+"Low reservoir advisory alarm" = "Alarme de reservatório baixo";
 
 /* Pod alert state when no alerts are active */
-"No alerts" = "No alerts";
+"No alerts" = "Sem alertas";
 
 /* Error message shown when no pod is paired */
-"No pod paired" = "No pod paired";
+"No pod paired" = "Nenhum pod emparelhado";
 
 /* Error message shown when no response from pod was received */
-"No response from pod" = "No response from pod";
+"No response from pod" = "Nenhuma resposta do pod";
 
 /* Delivery status when basal is running
    Pod state when running above fifty units */
 "Normal" = "Normal";
 
 /* Description for Occlusion detected pod fault */
-"Occlusion detected" = "Occlusion detected";
+"Occlusion detected" = "Oclusão detectada";
 
 /* Generic title of the omnipod pump manager */
 "Omnipod" = "Omnipod";
 
 /* Pod status after pairing */
-"Paired" = "Paired";
+"Paired" = "Emparelhado";
 
 /* Recover suggestion shown when no pod is paired */
-"Please pair a new pod" = "Please pair a new pod";
+"Please pair a new pod" = "Por favor, emparelhe um novo pod";
 
 /* Error message shown when user cannot pair because pod is already paired */
-"Pod already paired" = "Pod already paired";
+"Pod already paired" = "Pod já emparelhado";
 
 /* Error message shown when prime is attempted, but pod is already primed */
-"Pod already primed" = "Pod already primed";
+"Pod already primed" = "Pod já preparado";
 
 /* Description for expiration advisory alarm */
-"Pod expiration advisory alarm" = "Pod expiration advisory alarm";
+"Pod expiration advisory alarm" = "Alarme de expiração do pod";
 
 /* The title for pod expiration notification */
-"Pod Expiration Notice" = "Pod Expiration Notice";
+"Pod Expiration Notice" = "Aviso de Expiração do Pod";
 
 /* Description for Pod expired pod fault */
-"Pod expired" = "Pod expired";
+"Pod expired" = "Pod expirado";
 
 /* Format string for pod fault code */
-"Pod Fault: %1$@" = "Pod Fault: %1$@";
+"Pod Fault: %1$@" = "Falha no Pod: %1$@";
 
 /* Error message when cannula insertion fails because the pod is in an unexpected state */
-"Pod is not in a state ready for cannula insertion." = "Pod is not in a state ready for cannula insertion.";
+"Pod is not in a state ready for cannula insertion." = "Pod não está em um estado pronto para inserção de canula.";
 
 /* Error message when prime fails because the pod is in an unexpected state */
-"Pod is not in a state ready for priming." = "Pod is not in a state ready for priming.";
+"Pod is not in a state ready for priming." = "O Pod não está em um estado pronto para preparação.";
 
 /* Error message action could not be performed because pod is suspended */
-"Pod is suspended" = "Pod is suspended";
+"Pod is suspended" = "O pod está suspenso";
 
 /* Pod state when prime or cannula insertion has not completed in the time allotted */
-"Pod setup window expired" = "Pod setup window expired";
+"Pod setup window expired" = "A janela de configuração do pod expirou";
 
 /* Delivery status when pod is priming
    Pod status when priming */
-"Priming" = "Priming";
+"Priming" = "Preparando";
 
 /* Pod state when ready for basal programming */
-"Ready for basal programming" = "Ready for basal programming";
+"Ready for basal programming" = "Pronto para programação basal";
 
 /* Pod state when ready for cannula insertion */
-"Ready to insert cannula" = "Ready to insert cannula";
+"Ready to insert cannula" = "Pronto para inserir a cânula";
 
 /* The format string describing a resume. (1: Time)(2: Scheduled certainty */
-"Resume: %1$@ %2$@" = "Resume: %1$@ %2$@";
+"Resume: %1$@ %2$@" = "Retomar: %1$@ %2$@";
 
 /* Delivery status when basal is running */
-"Scheduled Basal" = "Scheduled Basal";
+"Scheduled Basal" = "Basal Agendado";
 
 /* Description for shutdown imminent alarm */
-"Shutdown imminent alarm" = "Shutdown imminent alarm";
+"Shutdown imminent alarm" = "Desativar alarme iminente";
 
 /* The format string describing a suspend. (1: Time)(2: Scheduled certainty */
-"Suspend: %1$@ %2$@" = "Suspend: %1$@ %2$@";
+"Suspend: %1$@ %2$@" = "Suspender: %1$@ %2$@";
 
 /* Delivery status when insulin delivery is suspended */
 "Suspended" = "Suspended";
 
 /* Pod tank fill completed */
-"Tank fill completed" = "Tank fill completed";
+"Tank fill completed" = "Preenchimento do reservatório concluído";
 
 /* Pod power to motor activated */
-"Tank power activated" = "Tank power activated";
+"Tank power activated" = "Alimentação do reservatório ativada";
 
 /* Error message shown when temp basal could not be set due to existing temp basal in progress */
-"Temp basal in progress" = "Temp basal in progress";
+"Temp basal in progress" = "Basal temporária em andamento";
 
 /* Delivery status when temp basal is running */
-"Temp basal running" = "Temp basal running";
+"Temp basal running" = "Executando basal temporária";
 
 /* The format string describing a temp basal. (1: The rate)(2: Start time)(3: duration)(4: volume)(5: scheduled certainty */
-"TempBasal: %1$@ U/hour %2$@ %3$@ %4$@ U %5$@" = "TempBasal: %1$@ U/hour %2$@ %3$@ %4$@ U %5$@";
+"TempBasal: %1$@ U/hour %2$@ %3$@ %4$@ U %5$@" = "Basal Temporária: %1$@ U/hora %2$@ %3$@ %4$@ U %5$@";
 
 /* The format string for pod expiration notification body (1: time until expiration) */
-"Time to replace your pod! Your pod will expire in %1$@" = "Time to replace your pod! Your pod will expire in %1$@";
+"Time to replace your pod! Your pod will expire in %1$@" = "Hora de substituir o seu pod! Seu pod expirará em %1$@";
 
 /* String describing a dose that was possibly scheduled */
-"Uncertain" = "Uncertain";
+"Uncertain" = "Incerto";
 
 /* Error message shown when empty response from pod was received */
-"Unexpected response from pod" = "Unexpected response from pod";
+"Unexpected response from pod" = "Resposta inesperada do pod";
 
 /* The format string for Unknown pod fault (1: The fault code value) */
-"Unknown pod fault %1$03d" = "Unknown pod fault %1$03d";
+"Unknown pod fault %1$03d" = "Falha desconhecida do pod %1$03d";
 
 /* Recovery suggestion when operation could not be completed due to existing bolus in progress */
-"Wait for existing bolus to finish, or cancel bolus" = "Wait for existing bolus to finish, or cancel bolus";
+"Wait for existing bolus to finish, or cancel bolus" = "Aguarde a conclusão do bolus existente ou cancele-o";
 
 /* Recovery suggestion when operation could not be completed due to existing temp basal in progress */
-"Wait for existing temp basal to finish, or suspend to cancel" = "Wait for existing temp basal to finish, or suspend to cancel";
+"Wait for existing temp basal to finish, or suspend to cancel" = "Aguarde até que a basal temporária seja concluída, ou suspenda para cancelar";
 
 /* Description waiting for pairing reminder */
-"Waiting for pairing reminder" = "Waiting for pairing reminder";
+"Waiting for pairing reminder" = "Aguardando lembrete de emparelhamento";
 
 /* Error message shown when pod sends ack instead of response */
-"Pod sent ack instead of response" = "Pod sent ack instead of response";
+"Pod sent ack instead of response" = "Pod enviou ack em vez de resposta";
 
 /* Error message shown when empty response from pod was received" */
-"Unexpected response from pod" = "Unexpected response from pod";
+"Unexpected response from pod" = "Resposta inesperada do pod";
 
 /* Error message for when unexpected address is received (1: received address) (2: expected address) */
-"Invalid address 0x%x. Expected 0x%x" = "Invalid address 0x%x. Expected 0x%x";
+"Invalid address 0x%x. Expected 0x%x" = "Endereço inválido 0x%x. Esperado 0x%x";
 
 /* Error message shown when the pod is not connected. */
-"Pod not connected" = "Pod not connected";
+"Pod not connected" = "Pod não conectado";
 
 /* Error message action could not be performed because pod is suspended */
-"Pod is suspended" = "Pod is suspended";
+"Pod is suspended" = "Pod suspenso";
 
 /* Format string for pod fault code */
-"Pod Fault: %1$@" = "Pod Fault: %1$@";
+"Pod Fault: %1$@" = "Falha no Pod: %1$@";
 
 /* Error message when command is rejected because an unacknowledged command is pending. */
-"Communication issue: Unacknowledged command pending." = "Communication issue: Unacknowledged command pending.";
+"Communication issue: Unacknowledged command pending." = "Problema de comunicação: Comando pendente não reconhecido.";
 
 /* Format string for invalid message error code (1: error code number) */
-"Command error %1$u" = "Command error %1$u";
+"Command error %1$u" = "Erro de comando %1$u";
 
 /* Format string for unexpected pod change*/
-"Unexpected pod change" = "Unexpected pod change";
+"Unexpected pod change" = "Alteração inesperada de pod";
 
 /* Format string for activation time exceeded */
-"Activation time exceeded" = "Activation time exceeded";
+"Activation time exceeded" = "Tempo de ativação excedido";
 
 /* Format string for poor pod signal strength */
-"Poor signal strength" = "Poor signal strength";
+"Poor signal strength" = "Sinal fraco";
 
 /* Format string for pod signal strength too high" */
-"Signal strength too high" = "Signal strength too high";
+"Signal strength too high" = "Sinal forte demais";
 
 /* Error message for PodCommsError.noPodsFound */
-"No pods found" = "No pods found";
+"No pods found" = "Nenhum pod encontrado";
 
 /* Error message for PodCommsError.tooManyPodsFound */
-"Too many pods found" = "Too many pods found";
+"Too many pods found" = "Foram encontrados muitos pods";
 
 /* Recovery suggestion when no response is received from pod */
-"Make sure iPhone is nearby the active pod" = "Make sure iPhone is nearby the active pod";
+"Make sure iPhone is nearby the active pod" = "Certifique-se de que iPhone está próximo ao pod ativo";
 
 /* Recovery suggestion when ack received instead of response */
-"Try again" = "Try again";
+"Try again" = "Tente novamente";
 
 /* Recovery suggestion when unexpected address received */
-"Crosstalk possible. Please move to a new location" = "Crosstalk possible. Please move to a new location";
+"Crosstalk possible. Please move to a new location" = "Conversação cruzada possível. Por favor, vá para uma nova localização";
 
 /* Recovery suggestion when no pod is available */
-"Make sure your pod is nearby and try again." = "Make sure your pod is nearby and try again.";
+"Make sure your pod is nearby and try again." = "Certifique-se que seu pod está por perto e tente novamente.";
 
 /* Recovery suggestion when operation could not be completed due to existing bolus in progress */
-"Wait for existing bolus to finish, or cancel bolus" = "Wait for existing bolus to finish, or cancel bolus";
+"Wait for existing bolus to finish, or cancel bolus" = "Aguarde a conclusão do bolus existente ou cancele-o";
 
 /* Recovery suggestion when operation could not be completed due to existing temp basal in progress */
-"Wait for existing temp basal to finish, or suspend to cancel" = "Wait for existing temp basal to finish, or suspend to cancel";
+"Wait for existing temp basal to finish, or suspend to cancel" = "Aguarde a conclusão da basal temporária existente, ou suspenda para cancelar";
 
 /* Recovery suggestion when pod is suspended" */
-"Resume delivery" = "Resume delivery";
+"Resume delivery" = "Retomar entrega";
 
 /* Recovery suggestion on unexpected pod change */
-"Please bring only original pod in range or deactivate original pod" = "Please bring only original pod in range or deactivate original pod";
+"Please bring only original pod in range or deactivate original pod" = "Por favor, traga apenas o pod original para perto ou desative o pod original";
 
 /* Recovery suggestion when pairing signal strength is too low */
-"Please reposition iPhone relative to the pod" = "Please reposition iPhone relative to the pod";
+"Please reposition iPhone relative to the pod" = "Reposicione o iPhone em relação ao pod";
 
 /* Recovery suggestion when pairing signal strength is too high */
-"Please reposition iPhone further from the pod" = "Please reposition iPhone further from the pod";
+"Please reposition iPhone further from the pod" = "Reposicione o iPhone mais longe do pod";
 
 /* Recovery suggestion for PodCommsError.noPodsFound */
-"Make sure your pod is filled and nearby." = "Make sure your pod is filled and nearby.";
+"Make sure your pod is filled and nearby." = "Certifique-se de que o pod está preenchido e por perto.";
 
 /* Recovery suggestion for PodCommsError.tooManyPodsFound */
-"Move to a new area away from any other pods and try again." = "Move to a new area away from any other pods and try again.";
+"Move to a new area away from any other pods and try again." = "Mude para uma nova área para longe de qualquer outro pod e tente novamente.";
 
 /* Title text for delivery limits */
 "Delivery Limits" = "Delivery Limits";
