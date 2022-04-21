@@ -26,13 +26,13 @@ public class ConfirmationBeepsTableViewCell: TextButtonTableViewCell {
     }
 }
 
-public class AutoBolusBeepsTableViewCell: TextButtonTableViewCell {
+public class ExtendedBeepsTableViewCell: TextButtonTableViewCell {
 
     public func updateTextLabel(enabled: Bool) {
         if enabled {
-            self.textLabel?.text = LocalizedString("Disable Automatic Bolus Beeps", comment: "Title text for button to disable automatic bolus beeps")
+            self.textLabel?.text = LocalizedString("Disable Extended Confirmation Beeps", comment: "Title text for button to disable extended confirmation beeps")
         } else {
-            self.textLabel?.text = LocalizedString("Enable Automatic Bolus Beeps", comment: "Title text for button to enable automatic bolus beeps")
+            self.textLabel?.text = LocalizedString("Enable Extended Confirmation Beeps", comment: "Title text for button to enable extended confirmation beeps")
         }
     }
 }
@@ -84,9 +84,9 @@ class OmniBLESettingsViewController: UITableViewController {
         return cell
     }()
     
-    lazy var autoBolusBeepsTableViewCell: AutoBolusBeepsTableViewCell = {
-        let cell = AutoBolusBeepsTableViewCell(style: .default, reuseIdentifier: nil)
-        cell.updateTextLabel(enabled: pumpManager.automaticBolusBeeps)
+    lazy var extendedBeepsTableViewCell: ExtendedBeepsTableViewCell = {
+        let cell = ExtendedBeepsTableViewCell(style: .default, reuseIdentifier: nil)
+        cell.updateTextLabel(enabled: pumpManager.extendedBeeps)
         cell.isEnabled = self.pumpManager.confirmationBeeps
         return cell
     }()
@@ -276,7 +276,7 @@ class OmniBLESettingsViewController: UITableViewController {
     private enum ConfigurationRow: Int, CaseIterable {
         case suspendResume = 0
         case enableDisableConfirmationBeeps
-        case enableDisableAutoBolusBeeps
+        case enableDisableExtendedBeeps
         case reminder
         case timeZoneOffset
         case replacePod
@@ -402,8 +402,8 @@ class OmniBLESettingsViewController: UITableViewController {
                 return suspendResumeTableViewCell
             case .enableDisableConfirmationBeeps:
                 return confirmationBeepsTableViewCell
-            case .enableDisableAutoBolusBeeps:
-                return autoBolusBeepsTableViewCell
+            case .enableDisableExtendedBeeps:
+                return extendedBeepsTableViewCell
             case .reminder:
                 let cell = tableView.dequeueReusableCell(withIdentifier: ExpirationReminderDateTableViewCell.className, for: indexPath) as! ExpirationReminderDateTableViewCell
                 if let podState = podState, let reminderDate = pumpManager.expirationReminderDate {
@@ -578,8 +578,8 @@ class OmniBLESettingsViewController: UITableViewController {
             case .enableDisableConfirmationBeeps:
                 confirmationBeepsTapped()
                 tableView.deselectRow(at: indexPath, animated: true)
-            case .enableDisableAutoBolusBeeps:
-                autoBolusBeepsTapped()
+            case .enableDisableExtendedBeeps:
+                extendedBeepsTapped()
                 tableView.deselectRow(at: indexPath, animated: true)
             case .reminder:
                 tableView.deselectRow(at: indexPath, animated: true)
@@ -648,7 +648,7 @@ class OmniBLESettingsViewController: UITableViewController {
             switch configurationRows[indexPath.row] {
             case .reminder, .suspendResume:
                 break
-            case .enableDisableConfirmationBeeps, .enableDisableAutoBolusBeeps, .timeZoneOffset, .replacePod:
+            case .enableDisableConfirmationBeeps, .enableDisableExtendedBeeps, .timeZoneOffset, .replacePod:
                 tableView.reloadRows(at: [indexPath], with: .fade)
             }
         case .diagnostics:
@@ -690,7 +690,7 @@ class OmniBLESettingsViewController: UITableViewController {
                 if let self = self {
                     self.confirmationBeepsTableViewCell.updateTextLabel(enabled: self.pumpManager.confirmationBeeps)
                     self.confirmationBeepsTableViewCell.isLoading = false
-                    self.autoBolusBeepsTableViewCell.isEnabled = self.pumpManager.confirmationBeeps
+                    self.extendedBeepsTableViewCell.isEnabled = self.pumpManager.confirmationBeeps
                 }
             }
         }
@@ -717,27 +717,27 @@ class OmniBLESettingsViewController: UITableViewController {
         setConfirmationBeeps(confirmationBeeps: !pumpManager.confirmationBeeps)
     }
 
-    private func autoBolusBeepsTapped() {
-        let newValue = !pumpManager.automaticBolusBeeps
-        pumpManager.automaticBolusBeeps = newValue
+    private func extendedBeepsTapped() {
+        let newValue = !pumpManager.extendedBeeps
+        pumpManager.extendedBeeps = newValue
 
         func done() {
             DispatchQueue.main.async { [weak self] in
                 if let self = self {
-                    self.autoBolusBeepsTableViewCell.updateTextLabel(enabled: newValue)
-                    self.autoBolusBeepsTableViewCell.isLoading = false
+                    self.extendedBeepsTableViewCell.updateTextLabel(enabled: newValue)
+                    self.extendedBeepsTableViewCell.isLoading = false
                 }
             }
         }
 
         // Beep if confirmation beeps are enabled else just update the value displayed
         if pumpManager.confirmationBeeps {
-            self.autoBolusBeepsTableViewCell.isLoading = true
+            self.extendedBeepsTableViewCell.isLoading = true
             pumpManager.setConfirmationBeeps(enabled: true, completion: { (error) in
                 done() // no worries if confirmation beep fails for any reason
             })
         } else {
-            self.autoBolusBeepsTableViewCell.updateTextLabel(enabled: newValue)
+            self.extendedBeepsTableViewCell.updateTextLabel(enabled: newValue)
         }
     }
 }
