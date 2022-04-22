@@ -500,3 +500,9 @@
 
 /* The error message shown when Loop's basal schedule has an unsupported rate */
 "Invalid entry" = "Неверная запись";
+
+/* Title text for button to disable extended confirmation beeps */
+"Disable Extended Confirmation Beeps" = "Disable Extended Confirmation Beeps";
+
+/* Title text for button to enable extended confirmation beeps */
+"Enable Extended Confirmation Beeps" = "Enable Extended Confirmation Beeps";
