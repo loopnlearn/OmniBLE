@@ -221,7 +221,7 @@ public class PodCommsSession {
     ///
     /// - Parameters:
     ///   - messageBlocks: The message blocks to send
-    ///   - confirmationBeepType: If specified, type of confirmation beep to append as a separate beep message block
+    ///   - beepBlock: Optional confirmation beep block message to append to the message blocks to send
     ///   - expectFollowOnMessage: If true, the pod will expect another message within 4 minutes, or will alarm with an 0x33 (51) fault.
     /// - Returns: The received message response
     /// - Throws:
@@ -231,15 +231,14 @@ public class PodCommsSession {
     ///     - PodCommsError.rejectedMessage
     ///     - PodCommsError.nonceResyncFailed
     ///     - MessageError
-    func send<T: MessageBlock>(_ messageBlocks: [MessageBlock], confirmationBeepType: BeepConfigType? = nil, lastMessage: Bool = false) throws -> T {
+    func send<T: MessageBlock>(_ messageBlocks: [MessageBlock], beepBlock: MessageBlock? = nil, expectFollowOnMessage: Bool = false) throws -> T {
         
         var triesRemaining = 2  // Retries only happen for nonce resync
         var blocksToSend = messageBlocks
         
-        // If a confirmation beep type was specified & pod isn't faulted, append a beep config message block to emit the requested beep type
-        if let confirmationBeepType = confirmationBeepType, podState.isFaulted == false {
-            let confirmationBeepBlock = BeepConfigCommand(beepConfigType: confirmationBeepType, basalCompletionBeep: true, tempBasalCompletionBeep: false, bolusCompletionBeep: true)
-            blocksToSend += [confirmationBeepBlock]
+        // If a beep block was specified & pod isn't faulted, append the beep block to emit the confirmation beep
+        if let beepBlock = beepBlock, podState.isFaulted == false {
+            blocksToSend += [beepBlock]
         }
 
 //        if blocksToSend.contains(where: { $0 as? NonceResyncableMessageBlock != nil }) {
@@ -260,7 +259,7 @@ public class PodCommsSession {
                 }
             }
 
-            let message = Message(address: podState.address, messageBlocks: blocksToSend, sequenceNum: messageNumber)
+            let message = Message(address: podState.address, messageBlocks: blocksToSend, sequenceNum: messageNumber, expectFollowOnMessage: expectFollowOnMessage)
 
             self.podState.lastCommsOK = false // mark last comms as not OK until we get the expected response
             let response = try transport.sendMessage(message)
@@ -370,10 +369,10 @@ public class PodCommsSession {
     }
 
     @discardableResult
-    func configureAlerts(_ alerts: [PodAlert], confirmationBeepType: BeepConfigType? = nil) throws -> StatusResponse {
+    func configureAlerts(_ alerts: [PodAlert], beepBlock: MessageBlock? = nil) throws -> StatusResponse {
         let configurations = alerts.map { $0.configuration }
         let configureAlerts = ConfigureAlertsCommand(nonce: podState.currentNonce, configurations: configurations)
-        let status: StatusResponse = try send([configureAlerts], confirmationBeepType: confirmationBeepType)
+        let status: StatusResponse = try send([configureAlerts], beepBlock: beepBlock)
         for alert in alerts {
             podState.registerConfiguredAlert(slot: alert.configuration.slot, alert: alert)
         }
@@ -382,13 +381,13 @@ public class PodCommsSession {
     }
 
     // emits the specified beep type and sets the completion beep flags, doesn't throw
-    public func beepConfig(beepConfigType: BeepConfigType, basalCompletionBeep: Bool, tempBasalCompletionBeep: Bool, bolusCompletionBeep: Bool) -> Result<StatusResponse, Error> {
+    public func beepConfig(beepConfigType: BeepConfigType, tempBasalCompletionBeep: Bool, bolusCompletionBeep: Bool) -> Result<StatusResponse, Error> {
         if let fault = self.podState.fault {
             log.info("Skip beep config with faulted pod")
             return .failure(PodCommsError.podFault(fault: fault))
         }
         
-        let beepConfigCommand = BeepConfigCommand(beepConfigType: beepConfigType, basalCompletionBeep: basalCompletionBeep, tempBasalCompletionBeep: tempBasalCompletionBeep, bolusCompletionBeep: bolusCompletionBeep)
+        let beepConfigCommand = BeepConfigCommand(beepConfigType: beepConfigType, tempBasalCompletionBeep: tempBasalCompletionBeep, bolusCompletionBeep: bolusCompletionBeep)
         do {
             let statusResponse: StatusResponse = try send([beepConfigCommand])
             podState.updateFromStatusResponse(statusResponse)
@@ -496,7 +495,7 @@ public class PodCommsSession {
         let bolusExtraCommand = BolusExtraCommand(units: units, timeBetweenPulses: timeBetweenPulses, acknowledgementBeep: acknowledgementBeep, completionBeep: completionBeep, programReminderInterval: programReminderInterval)
         do {
             let statusResponse: StatusResponse = try send([bolusScheduleCommand, bolusExtraCommand])
-            podState.unfinalizedBolus = UnfinalizedDose(bolusAmount: units, startTime: startTime, scheduledCertainty: .certain)
+            podState.unfinalizedBolus = UnfinalizedDose(bolusAmount: units, startTime: startTime, scheduledCertainty: .certain, automatic: automatic)
             podState.updateFromStatusResponse(statusResponse)
             return DeliveryCommandResult.success(statusResponse: statusResponse)
         } catch PodCommsError.unacknowledgedMessage(let seq, let error) {
@@ -509,12 +508,12 @@ public class PodCommsSession {
             let podCommsError = error as? PodCommsError ?? PodCommsError.commsError(error: error)
             guard let status = try? getStatus() else {
             self.log.debug("Status check failed; could not resolve bolus uncertainty")
-            podState.unfinalizedBolus = UnfinalizedDose(bolusAmount: units, startTime: Date(), scheduledCertainty: .uncertain)
+            podState.unfinalizedBolus = UnfinalizedDose(bolusAmount: units, startTime: Date(), scheduledCertainty: .uncertain, automatic: automatic)
             return DeliveryCommandResult.unacknowledged(error: podCommsError)
          }
          if status.deliveryStatus.bolusing {
             self.log.debug("getStatus resolved bolus uncertainty (succeeded)")
-            podState.unfinalizedBolus = UnfinalizedDose(bolusAmount: units, startTime: startTime, scheduledCertainty: .certain)
+            podState.unfinalizedBolus = UnfinalizedDose(bolusAmount: units, startTime: startTime, scheduledCertainty: .certain, automatic: automatic)
             return DeliveryCommandResult.success(statusResponse: status)
           } else {
             self.log.debug("getStatus resolved bolus uncertainty (failed)")
@@ -523,7 +522,7 @@ public class PodCommsSession {
         }
     }
     
-    public func setTempBasal(rate: Double, duration: TimeInterval, isHighTemp: Bool, acknowledgementBeep: Bool = false, completionBeep: Bool = false, programReminderInterval: TimeInterval = 0) -> DeliveryCommandResult {
+    public func setTempBasal(rate: Double, duration: TimeInterval, automatic: Bool, isHighTemp: Bool, acknowledgementBeep: Bool = false, completionBeep: Bool = false, programReminderInterval: TimeInterval = 0) -> DeliveryCommandResult {
 
         guard podState.pendingCommand == nil else {
             return DeliveryCommandResult.certainFailure(error: .unacknowledgedCommandPending)
@@ -540,11 +539,11 @@ public class PodCommsSession {
 
         do {
             let status: StatusResponse = try send([tempBasalCommand, tempBasalExtraCommand])
-            podState.unfinalizedTempBasal = UnfinalizedDose(tempBasalRate: rate, startTime: startTime, duration: duration, isHighTemp: isHighTemp, scheduledCertainty: .certain)
+            podState.unfinalizedTempBasal = UnfinalizedDose(tempBasalRate: rate, startTime: startTime, duration: duration, isHighTemp: isHighTemp, scheduledCertainty: .certain, automatic: automatic)
             podState.updateFromStatusResponse(status)
             return DeliveryCommandResult.success(statusResponse: status)
         } catch PodCommsError.unacknowledgedMessage(let seq, let error) {
-            podState.pendingCommand = PendingCommand.program(.tempBasal(unitsPerHour: rate, duration: duration, isHighTemp: isHighTemp), seq, startTime)
+            podState.pendingCommand = PendingCommand.program(.tempBasal(unitsPerHour: rate, duration: duration, automatic: automatic, isHighTemp: isHighTemp), seq, startTime)
             log.debug("Unacknowledged temp basal: command seq = %d", seq)
             return DeliveryCommandResult.unacknowledged(error: .commsError(error: error))
         } catch let error {
@@ -593,7 +592,7 @@ public class PodCommsSession {
     // A suspendReminder of 0 is an untimed suspend which only uses podSuspendedReminder alert beeps.
     // A suspendReminder of 1-5 minutes will only use suspendTimeExpired alert beeps.
     // A suspendReminder of > 5 min will have periodic podSuspendedReminder beeps followed by suspendTimeExpired alerts.
-    public func suspendDelivery(suspendReminder: TimeInterval? = nil, confirmationBeepType: BeepConfigType? = nil) -> CancelDeliveryResult {
+    public func suspendDelivery(suspendReminder: TimeInterval? = nil, beepBlock: MessageBlock? = nil) -> CancelDeliveryResult {
 
         guard podState.pendingCommand == nil else {
             return .certainFailure(error: .unacknowledgedCommandPending)
@@ -628,7 +627,7 @@ public class PodCommsSession {
                 commandsToSend += [configureAlerts]
             }
 
-            let status: StatusResponse = try send(commandsToSend, confirmationBeepType: confirmationBeepType)
+            let status: StatusResponse = try send(commandsToSend, beepBlock: beepBlock)
             let canceledDose = handleCancelDosing(deliveryType: .all, bolusNotDelivered: status.bolusNotDelivered)
             podState.updateFromStatusResponse(status)
 
@@ -667,7 +666,7 @@ public class PodCommsSession {
 
     // Cancel beeping can be done implemented using beepType (for a single delivery type) or a separate confirmation beep message block (for cancel all).
     // N.B., Using the built-in cancel delivery command beepType method when cancelling all insulin delivery will emit 3 different sets of cancel beeps!!!
-    public func cancelDelivery(deliveryType: CancelDeliveryCommand.DeliveryType, beepType: BeepType = .noBeep, confirmationBeepType: BeepConfigType? = nil) -> CancelDeliveryResult {
+    public func cancelDelivery(deliveryType: CancelDeliveryCommand.DeliveryType, beepType: BeepType = .noBeep, beepBlock: MessageBlock? = nil) -> CancelDeliveryResult {
 
         guard podState.pendingCommand == nil else {
             return .certainFailure(error: .unacknowledgedCommandPending)
@@ -675,7 +674,7 @@ public class PodCommsSession {
 
         do {
             let cancelDeliveryCommand = CancelDeliveryCommand(nonce: podState.currentNonce, deliveryType: deliveryType, beepType: beepType)
-            let status: StatusResponse = try send([cancelDeliveryCommand], confirmationBeepType: confirmationBeepType)
+            let status: StatusResponse = try send([cancelDeliveryCommand], beepBlock: beepBlock)
 
             let canceledDose = handleCancelDosing(deliveryType: deliveryType, bolusNotDelivered: status.bolusNotDelivered)
             podState.updateFromStatusResponse(status)
@@ -691,8 +690,8 @@ public class PodCommsSession {
         }
     }
 
-    public func testingCommands(confirmationBeepType: BeepConfigType? = nil) throws {
-        try cancelNone(confirmationBeepType: confirmationBeepType) // reads status & verifies nonce by doing a cancel none
+    public func testingCommands(beepBlock: MessageBlock? = nil) throws {
+        try cancelNone(beepBlock: beepBlock) // reads status by doing a cancel none
     }
 
     public func setTime(timeZone: TimeZone, basalSchedule: BasalSchedule, date: Date, acknowledgementBeep: Bool = false, completionBeep: Bool = false) throws -> StatusResponse {
@@ -761,10 +760,10 @@ public class PodCommsSession {
     // use cancelDelivery with .none to get status as well as to validate & advance the nonce
     // Throws PodCommsError
     @discardableResult
-    public func cancelNone(confirmationBeepType: BeepConfigType? = nil) throws -> StatusResponse {
+    public func cancelNone(beepBlock: MessageBlock? = nil) throws -> StatusResponse {
         var statusResponse: StatusResponse
 
-        let cancelResult: CancelDeliveryResult = cancelDelivery(deliveryType: .none, confirmationBeepType: confirmationBeepType)
+        let cancelResult: CancelDeliveryResult = cancelDelivery(deliveryType: .none, beepBlock: beepBlock)
         switch cancelResult {
         case .certainFailure(let error):
             throw error
@@ -779,11 +778,11 @@ public class PodCommsSession {
 
     // Throws PodCommsError
     @discardableResult
-    public func getStatus(confirmationBeepType: BeepConfigType? = nil) throws -> StatusResponse {
+    public func getStatus(beepBlock: MessageBlock? = nil) throws -> StatusResponse {
         if useCancelNoneForStatus {
-            return try cancelNone(confirmationBeepType: confirmationBeepType) // functional replacement for getStatus()
+            return try cancelNone(beepBlock: beepBlock) // functional replacement for getStatus()
         }
-        let statusResponse: StatusResponse = try send([GetStatusCommand()], confirmationBeepType: confirmationBeepType)
+        let statusResponse: StatusResponse = try send([GetStatusCommand()], beepBlock: beepBlock)
         podState.updateFromStatusResponse(statusResponse)
 
         if podState.pendingCommand != nil {
@@ -795,8 +794,8 @@ public class PodCommsSession {
     }
     
     @discardableResult
-    public func getDetailedStatus(confirmationBeepType: BeepConfigType? = nil) throws -> DetailedStatus {
-        let infoResponse: PodInfoResponse = try send([GetStatusCommand(podInfoType: .detailedStatus)], confirmationBeepType: confirmationBeepType)
+    public func getDetailedStatus(beepBlock: MessageBlock? = nil) throws -> DetailedStatus {
+        let infoResponse: PodInfoResponse = try send([GetStatusCommand(podInfoType: .detailedStatus)], beepBlock: beepBlock)
         
         guard let detailedStatus = infoResponse.podInfo as? DetailedStatus else {
             throw PodCommsError.unexpectedResponse(response: .podInfoResponse)
@@ -815,9 +814,9 @@ public class PodCommsSession {
     }
 
     @discardableResult
-    public func readPodInfo(podInfoResponseSubType: PodInfoResponseSubType, confirmationBeepType: BeepConfigType? = nil) throws -> PodInfoResponse {
+    public func readPodInfo(podInfoResponseSubType: PodInfoResponseSubType, beepBlock: MessageBlock? = nil) throws -> PodInfoResponse {
         let podInfoCommand = GetStatusCommand(podInfoType: podInfoResponseSubType)
-        let podInfoResponse: PodInfoResponse = try send([podInfoCommand], confirmationBeepType: confirmationBeepType)
+        let podInfoResponse: PodInfoResponse = try send([podInfoCommand], beepBlock: beepBlock)
         return podInfoResponse
     }
 
@@ -914,9 +913,9 @@ public class PodCommsSession {
         }
     }
     
-    public func acknowledgePodAlerts(alerts: AlertSet, confirmationBeepType: BeepConfigType? = nil) throws -> [AlertSlot: PodAlert] {
+    public func acknowledgePodAlerts(alerts: AlertSet, beepBlock: MessageBlock? = nil) throws -> [AlertSlot: PodAlert] {
         let cmd = AcknowledgeAlertCommand(nonce: podState.currentNonce, alerts: alerts)
-        let status: StatusResponse = try send([cmd], confirmationBeepType: confirmationBeepType)
+        let status: StatusResponse = try send([cmd], beepBlock: beepBlock)
         podState.updateFromStatusResponse(status)
         return podState.activeAlerts
     }

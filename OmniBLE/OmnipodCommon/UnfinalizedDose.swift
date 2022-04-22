@@ -124,14 +124,14 @@ public struct UnfinalizedDose: RawRepresentable, Equatable, CustomStringConverti
         self.automatic = automatic
     }
     
-    init(tempBasalRate: Double, startTime: Date, duration: TimeInterval, isHighTemp: Bool, scheduledCertainty: ScheduledCertainty) {
+    init(tempBasalRate: Double, startTime: Date, duration: TimeInterval, isHighTemp: Bool, scheduledCertainty: ScheduledCertainty, automatic: Bool = true) {
         self.doseType = .tempBasal
         self.units = tempBasalRate * duration.hours
         self.startTime = startTime
         self.duration = duration
         self.scheduledCertainty = scheduledCertainty
         self.scheduledUnits = nil
-        self.automatic = true
+        self.automatic = automatic
         self.isHighTemp = isHighTemp
     }
 
@@ -318,8 +318,8 @@ extension StartProgram {
         switch self {
         case .bolus(volume: let volume, automatic: let automatic):
             return UnfinalizedDose(bolusAmount: volume, startTime: programDate, scheduledCertainty: certainty, automatic: automatic)
-        case .tempBasal(unitsPerHour: let rate, duration: let duration, let isHighTemp):
-            return UnfinalizedDose(tempBasalRate: rate, startTime: programDate, duration: duration, isHighTemp: isHighTemp, scheduledCertainty: certainty)
+        case .tempBasal(unitsPerHour: let rate, duration: let duration, let isHighTemp, let automatic):
+            return UnfinalizedDose(tempBasalRate: rate, startTime: programDate, duration: duration, isHighTemp: isHighTemp, scheduledCertainty: certainty, automatic: automatic)
         case .basalProgram:
             return UnfinalizedDose(resumeStartTime: programDate, scheduledCertainty: certainty)
         }
