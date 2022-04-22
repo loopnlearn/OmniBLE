@@ -31,11 +31,11 @@
 /* Title text for button to enable confirmation beeps */
 "Enable Confirmation Beeps" = "Sätt på bekräftelsepip";
 
-/* Title text for button to disable automatic bolus beeps */
-"Disable Automatic Bolus Beeps" = "Stäng av pip vid automatiska bolusar";
+/* Title text for button to disable extended confirmation beeps */
+"Disable Extended Confirmation Beeps" = "Stäng av utökade bekräftelseljud";
 
-/* Title text for button to enable automatic bolus beeps */
-"Enable Automatic Bolus Beeps" = "Sätt på pip vid automatiska bolusar";
+/* Title text for button to enable extended confirmation beeps */
+"Enable Extended Confirmation Beeps" = "Sätt på utäkade bekräftelseljud";
 
 /* Title of the pod settings view controller" */
 "Pod Settings" = "Poddinställningar";
@@ -500,9 +500,3 @@
 
 /* The error message shown when Loop's basal schedule has an unsupported rate */
 "Invalid entry" = "Ogiltig inmatning";
-
-/* Title text for button to disable extended confirmation beeps */
-"Disable Extended Confirmation Beeps" = "Stäng av utökade bekräftelseljud";
-
-/* Title text for button to enable extended confirmation beeps */
-"Enable Extended Confirmation Beeps" = "Sätt på utäkade bekräftelseljud";
