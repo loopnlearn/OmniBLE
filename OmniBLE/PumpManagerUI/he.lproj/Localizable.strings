@@ -41,7 +41,7 @@
 "Pod Settings" = "Pod Settings";
 
 /* The title of the configuration section in settings */
-"Configuration" = "Configuration";
+"Configuration" = "כיוון הגדרות";
 
 /* The title of the diagnostics section in settings */
 "Diagnostics" = "Diagnostics";
@@ -68,7 +68,7 @@
 "Basal Delivery" = "Basal Delivery";
 
 /* The title of the cell showing reservoir status */
-"Reservoir" = "Reservoir";
+"Reservoir" = "מיכל";
 
 /* The title of the cell showing delivered insulin */
 "Insulin Delivered" = "Insulin Delivered";
@@ -122,7 +122,7 @@
 "Switch from Omnipod Dash Pumps" = "Switch from Omnipod Dash Pumps";
 
 /* The alert title for a resume error */
-"Error Resuming" = "Error Resuming";
+"Error Resuming" = "שגיאה בחידוש הפעלת המשאבה";
 
 /* The alert title for a suspend error */
 "Error Suspending" = "Error Suspending";
@@ -140,7 +140,7 @@
 "Delete Omnipod Dash" = "Delete Omnipod Dash";
 
 /* The title of the cancel action in an action sheet */
-"Cancel" = "Cancel";
+"Cancel" = "ביטול";
 
 /* Alerts detail when no alerts unacknowledged */
 "None" = "None";
@@ -490,10 +490,10 @@
 "Move to a new area away from any other pods and try again." = "Move to a new area away from any other pods and try again.";
 
 /* Title text for delivery limits */
-"Delivery Limits" = "Delivery Limits";
+"Delivery Limits" = "הגבלות להזלפת אינסולין";
 
 /* The title text for the basal rate schedule */
-"Basal Rates" = "Basal Rates";
+"Basal Rates" = "תפריט בזאלי";
 
 /* The error message shown when Loop's basal schedule has more entries than the pod can support */
 "Too many entries" = "Too many entries";
