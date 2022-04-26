@@ -32,10 +32,10 @@
 "Enable Confirmation Beeps" = "Zapnúť Potvrdzovacie Pípnutia";
 
 /* Title text for button to disable extended confirmation beeps */
-"Disable Extended Confirmation Beeps" = "Disable Extended Confirmation Beeps";
+"Disable Extended Confirmation Beeps" = "Vypnúť Rozšírené Potrvdzovacie Pípnutia";
 
 /* Title text for button to enable extended confirmation beeps */
-"Enable Extended Confirmation Beeps" = "Enable Extended Confirmation Beeps";
+"Enable Extended Confirmation Beeps" = "Zapnúť Rozšírené Potrvdzovacie Pípnutia";
 
 /* Title of the pod settings view controller" */
 "Pod Settings" = "Nastavenia Podu";
@@ -104,22 +104,22 @@
 "Test Command" = "Testovať Ovládanie";
 
 /* The title of the cell showing the pod lot number" */
-"Lot Number" = "Lot Number";
+"Lot Number" = "Číslo šarže";
 
 /* The title of the cell showing the pod sequence number */
-"Sequence Number" = "Sequence Number";
+"Sequence Number" = "Sekvenčné číslo";
 
 /* The title of the cell showing the firmware version */
 "Firmware Version" = "Firmware Verzia";
 
 /* The title of the cell showing the BLE firmware version" */
-"BLE Firmware Version" = "BLE Firmware Version";
+"BLE Firmware Version" = "BLE verzia firmvéru";
 
 /* The title of the cell showing the BLE device name */
-"BLE Device Name" = "BLE Device Name";
+"BLE Device Name" = "BLE Názov zariadenia";
 
 /* Title text for the button to delete Omnipod Dash PumpManager */
-"Switch from Omnipod Dash Pumps" = "Switch from Omnipod Dash Pumps";
+"Switch from Omnipod Dash Pumps" = "Prepnúť z Omnipod Dash púmp";
 
 /* The alert title for a resume error */
 "Error Resuming" = "Zhrnutie Chyby";
@@ -128,10 +128,10 @@
 "Error Suspending" = "Chyba Pozastavenia";
 
 /* The alert title for enable confirmation beeps error */
-"Error enabling confirmation beeps" = "Error enabling confirmation beeps";
+"Error enabling confirmation beeps" = "Chyba zapnutia potvrdzovacích pípnutí";
 
 /* The alert title for disable confirmation beeps error */
-"Error disabling confirmation beeps" = "Error disabling confirmation beeps";
+"Error disabling confirmation beeps" = "Chyba vypnutia potvrdzovacích pípnutí";
 
 /* Confirmation message for removing Omnipod Dash PumpManager */
 "Are you sure you want to stop using Omnipod Dash?" = "Are you sure you want to stop using Omnipod Dash?";
