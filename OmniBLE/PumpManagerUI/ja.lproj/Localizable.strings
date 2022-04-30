@@ -500,3 +500,9 @@
 
 /* The error message shown when Loop's basal schedule has an unsupported rate */
 "Invalid entry" = "入力が無効です";
+
+/* Title of button to sync basal profile from pod */
+"Sync With Pod" = "ポッドとシンク";
+
+/* Title of button to sync basal profile when no pod paired */
+"Save" = "保存";

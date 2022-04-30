@@ -500,3 +500,9 @@
 
 /* The error message shown when Loop's basal schedule has an unsupported rate */
 "Invalid entry" = "Geçersiz girdi";
+
+/* Title of button to sync basal profile from pod */
+"Sync With Pod" = "Pod'la eşitle";
+
+/* Title of button to sync basal profile when no pod paired */
+"Save" = "Kaydet";

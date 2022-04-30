@@ -500,3 +500,9 @@
 
 /* The error message shown when Loop's basal schedule has an unsupported rate */
 "Invalid entry" = "Saisie invalide";
+
+/* Title of button to sync basal profile from pod */
+"Sync With Pod" = "Synchroniser avec le pod";
+
+/* Title of button to sync basal profile when no pod paired */
+"Save" = "Sauvegarder";

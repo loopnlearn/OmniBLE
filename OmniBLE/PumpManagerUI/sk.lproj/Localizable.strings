@@ -500,3 +500,9 @@
 
 /* The error message shown when Loop's basal schedule has an unsupported rate */
 "Invalid entry" = "Neplatný záznam";
+
+/* Title of button to sync basal profile from pod */
+"Sync With Pod" = "Synchronizovať s Podom";
+
+/* Title of button to sync basal profile when no pod paired */
+"Save" = "Uložiť";
