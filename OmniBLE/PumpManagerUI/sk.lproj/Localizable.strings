@@ -32,10 +32,10 @@
 "Enable Confirmation Beeps" = "Zapnúť Potvrdzovacie Pípnutia";
 
 /* Title text for button to disable extended confirmation beeps */
-"Disable Extended Confirmation Beeps" = "Disable Extended Confirmation Beeps";
+"Disable Extended Confirmation Beeps" = "Vypnúť Rozšírené Potrvdzovacie Pípnutia";
 
 /* Title text for button to enable extended confirmation beeps */
-"Enable Extended Confirmation Beeps" = "Enable Extended Confirmation Beeps";
+"Enable Extended Confirmation Beeps" = "Zapnúť Rozšírené Potrvdzovacie Pípnutia";
 
 /* Title of the pod settings view controller" */
 "Pod Settings" = "Nastavenia Podu";
@@ -104,22 +104,22 @@
 "Test Command" = "Testovať Ovládanie";
 
 /* The title of the cell showing the pod lot number" */
-"Lot Number" = "Lot Number";
+"Lot Number" = "Číslo šarže";
 
 /* The title of the cell showing the pod sequence number */
-"Sequence Number" = "Sequence Number";
+"Sequence Number" = "Sekvenčné číslo";
 
 /* The title of the cell showing the firmware version */
 "Firmware Version" = "Firmware Verzia";
 
 /* The title of the cell showing the BLE firmware version" */
-"BLE Firmware Version" = "BLE Firmware Version";
+"BLE Firmware Version" = "BLE verzia firmvéru";
 
 /* The title of the cell showing the BLE device name */
-"BLE Device Name" = "BLE Device Name";
+"BLE Device Name" = "BLE Názov zariadenia";
 
 /* Title text for the button to delete Omnipod Dash PumpManager */
-"Switch from Omnipod Dash Pumps" = "Switch from Omnipod Dash Pumps";
+"Switch from Omnipod Dash Pumps" = "Prepnúť z Omnipod Dash púmp";
 
 /* The alert title for a resume error */
 "Error Resuming" = "Zhrnutie Chyby";
@@ -128,16 +128,16 @@
 "Error Suspending" = "Chyba Pozastavenia";
 
 /* The alert title for enable confirmation beeps error */
-"Error enabling confirmation beeps" = "Error enabling confirmation beeps";
+"Error enabling confirmation beeps" = "Chyba zapnutia potvrdzovacích pípnutí";
 
 /* The alert title for disable confirmation beeps error */
-"Error disabling confirmation beeps" = "Error disabling confirmation beeps";
+"Error disabling confirmation beeps" = "Chyba vypnutia potvrdzovacích pípnutí";
 
 /* Confirmation message for removing Omnipod Dash PumpManager */
-"Are you sure you want to stop using Omnipod Dash?" = "Are you sure you want to stop using Omnipod Dash?";
+"Are you sure you want to stop using Omnipod Dash?" = "Naozaj chcete prestať používať Ominpod Dash?";
 
 /* Button title to delete Omnipod Dash PumpManager */
-"Delete Omnipod Dash" = "Delete Omnipod Dash";
+"Delete Omnipod Dash" = "Vymazať Omnipod Dash";
 
 /* The title of the cancel action in an action sheet */
 "Cancel" = "Zrušiť";
@@ -161,7 +161,7 @@
 "%@ U (Finished)" = "%@ U (Ukončené)";
 
 /* Format string for bolus progress. (1: The delivered amount) (2: The programmed amount) (3: the percent progress) */
-"%@ U of %@ U (%@)" = "%@ U of %@ U (%@)";
+"%@ U of %@ U (%@)" = "%@ J z %@ J (%@)";
 
 /* The detail text for delivered insulin when no measurement is available */
 "Unknown" = "Neznáme";
@@ -176,46 +176,46 @@
 "%@ U" = "%@ J";
 
 /* Error description for BluetoothManagerError.bluetoothNotAvailable(.poweredOff) */
-"Bluetooth is powered off" = "Bluetooth is powered off";
+"Bluetooth is powered off" = "Bluetooth je vypnutý";
 
 /* Error description for BluetoothManagerError.bluetoothNotAvailable(.resetting) */
-"Bluetooth is resetting" = "Bluetooth is resetting";
+"Bluetooth is resetting" = "Bluetooth sa resetuje";
 
 /* Error description for BluetoothManagerError.bluetoothNotAvailable(.unauthorized) */
-"Bluetooth use is unauthorized" = "Bluetooth use is unauthorized";
+"Bluetooth use is unauthorized" = "Použitie Bluetooth nie je autorizované";
 
 /* Error description for BluetoothManagerError.bluetoothNotAvailable(.unsupported) */
-"Bluetooth use unsupported on this device" = "Bluetooth use unsupported on this device";
+"Bluetooth use unsupported on this device" = "Toto zariadenie nepodporuje Bluetooth";
 
 /* Error description for BluetoothManagerError.bluetoothNotAvailable(.unknown) */
-"Bluetooth is unavailable for an unknown reason." = "Bluetooth is unavailable for an unknown reason.";
+"Bluetooth is unavailable for an unknown reason." = "Bluetooth nedostupný z neznámej príčiny.";
 
 /* The format string for BluetoothManagerError.bluetoothNotAvailable for unknown state (1: the unknown state) */
-"Bluetooth is unavailable: %1$@" = "Bluetooth is unavailable: %1$@";
+"Bluetooth is unavailable: %1$@" = "Bluetooth nedostupný: %1$@";
 
 /* recoverySuggestion for BluetoothManagerError.bluetoothNotAvailable(.poweredOff) */
-"Turn bluetooth on" = "Turn bluetooth on";
+"Turn bluetooth on" = "Zapnite Bluetooth";
 
 /* recoverySuggestion for BluetoothManagerError.bluetoothNotAvailable(.resetting) */
 "Try again" = "Skúsiť znova";
 
 /* recoverySuggestion for BluetoothManagerError.bluetoothNotAvailable(.unauthorized) */
-"Please enable bluetooth permissions for this app in system settings" = "Please enable bluetooth permissions for this app in system settings";
+"Please enable bluetooth permissions for this app in system settings" = "Prosím, povoľte bluetooth povolenia pre túto aplikáciu v Systémové nastavenia";
 
 /* recoverySuggestion for BluetoothManagerError.bluetoothNotAvailable(.unsupported) */
-"Please use a different device with bluetooth capabilities" = "Please use a different device with bluetooth capabilities";
+"Please use a different device with bluetooth capabilities" = "Pužite prosím iné zariadenie so schopnosťou Bluetooth";
 
 /* Error message description for PeripheralManagerError.notReady */
 "Peripheral Not Ready" = "Peripheral Not Ready";
 
 /* Error message description for PeripheralManagerError.incorrectResponse */
-"Incorrect Response" = "Incorrect Response";
+"Incorrect Response" = "Nesprávna odpoveď";
 
 /* Error message description for PeripheralManagerError.timeout */
-"Timeout" = "Timeout";
+"Timeout" = "Časový limit vypršal";
 
 /* Error message description for PeripheralManagerError.emptyValue */
-"Empty Value" = "Empty Value";
+"Empty Value" = "Prázdna hodnota";
 
 /* Error message description for PeripheralManagerError.unknownCharacteristic */
 "Unknown Characteristic" = "Unknown Characteristic";
@@ -224,7 +224,7 @@
 "Nack" = "Nack";
 
 /* The format string for PodProtocolError.invalidLTKKey (1: message associated with error) */
-"Invalid LTK Key: %1$@" = "Invalid LTK Key: %1$@";
+"Invalid LTK Key: %1$@" = "Neplatný LTK kľúč: %1$@";
 
 /* The format string for PodProtocolError.pairingException (1: message associated with error)" */
 "Pairing Exception: %1$@" = "Pairing Exception: %1$@";
@@ -421,7 +421,7 @@
 "Invalid address 0x%x. Expected 0x%x" = "Invalid address 0x%x. Expected 0x%x";
 
 /* Error message shown when the pod is not connected. */
-"Pod not connected" = "Pod not connected";
+"Pod not connected" = "Žiadny Pod nie je pripojený";
 
 /* Error message action could not be performed because pod is suspended */
 "Pod is suspended" = "Pod je pozastavený";
@@ -448,7 +448,7 @@
 "Signal strength too high" = "Intenzita signálu príliš vysoká";
 
 /* Error message for PodCommsError.noPodsFound */
-"No pods found" = "No pods found";
+"No pods found" = "Žiadne pody neboli nájdené";
 
 /* Error message for PodCommsError.tooManyPodsFound */
 "Too many pods found" = "Too many pods found";

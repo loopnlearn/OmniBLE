@@ -32,10 +32,10 @@
 "Enable Confirmation Beeps" = "Slå på lyd for bekreftelse";
 
 /* Title text for button to disable extended confirmation beeps */
-"Disable Extended Confirmation Beeps" = "Disable Extended Confirmation Beeps";
+"Disable Extended Confirmation Beeps" = "Deaktiver utvidede bekreftelseslyder";
 
 /* Title text for button to enable extended confirmation beeps */
-"Enable Extended Confirmation Beeps" = "Enable Extended Confirmation Beeps";
+"Enable Extended Confirmation Beeps" = "Aktiver utvidede bekreftelseslyder";
 
 /* Title of the pod settings view controller" */
 "Pod Settings" = "Pod-innstillinger";
