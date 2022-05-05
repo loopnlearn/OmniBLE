@@ -451,19 +451,19 @@
 "No pods found" = "Žiadne pody neboli nájdené";
 
 /* Error message for PodCommsError.tooManyPodsFound */
-"Too many pods found" = "Too many pods found";
+"Too many pods found" = "Nájdených príliš veľa podov";
 
 /* Recovery suggestion when no response is received from pod */
-"Make sure iPhone is nearby the active pod" = "Make sure iPhone is nearby the active pod";
+"Make sure iPhone is nearby the active pod" = "Uistite sa, že iPhone je v dosahu aktívneho podu";
 
 /* Recovery suggestion when ack received instead of response */
 "Try again" = "Skúsiť znova";
 
 /* Recovery suggestion when unexpected address received */
-"Crosstalk possible. Please move to a new location" = "Crosstalk possible. Please move to a new location";
+"Crosstalk possible. Please move to a new location" = "Možný crosstalk. Presuňte sa, prosím, na nové miesto";
 
 /* Recovery suggestion when no pod is available */
-"Make sure your pod is nearby and try again." = "Make sure your pod is nearby and try again.";
+"Make sure your pod is nearby and try again." = "Uistite sa, že je váš iPhone v dosahu a skúste znova.";
 
 /* Recovery suggestion when operation could not be completed due to existing bolus in progress */
 "Wait for existing bolus to finish, or cancel bolus" = "Počkajte kým sa ukončí podanie bolusu, alebo zrušte bolus";
@@ -472,7 +472,7 @@
 "Wait for existing temp basal to finish, or suspend to cancel" = "Počkajte kým skončí dočasný bazál, alebo pozastavte pre zrušenie";
 
 /* Recovery suggestion when pod is suspended" */
-"Resume delivery" = "Resume delivery";
+"Resume delivery" = "Obnoviť podávanie inzulínu";
 
 /* Recovery suggestion on unexpected pod change */
 "Please bring only original pod in range or deactivate original pod" = "Prosím dajte k dosahu iba pôvodný pod alebo deaktivujte pôvodný pod";
