@@ -1,29 +1,29 @@
 /* The text of the loading label when pairing */
-"Pairing…" = "Pairing…";
+"Pairing…" = "Parres…";
 
 /* The text of the loading label when priming */
-"Priming…" = "Priming…";
+"Priming…" = "Klargør…";
 
 /* The text of the loading label when pod is primed */
-"Primed" = "Primed";
+"Primed" = "Klargjort";
 
 /* Additional pairing recovery suggestion on multiple pairing failures */
 "If the problem persists, move to a new area and try again" = "If the problem persists, move to a new area and try again";
 
 /* Button title to pair with pod during setup*/
-"Pair" = "Pair";
+"Pair" = "Par";
 
 /* Button title to deactivate pod because of fault during setup */
-"Deactivate" = "Deactivate";
+"Deactivate" = "Deaktiver";
 
 /* Confirmation message for shutting down a pod */
-"Are you sure you want to shutdown this pod?" = "Are you sure you want to shutdown this pod?";
+"Are you sure you want to shutdown this pod?" = "Er du sikker på at du vil slukke for denne pod?";
 
 /* Button title to deactivate pod */
-"Deactivate Pod" = "Deactivate Pod";
+"Deactivate Pod" = "Deaktiver Pod";
 
 /* The title of the continue action in an action sheet */
-"Continue" = "Continue";
+"Continue" = "Fortsæt";
 
 /* Title text for button to disable confirmation beeps" */
 "Disable Confirmation Beeps" = "Disable Confirmation Beeps";
@@ -31,17 +31,17 @@
 /* Title text for button to enable confirmation beeps */
 "Enable Confirmation Beeps" = "Enable Confirmation Beeps";
 
-/* Title text for button to disable automatic bolus beeps */
-"Disable Automatic Bolus Beeps" = "Disable Automatic Bolus Beeps";
+/* Title text for button to disable extended confirmation beeps */
+"Disable Extended Confirmation Beeps" = "Disable Extended Confirmation Beeps";
 
-/* Title text for button to enable automatic bolus beeps */
-"Enable Automatic Bolus Beeps" = "Enable Automatic Bolus Beeps";
+/* Title text for button to enable extended confirmation beeps */
+"Enable Extended Confirmation Beeps" = "Enable Extended Confirmation Beeps";
 
 /* Title of the pod settings view controller" */
-"Pod Settings" = "Pod Settings";
+"Pod Settings" = "Pod Indstillinger";
 
 /* The title of the configuration section in settings */
-"Configuration" = "Configuration";
+"Configuration" = "Konfiguration";
 
 /* The title of the diagnostics section in settings */
 "Diagnostics" = "Diagnostics";
@@ -50,58 +50,58 @@
 "Pod Details" = "Pod Details";
 
 /* The title of the cell showing alarm status */
-"Alarms" = "Alarms";
+"Alarms" = "Alarmer";
 
 /* The title of the cell showing the pod expiration */
-"Expires" = "Expires";
+"Expires" = "Udløber";
 
 /* The title of the cell showing the pod expiration after expiry */
-"Expired" = "Expired";
+"Expired" = "Udløbet";
 
 /* The title of the cell showing the pod active clock */
 "Pod Active Clock" = "Pod Active Clock";
 
 /* The title of the cell showing pod bolus status */
-"Bolus Delivery" = "Bolus Delivery";
+"Bolus Delivery" = "Bolus Indgivelse";
 
 /* The title of the cell showing pod basal status */
-"Basal Delivery" = "Basal Delivery";
+"Basal Delivery" = "Basal Indgivelse";
 
 /* The title of the cell showing reservoir status */
 "Reservoir" = "Reservoir";
 
 /* The title of the cell showing delivered insulin */
-"Insulin Delivered" = "Insulin Delivered";
+"Insulin Delivered" = "Indført Insulin";
 
 /* The title of the cell showing the pod expiration reminder date */
-"Expiration Reminder" = "Expiration Reminder";
+"Expiration Reminder" = "Udløbs Påmindelse";
 
 /* The title of the command to change pump time zone */
-"Change Time Zone" = "Change Time Zone";
+"Change Time Zone" = "Skift Tidszone";
 
 /* The title of the command to pair new pod */
-"Pair New Pod" = "Pair New Pod";
+"Pair New Pod" = "Par ny Pod";
 
 /* The title of the command to replace pod when there is a pod fault */
-"Replace Pod Now" = "Replace Pod Now";
+"Replace Pod Now" = "Udskift Pod Nu";
 
 /* The title of the command to finish pod setup */
-"Finish pod setup" = "Finish pod setup";
+"Finish pod setup" = "Afslut pod indstilling";
 
 /* The title of the command to replace pod */
-"Replace Pod" = "Replace Pod";
+"Replace Pod" = "Udskift Pod";
 
 /* The title of the command to read the pod status" */
 "Read Pod Status" = "Read Pod Status";
 
 /* The title of the command to play test beeps */
-"Play Test Beeps" = "Play Test Beeps";
+"Play Test Beeps" = "Afspil Test Bip";
 
 /* The title of the command to read the pulse log */
 "Read Pulse Log" = "Read Pulse Log";
 
 /* The title of the command to run the test command */
-"Test Command" = "Test Command";
+"Test Command" = "Test Kommando";
 
 /* The title of the cell showing the pod lot number" */
 "Lot Number" = "Lot Number";
@@ -110,7 +110,7 @@
 "Sequence Number" = "Sequence Number";
 
 /* The title of the cell showing the firmware version */
-"Firmware Version" = "Firmware Version";
+"Firmware Version" = "Firmware version";
 
 /* The title of the cell showing the BLE firmware version" */
 "BLE Firmware Version" = "BLE Firmware Version";
@@ -122,10 +122,10 @@
 "Switch from Omnipod Dash Pumps" = "Switch from Omnipod Dash Pumps";
 
 /* The alert title for a resume error */
-"Error Resuming" = "Error Resuming";
+"Error Resuming" = "Fejl ved forsøg på genoptagelse";
 
 /* The alert title for a suspend error */
-"Error Suspending" = "Error Suspending";
+"Error Suspending" = "Fejl under udsættelse";
 
 /* The alert title for enable confirmation beeps error */
 "Error enabling confirmation beeps" = "Error enabling confirmation beeps";
@@ -140,40 +140,40 @@
 "Delete Omnipod Dash" = "Delete Omnipod Dash";
 
 /* The title of the cancel action in an action sheet */
-"Cancel" = "Cancel";
+"Cancel" = "Annuller";
 
 /* Alerts detail when no alerts unacknowledged */
-"None" = "None";
+"None" = "Ingen";
 
 /* The detail text of the basal row when pod is suspended */
-"Suspended" = "Suspended";
+"Suspended" = "Udsat";
 
 /* Format string for temp basal rate. (1: The localized amount) */
-"%@ U/hour" = "%@ U/hour";
+"%@ U/hour" = "%@ E/time";
 
 /* The detail text of the basal row when pod is running scheduled basal */
-"Schedule" = "Schedule";
+"Schedule" = "Tidsplan";
 
 /* The detail text for bolus delivery when no bolus is being delivered */
-"None" = "None";
+"None" = "Ingen";
 
 /* Format string for bolus progress when finished. (1: The localized amount) */
-"%@ U (Finished)" = "%@ U (Finished)";
+"%@ U (Finished)" = "%@ E (Færdig)";
 
 /* Format string for bolus progress. (1: The delivered amount) (2: The programmed amount) (3: the percent progress) */
 "%@ U of %@ U (%@)" = "%@ U of %@ U (%@)";
 
 /* The detail text for delivered insulin when no measurement is available */
-"Unknown" = "Unknown";
+"Unknown" = "Ukendt";
 
 /* Format string for delivered insulin. (1: The localized amount) */
-"%@ U" = "%@ U";
+"%@ U" = "%@ E";
 
 /* Format string for reservoir reading when above or equal to maximum reading. (1: The localized amount) */
-"%@+ U" = "%@+ U";
+"%@+ U" = "%@+ E";
 
 /* Format string for insulin remaining in reservoir. (1: The localized amount) */
-"%@ U" = "%@ U";
+"%@ U" = "%@ E";
 
 /* Error description for BluetoothManagerError.bluetoothNotAvailable(.poweredOff) */
 "Bluetooth is powered off" = "Bluetooth is powered off";
@@ -242,180 +242,180 @@
 "Payload crc32 %1$@ does not match computed crc32 %2$@" = "Payload crc32 %1$@ does not match computed crc32 %2$@";
 
 /* Description for auto-off alarm */
-"Auto-off alarm" = "Auto-off alarm";
+"Auto-off alarm" = "Auto-sluk alarm";
 
 /* Pod state when running below fifty units */
-"Below 50 units" = "Below 50 units";
+"Below 50 units" = "Under 50 enheder";
 
 /* Error message shown when operation could not be completed due to existing bolus in progress */
-"Bolus in progress" = "Bolus in progress";
+"Bolus in progress" = "Bolus i gang";
 
 /* The format string describing a bolus. (1: The amount delivered)(2: Start time of the dose)(3: duration)(4: scheduled certainty) */
-"Bolus: %1$@U %2$@ %3$@ %4$@" = "Bolus: %1$@U %2$@ %3$@ %4$@";
+"Bolus: %1$@U %2$@ %3$@ %4$@" = "Bolus: %1$@E %2$@ %3$@ %4$@";
 
 /* Delivery status when bolusing */
-"Bolusing" = "Bolusing";
+"Bolusing" = "Indgiver Bolus";
 
 /* Delivery status when bolusing and temp basal is running */
-"Bolusing with temp basal" = "Bolusing with temp basal";
+"Bolusing with temp basal" = "Indgiver Bolus med midlertidig basal";
 
 /* Pod state when inserting cannula */
-"Cannula inserting" = "Cannula inserting";
+"Cannula inserting" = "Indfører Kanyle";
 
 /* String describing a dose that was certainly scheduled */
-"Certain" = "Certain";
+"Certain" = "Sikker";
 
 /* Pod state when pod has been deactivated */
-"Deactivated" = "Deactivated";
+"Deactivated" = "Deaktiveret";
 
 /* Description for Empty reservoir pod fault */
-"Empty reservoir" = "Empty reservoir";
+"Empty reservoir" = "Tomt reservoir";
 
 /* Error message shown when empty response from pod was received */
-"Empty response from pod" = "Empty response from pod";
+"Empty response from pod" = "Tom svar fra pod";
 
 /* Pod state error event logged shutting down */
-"Error event logged, shutting down" = "Error event logged, shutting down";
+"Error event logged, shutting down" = "Fejl hændelse logget, lukker ned";
 
 /* Description for expiration alert */
-"Expiration alert" = "Expiration alert";
+"Expiration alert" = "Udløbs advarsel";
 
 /* Description for finish setup */
-"Finish setup " = "Finish setup ";
+"Finish setup " = "Afslut indstilling";
 
 /* Pod inititialized */
-"Initialized" = "Initialized";
+"Initialized" = "Initialiseret";
 
 /* The format string for Internal pod fault (1: The fault code value) */
-"Internal pod fault %1$03d" = "Internal pod fault %1$03d";
+"Internal pod fault %1$03d" = "Intern pod fejl %1$03d";
 
 /* The format string describing a bolus that was interrupted. (1: The amount delivered)(2: The amount scheduled)(3: Start time of the dose)(4: duration)(5: scheduled certainty) */
-"InterruptedBolus: %1$@ U (%2$@ U scheduled) %3$@ %4$@ %5$@" = "InterruptedBolus: %1$@ U (%2$@ U scheduled) %3$@ %4$@ %5$@";
+"InterruptedBolus: %1$@ U (%2$@ U scheduled) %3$@ %4$@ %5$@" = "AfbrudtBolus: %1$@ E (%2$@ E planlagt) %3$@ %4$@ %5$@";
 
 /* Description for low reservoir alarm */
-"Low reservoir advisory alarm" = "Low reservoir advisory alarm";
+"Low reservoir advisory alarm" = "Lavt reservoir alarm";
 
 /* Pod alert state when no alerts are active */
-"No alerts" = "No alerts";
+"No alerts" = "Ingen alarmer";
 
 /* Error message shown when no pod is paired */
-"No pod paired" = "No pod paired";
+"No pod paired" = "Ingen pod parret";
 
 /* Error message shown when no response from pod was received */
-"No response from pod" = "No response from pod";
+"No response from pod" = "Intet svar fra pod";
 
 /* Delivery status when basal is running
    Pod state when running above fifty units */
 "Normal" = "Normal";
 
 /* Description for Occlusion detected pod fault */
-"Occlusion detected" = "Occlusion detected";
+"Occlusion detected" = "Blokkering opdaget";
 
 /* Generic title of the omnipod pump manager */
 "Omnipod" = "Omnipod";
 
 /* Pod status after pairing */
-"Paired" = "Paired";
+"Paired" = "Parret";
 
 /* Recover suggestion shown when no pod is paired */
-"Please pair a new pod" = "Please pair a new pod";
+"Please pair a new pod" = "Venligst par med en ny pod";
 
 /* Error message shown when user cannot pair because pod is already paired */
-"Pod already paired" = "Pod already paired";
+"Pod already paired" = "Pod allerede parret";
 
 /* Error message shown when prime is attempted, but pod is already primed */
-"Pod already primed" = "Pod already primed";
+"Pod already primed" = "Pod allerede klargjort";
 
 /* Description for expiration advisory alarm */
-"Pod expiration advisory alarm" = "Pod expiration advisory alarm";
+"Pod expiration advisory alarm" = "Pod udløbs alarm";
 
 /* The title for pod expiration notification */
-"Pod Expiration Notice" = "Pod Expiration Notice";
+"Pod Expiration Notice" = "Pod udløbs påmindelse";
 
 /* Description for Pod expired pod fault */
-"Pod expired" = "Pod expired";
+"Pod expired" = "Pod udløbet";
 
 /* Format string for pod fault code */
-"Pod Fault: %1$@" = "Pod Fault: %1$@";
+"Pod Fault: %1$@" = "Pod Fejl: %1$@";
 
 /* Error message when cannula insertion fails because the pod is in an unexpected state */
-"Pod is not in a state ready for cannula insertion." = "Pod is not in a state ready for cannula insertion.";
+"Pod is not in a state ready for cannula insertion." = "Pod er ikke klar til kanyle indførsel.";
 
 /* Error message when prime fails because the pod is in an unexpected state */
-"Pod is not in a state ready for priming." = "Pod is not in a state ready for priming.";
+"Pod is not in a state ready for priming." = "Pod er ikke klar til ‘klargøring’.";
 
 /* Error message action could not be performed because pod is suspended */
-"Pod is suspended" = "Pod is suspended";
+"Pod is suspended" = "Pod er pauset";
 
 /* Pod state when prime or cannula insertion has not completed in the time allotted */
-"Pod setup window expired" = "Pod setup window expired";
+"Pod setup window expired" = "Pod indstillings vindue udløbet";
 
 /* Delivery status when pod is priming
    Pod status when priming */
-"Priming" = "Priming";
+"Priming" = "Klargør";
 
 /* Pod state when ready for basal programming */
-"Ready for basal programming" = "Ready for basal programming";
+"Ready for basal programming" = "Klar til basal programmering";
 
 /* Pod state when ready for cannula insertion */
-"Ready to insert cannula" = "Ready to insert cannula";
+"Ready to insert cannula" = "Klar til kanyle indførsel";
 
 /* The format string describing a resume. (1: Time)(2: Scheduled certainty */
-"Resume: %1$@ %2$@" = "Resume: %1$@ %2$@";
+"Resume: %1$@ %2$@" = "Fortsæt: %1$@ %2$@";
 
 /* Delivery status when basal is running */
-"Scheduled Basal" = "Scheduled Basal";
+"Scheduled Basal" = "Planlagt Basal";
 
 /* Description for shutdown imminent alarm */
-"Shutdown imminent alarm" = "Shutdown imminent alarm";
+"Shutdown imminent alarm" = "Afbryd forestående alarm";
 
 /* The format string describing a suspend. (1: Time)(2: Scheduled certainty */
-"Suspend: %1$@ %2$@" = "Suspend: %1$@ %2$@";
+"Suspend: %1$@ %2$@" = "Pause: %1$@ %2$@";
 
 /* Delivery status when insulin delivery is suspended */
-"Suspended" = "Suspended";
+"Suspended" = "Udsat";
 
 /* Pod tank fill completed */
-"Tank fill completed" = "Tank fill completed";
+"Tank fill completed" = "Reservoir påfyldning komplet";
 
 /* Pod power to motor activated */
-"Tank power activated" = "Tank power activated";
+"Tank power activated" = "Reservoir strøm aktiveret";
 
 /* Error message shown when temp basal could not be set due to existing temp basal in progress */
-"Temp basal in progress" = "Temp basal in progress";
+"Temp basal in progress" = "Midlertidig basal allerede i gang";
 
 /* Delivery status when temp basal is running */
-"Temp basal running" = "Temp basal running";
+"Temp basal running" = "Midlertidig basal i gang";
 
 /* The format string describing a temp basal. (1: The rate)(2: Start time)(3: duration)(4: volume)(5: scheduled certainty */
-"TempBasal: %1$@ U/hour %2$@ %3$@ %4$@ U %5$@" = "TempBasal: %1$@ U/hour %2$@ %3$@ %4$@ U %5$@";
+"TempBasal: %1$@ U/hour %2$@ %3$@ %4$@ U %5$@" = "MidlertidigBasal: %1$@ E/time %2$@ %3$@ %4$@ E %5$@";
 
 /* The format string for pod expiration notification body (1: time until expiration) */
-"Time to replace your pod! Your pod will expire in %1$@" = "Time to replace your pod! Your pod will expire in %1$@";
+"Time to replace your pod! Your pod will expire in %1$@" = "Tid til udskiftning af pod! Din pod udløber om %1$@";
 
 /* String describing a dose that was possibly scheduled */
-"Uncertain" = "Uncertain";
+"Uncertain" = "Usikker";
 
 /* Error message shown when empty response from pod was received */
-"Unexpected response from pod" = "Unexpected response from pod";
+"Unexpected response from pod" = "Uventet svar fra pod";
 
 /* The format string for Unknown pod fault (1: The fault code value) */
-"Unknown pod fault %1$03d" = "Unknown pod fault %1$03d";
+"Unknown pod fault %1$03d" = "Ukendt pod fejl %1$03d";
 
 /* Recovery suggestion when operation could not be completed due to existing bolus in progress */
-"Wait for existing bolus to finish, or cancel bolus" = "Wait for existing bolus to finish, or cancel bolus";
+"Wait for existing bolus to finish, or cancel bolus" = "Vent indtil eksisterende bolus er færdig, eller annuller bolus";
 
 /* Recovery suggestion when operation could not be completed due to existing temp basal in progress */
-"Wait for existing temp basal to finish, or suspend to cancel" = "Wait for existing temp basal to finish, or suspend to cancel";
+"Wait for existing temp basal to finish, or suspend to cancel" = "Vent indtil den eksisterende midlertidige basal er færdig, eller pause for at annullere";
 
 /* Description waiting for pairing reminder */
-"Waiting for pairing reminder" = "Waiting for pairing reminder";
+"Waiting for pairing reminder" = "Venter på parrings påmindelse";
 
 /* Error message shown when pod sends ack instead of response */
 "Pod sent ack instead of response" = "Pod sent ack instead of response";
 
 /* Error message shown when empty response from pod was received" */
-"Unexpected response from pod" = "Unexpected response from pod";
+"Unexpected response from pod" = "Uventet svar fra pod";
 
 /* Error message for when unexpected address is received (1: received address) (2: expected address) */
 "Invalid address 0x%x. Expected 0x%x" = "Invalid address 0x%x. Expected 0x%x";
@@ -424,10 +424,10 @@
 "Pod not connected" = "Pod not connected";
 
 /* Error message action could not be performed because pod is suspended */
-"Pod is suspended" = "Pod is suspended";
+"Pod is suspended" = "Pod er pauset";
 
 /* Format string for pod fault code */
-"Pod Fault: %1$@" = "Pod Fault: %1$@";
+"Pod Fault: %1$@" = "Pod Fejl: %1$@";
 
 /* Error message when command is rejected because an unacknowledged command is pending. */
 "Communication issue: Unacknowledged command pending." = "Communication issue: Unacknowledged command pending.";
@@ -466,10 +466,10 @@
 "Make sure your pod is nearby and try again." = "Make sure your pod is nearby and try again.";
 
 /* Recovery suggestion when operation could not be completed due to existing bolus in progress */
-"Wait for existing bolus to finish, or cancel bolus" = "Wait for existing bolus to finish, or cancel bolus";
+"Wait for existing bolus to finish, or cancel bolus" = "Vent indtil eksisterende bolus er færdig, eller annuller bolus";
 
 /* Recovery suggestion when operation could not be completed due to existing temp basal in progress */
-"Wait for existing temp basal to finish, or suspend to cancel" = "Wait for existing temp basal to finish, or suspend to cancel";
+"Wait for existing temp basal to finish, or suspend to cancel" = "Vent indtil den eksisterende midlertidige basal er færdig, eller pause for at annullere";
 
 /* Recovery suggestion when pod is suspended" */
 "Resume delivery" = "Resume delivery";
@@ -490,13 +490,19 @@
 "Move to a new area away from any other pods and try again." = "Move to a new area away from any other pods and try again.";
 
 /* Title text for delivery limits */
-"Delivery Limits" = "Delivery Limits";
+"Delivery Limits" = "Indgivningsgrænser";
 
 /* The title text for the basal rate schedule */
-"Basal Rates" = "Basal Rates";
+"Basal Rates" = "Basal rater";
 
 /* The error message shown when Loop's basal schedule has more entries than the pod can support */
-"Too many entries" = "Too many entries";
+"Too many entries" = "For mange indtastninger";
 
 /* The error message shown when Loop's basal schedule has an unsupported rate */
-"Invalid entry" = "Invalid entry";
+"Invalid entry" = "fejlagtig indtastning";
+
+/* Title of button to sync basal profile from pod */
+"Sync With Pod" = "Synkroniser med Pod";
+
+/* Title of button to sync basal profile when no pod paired */
+"Save" = "Gem";

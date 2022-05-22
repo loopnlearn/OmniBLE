@@ -1,29 +1,29 @@
 /* The text of the loading label when pairing */
-"Pairing…" = "Pairing…";
+"Pairing…" = "Đang ghép đôi…";
 
 /* The text of the loading label when priming */
-"Priming…" = "Priming…";
+"Priming…" = "Đang mồi…";
 
 /* The text of the loading label when pod is primed */
-"Primed" = "Primed";
+"Primed" = "Đã được mồi";
 
 /* Additional pairing recovery suggestion on multiple pairing failures */
 "If the problem persists, move to a new area and try again" = "If the problem persists, move to a new area and try again";
 
 /* Button title to pair with pod during setup*/
-"Pair" = "Pair";
+"Pair" = "Ghép đôi";
 
 /* Button title to deactivate pod because of fault during setup */
-"Deactivate" = "Deactivate";
+"Deactivate" = "Hủy kích hoạt";
 
 /* Confirmation message for shutting down a pod */
-"Are you sure you want to shutdown this pod?" = "Are you sure you want to shutdown this pod?";
+"Are you sure you want to shutdown this pod?" = "Bạn có chắc muốn tắt pod này?";
 
 /* Button title to deactivate pod */
-"Deactivate Pod" = "Deactivate Pod";
+"Deactivate Pod" = "Hủy kích hoạt Pod";
 
 /* The title of the continue action in an action sheet */
-"Continue" = "Continue";
+"Continue" = "Tiếp tục";
 
 /* Title text for button to disable confirmation beeps" */
 "Disable Confirmation Beeps" = "Disable Confirmation Beeps";
@@ -31,17 +31,17 @@
 /* Title text for button to enable confirmation beeps */
 "Enable Confirmation Beeps" = "Enable Confirmation Beeps";
 
-/* Title text for button to disable automatic bolus beeps */
-"Disable Automatic Bolus Beeps" = "Disable Automatic Bolus Beeps";
+/* Title text for button to disable extended confirmation beeps */
+"Disable Extended Confirmation Beeps" = "Disable Extended Confirmation Beeps";
 
-/* Title text for button to enable automatic bolus beeps */
-"Enable Automatic Bolus Beeps" = "Enable Automatic Bolus Beeps";
+/* Title text for button to enable extended confirmation beeps */
+"Enable Extended Confirmation Beeps" = "Enable Extended Confirmation Beeps";
 
 /* Title of the pod settings view controller" */
-"Pod Settings" = "Pod Settings";
+"Pod Settings" = "Các thiết lập cho pod";
 
 /* The title of the configuration section in settings */
-"Configuration" = "Configuration";
+"Configuration" = "Cấu hình";
 
 /* The title of the diagnostics section in settings */
 "Diagnostics" = "Diagnostics";
@@ -50,58 +50,58 @@
 "Pod Details" = "Pod Details";
 
 /* The title of the cell showing alarm status */
-"Alarms" = "Alarms";
+"Alarms" = "Cảnh báo";
 
 /* The title of the cell showing the pod expiration */
-"Expires" = "Expires";
+"Expires" = "Hết hạn";
 
 /* The title of the cell showing the pod expiration after expiry */
-"Expired" = "Expired";
+"Expired" = "Đã hết hạn";
 
 /* The title of the cell showing the pod active clock */
 "Pod Active Clock" = "Pod Active Clock";
 
 /* The title of the cell showing pod bolus status */
-"Bolus Delivery" = "Bolus Delivery";
+"Bolus Delivery" = "Liều tiêm bolus";
 
 /* The title of the cell showing pod basal status */
-"Basal Delivery" = "Basal Delivery";
+"Basal Delivery" = "Liều tiêm basal";
 
 /* The title of the cell showing reservoir status */
-"Reservoir" = "Reservoir";
+"Reservoir" = "Ngăn chứa insulin";
 
 /* The title of the cell showing delivered insulin */
-"Insulin Delivered" = "Insulin Delivered";
+"Insulin Delivered" = "Insulin đã được tiêm";
 
 /* The title of the cell showing the pod expiration reminder date */
-"Expiration Reminder" = "Expiration Reminder";
+"Expiration Reminder" = "Nhắc nhở Hết hạn";
 
 /* The title of the command to change pump time zone */
-"Change Time Zone" = "Change Time Zone";
+"Change Time Zone" = "Thay đổi múi giờ";
 
 /* The title of the command to pair new pod */
-"Pair New Pod" = "Pair New Pod";
+"Pair New Pod" = "Ghép đôi pod mới";
 
 /* The title of the command to replace pod when there is a pod fault */
-"Replace Pod Now" = "Replace Pod Now";
+"Replace Pod Now" = "Thay thế pod ngay";
 
 /* The title of the command to finish pod setup */
-"Finish pod setup" = "Finish pod setup";
+"Finish pod setup" = "Hoàn tất thiết lập pod";
 
 /* The title of the command to replace pod */
-"Replace Pod" = "Replace Pod";
+"Replace Pod" = "Thay thế Pod";
 
 /* The title of the command to read the pod status" */
 "Read Pod Status" = "Read Pod Status";
 
 /* The title of the command to play test beeps */
-"Play Test Beeps" = "Play Test Beeps";
+"Play Test Beeps" = "Kiểm tra tiếng Beep";
 
 /* The title of the command to read the pulse log */
 "Read Pulse Log" = "Read Pulse Log";
 
 /* The title of the command to run the test command */
-"Test Command" = "Test Command";
+"Test Command" = "Thử nghiệm câu lệnh";
 
 /* The title of the cell showing the pod lot number" */
 "Lot Number" = "Lot Number";
@@ -110,7 +110,7 @@
 "Sequence Number" = "Sequence Number";
 
 /* The title of the cell showing the firmware version */
-"Firmware Version" = "Firmware Version";
+"Firmware Version" = "Chương trình cơ sở";
 
 /* The title of the cell showing the BLE firmware version" */
 "BLE Firmware Version" = "BLE Firmware Version";
@@ -122,10 +122,10 @@
 "Switch from Omnipod Dash Pumps" = "Switch from Omnipod Dash Pumps";
 
 /* The alert title for a resume error */
-"Error Resuming" = "Error Resuming";
+"Error Resuming" = "Lỗi trong việc Bắt đầu lại";
 
 /* The alert title for a suspend error */
-"Error Suspending" = "Error Suspending";
+"Error Suspending" = "Lỗi khi đang tạm ngưng";
 
 /* The alert title for enable confirmation beeps error */
 "Error enabling confirmation beeps" = "Error enabling confirmation beeps";
@@ -140,31 +140,31 @@
 "Delete Omnipod Dash" = "Delete Omnipod Dash";
 
 /* The title of the cancel action in an action sheet */
-"Cancel" = "Cancel";
+"Cancel" = "Hủy bỏ";
 
 /* Alerts detail when no alerts unacknowledged */
 "None" = "None";
 
 /* The detail text of the basal row when pod is suspended */
-"Suspended" = "Suspended";
+"Suspended" = "Đã tạm ngưng";
 
 /* Format string for temp basal rate. (1: The localized amount) */
-"%@ U/hour" = "%@ U/hour";
+"%@ U/hour" = "%@ U/giờ";
 
 /* The detail text of the basal row when pod is running scheduled basal */
-"Schedule" = "Schedule";
+"Schedule" = "Kế hoạch";
 
 /* The detail text for bolus delivery when no bolus is being delivered */
 "None" = "None";
 
 /* Format string for bolus progress when finished. (1: The localized amount) */
-"%@ U (Finished)" = "%@ U (Finished)";
+"%@ U (Finished)" = "%@ U (Đã hoàn tất)";
 
 /* Format string for bolus progress. (1: The delivered amount) (2: The programmed amount) (3: the percent progress) */
 "%@ U of %@ U (%@)" = "%@ U of %@ U (%@)";
 
 /* The detail text for delivered insulin when no measurement is available */
-"Unknown" = "Unknown";
+"Unknown" = "Không xác định";
 
 /* Format string for delivered insulin. (1: The localized amount) */
 "%@ U" = "%@ U";
@@ -245,68 +245,68 @@
 "Auto-off alarm" = "Auto-off alarm";
 
 /* Pod state when running below fifty units */
-"Below 50 units" = "Below 50 units";
+"Below 50 units" = "Dưới 50 units";
 
 /* Error message shown when operation could not be completed due to existing bolus in progress */
-"Bolus in progress" = "Bolus in progress";
+"Bolus in progress" = "Liều bolus đang thực hiện";
 
 /* The format string describing a bolus. (1: The amount delivered)(2: Start time of the dose)(3: duration)(4: scheduled certainty) */
 "Bolus: %1$@U %2$@ %3$@ %4$@" = "Bolus: %1$@U %2$@ %3$@ %4$@";
 
 /* Delivery status when bolusing */
-"Bolusing" = "Bolusing";
+"Bolusing" = "Đang tiến hành bolus";
 
 /* Delivery status when bolusing and temp basal is running */
-"Bolusing with temp basal" = "Bolusing with temp basal";
+"Bolusing with temp basal" = "Đang thực hiện liều basal tạm thời";
 
 /* Pod state when inserting cannula */
-"Cannula inserting" = "Cannula inserting";
+"Cannula inserting" = "Đang gắn Cannula";
 
 /* String describing a dose that was certainly scheduled */
-"Certain" = "Certain";
+"Certain" = "Chắc chắn";
 
 /* Pod state when pod has been deactivated */
-"Deactivated" = "Deactivated";
+"Deactivated" = "Đã hủy kích hoạt";
 
 /* Description for Empty reservoir pod fault */
-"Empty reservoir" = "Empty reservoir";
+"Empty reservoir" = "Ngăn chứa insulin rỗng";
 
 /* Error message shown when empty response from pod was received */
-"Empty response from pod" = "Empty response from pod";
+"Empty response from pod" = "Không có phản hồi từ pod";
 
 /* Pod state error event logged shutting down */
-"Error event logged, shutting down" = "Error event logged, shutting down";
+"Error event logged, shutting down" = "Lỗi đăng nhập, đang tắt";
 
 /* Description for expiration alert */
-"Expiration alert" = "Expiration alert";
+"Expiration alert" = "Thông báo hết hạn";
 
 /* Description for finish setup */
-"Finish setup " = "Finish setup ";
+"Finish setup " = "Hoàn tất cấu hình";
 
 /* Pod inititialized */
-"Initialized" = "Initialized";
+"Initialized" = "Đã được khởi tạo";
 
 /* The format string for Internal pod fault (1: The fault code value) */
-"Internal pod fault %1$03d" = "Internal pod fault %1$03d";
+"Internal pod fault %1$03d" = "Lỗi bên trong pod %1$03d";
 
 /* The format string describing a bolus that was interrupted. (1: The amount delivered)(2: The amount scheduled)(3: Start time of the dose)(4: duration)(5: scheduled certainty) */
 "InterruptedBolus: %1$@ U (%2$@ U scheduled) %3$@ %4$@ %5$@" = "InterruptedBolus: %1$@ U (%2$@ U scheduled) %3$@ %4$@ %5$@";
 
 /* Description for low reservoir alarm */
-"Low reservoir advisory alarm" = "Low reservoir advisory alarm";
+"Low reservoir advisory alarm" = "Báo động ngăn chứa insulin thấp";
 
 /* Pod alert state when no alerts are active */
-"No alerts" = "No alerts";
+"No alerts" = "Không có cảnh báo nào";
 
 /* Error message shown when no pod is paired */
-"No pod paired" = "No pod paired";
+"No pod paired" = "Không có pod nào được kết nối";
 
 /* Error message shown when no response from pod was received */
-"No response from pod" = "No response from pod";
+"No response from pod" = "Không có tín hiệu phản hồi từ pod";
 
 /* Delivery status when basal is running
    Pod state when running above fifty units */
-"Normal" = "Normal";
+"Normal" = "Bình thường";
 
 /* Description for Occlusion detected pod fault */
 "Occlusion detected" = "Occlusion detected";
@@ -315,107 +315,107 @@
 "Omnipod" = "Omnipod";
 
 /* Pod status after pairing */
-"Paired" = "Paired";
+"Paired" = "Đã được ghép đôi";
 
 /* Recover suggestion shown when no pod is paired */
-"Please pair a new pod" = "Please pair a new pod";
+"Please pair a new pod" = "Đề nghị ghép đôi pod mới";
 
 /* Error message shown when user cannot pair because pod is already paired */
-"Pod already paired" = "Pod already paired";
+"Pod already paired" = "Pod đã được ghép đôi";
 
 /* Error message shown when prime is attempted, but pod is already primed */
-"Pod already primed" = "Pod already primed";
+"Pod already primed" = "Pod đã được mồi";
 
 /* Description for expiration advisory alarm */
-"Pod expiration advisory alarm" = "Pod expiration advisory alarm";
+"Pod expiration advisory alarm" = "Cảnh báo pod hết hạn";
 
 /* The title for pod expiration notification */
-"Pod Expiration Notice" = "Pod Expiration Notice";
+"Pod Expiration Notice" = "Thông báo pod hết hạn";
 
 /* Description for Pod expired pod fault */
-"Pod expired" = "Pod expired";
+"Pod expired" = "Pod đã hết hạn";
 
 /* Format string for pod fault code */
-"Pod Fault: %1$@" = "Pod Fault: %1$@";
+"Pod Fault: %1$@" = "Pod lỗi: %1$@";
 
 /* Error message when cannula insertion fails because the pod is in an unexpected state */
-"Pod is not in a state ready for cannula insertion." = "Pod is not in a state ready for cannula insertion.";
+"Pod is not in a state ready for cannula insertion." = "Pod không sẵn sàng để gắn cannula.";
 
 /* Error message when prime fails because the pod is in an unexpected state */
-"Pod is not in a state ready for priming." = "Pod is not in a state ready for priming.";
+"Pod is not in a state ready for priming." = "Pod không sẵn sàng để mồi.";
 
 /* Error message action could not be performed because pod is suspended */
-"Pod is suspended" = "Pod is suspended";
+"Pod is suspended" = "Pod bị tạm ngưng";
 
 /* Pod state when prime or cannula insertion has not completed in the time allotted */
-"Pod setup window expired" = "Pod setup window expired";
+"Pod setup window expired" = "Cửa sổ cấu hình pod hết hạn";
 
 /* Delivery status when pod is priming
    Pod status when priming */
-"Priming" = "Priming";
+"Priming" = "Đang mồi";
 
 /* Pod state when ready for basal programming */
-"Ready for basal programming" = "Ready for basal programming";
+"Ready for basal programming" = "Sẵn sàng cho việc tính toán liều basal";
 
 /* Pod state when ready for cannula insertion */
-"Ready to insert cannula" = "Ready to insert cannula";
+"Ready to insert cannula" = "Sẵn sàng cho việc gắn cannula";
 
 /* The format string describing a resume. (1: Time)(2: Scheduled certainty */
-"Resume: %1$@ %2$@" = "Resume: %1$@ %2$@";
+"Resume: %1$@ %2$@" = "Tái lập: %1$@ %2$@";
 
 /* Delivery status when basal is running */
-"Scheduled Basal" = "Scheduled Basal";
+"Scheduled Basal" = "Đã lên chương trình cho liều Basal";
 
 /* Description for shutdown imminent alarm */
-"Shutdown imminent alarm" = "Shutdown imminent alarm";
+"Shutdown imminent alarm" = "Tắt báo động sắp xảy ra";
 
 /* The format string describing a suspend. (1: Time)(2: Scheduled certainty */
-"Suspend: %1$@ %2$@" = "Suspend: %1$@ %2$@";
+"Suspend: %1$@ %2$@" = "Tạm ngưng: %1$@ %2$@";
 
 /* Delivery status when insulin delivery is suspended */
-"Suspended" = "Suspended";
+"Suspended" = "Đã tạm ngưng";
 
 /* Pod tank fill completed */
-"Tank fill completed" = "Tank fill completed";
+"Tank fill completed" = "Hoàn tất nạp";
 
 /* Pod power to motor activated */
-"Tank power activated" = "Tank power activated";
+"Tank power activated" = "Pod được kích hoạt";
 
 /* Error message shown when temp basal could not be set due to existing temp basal in progress */
-"Temp basal in progress" = "Temp basal in progress";
+"Temp basal in progress" = "Liều basal tạm thời đang tiến hành";
 
 /* Delivery status when temp basal is running */
-"Temp basal running" = "Temp basal running";
+"Temp basal running" = "Liều basal tạm thời đang thực hiện";
 
 /* The format string describing a temp basal. (1: The rate)(2: Start time)(3: duration)(4: volume)(5: scheduled certainty */
-"TempBasal: %1$@ U/hour %2$@ %3$@ %4$@ U %5$@" = "TempBasal: %1$@ U/hour %2$@ %3$@ %4$@ U %5$@";
+"TempBasal: %1$@ U/hour %2$@ %3$@ %4$@ U %5$@" = "TempBasal: %1$@ U/giờ %2$@ %3$@ %4$@ U %5$@";
 
 /* The format string for pod expiration notification body (1: time until expiration) */
-"Time to replace your pod! Your pod will expire in %1$@" = "Time to replace your pod! Your pod will expire in %1$@";
+"Time to replace your pod! Your pod will expire in %1$@" = "Thời gian thay pod của bạn! Pod của bạn sẽ hết hạn trong %1$@";
 
 /* String describing a dose that was possibly scheduled */
-"Uncertain" = "Uncertain";
+"Uncertain" = "Không chắc chắn";
 
 /* Error message shown when empty response from pod was received */
-"Unexpected response from pod" = "Unexpected response from pod";
+"Unexpected response from pod" = "Phản hồi bất thường từ pod";
 
 /* The format string for Unknown pod fault (1: The fault code value) */
-"Unknown pod fault %1$03d" = "Unknown pod fault %1$03d";
+"Unknown pod fault %1$03d" = "Lỗi không xác định của pod %1$03d";
 
 /* Recovery suggestion when operation could not be completed due to existing bolus in progress */
-"Wait for existing bolus to finish, or cancel bolus" = "Wait for existing bolus to finish, or cancel bolus";
+"Wait for existing bolus to finish, or cancel bolus" = "Chờ đợi liệu bolus hiện tại hoàn tất hoặc hủy liều bolus";
 
 /* Recovery suggestion when operation could not be completed due to existing temp basal in progress */
-"Wait for existing temp basal to finish, or suspend to cancel" = "Wait for existing temp basal to finish, or suspend to cancel";
+"Wait for existing temp basal to finish, or suspend to cancel" = "Chờ đợi liều basal tạm thời hoàn tất hoặc chọn ngưng để hủy";
 
 /* Description waiting for pairing reminder */
-"Waiting for pairing reminder" = "Waiting for pairing reminder";
+"Waiting for pairing reminder" = "Đang chờ đợi câu thông báo ghép đôi";
 
 /* Error message shown when pod sends ack instead of response */
 "Pod sent ack instead of response" = "Pod sent ack instead of response";
 
 /* Error message shown when empty response from pod was received" */
-"Unexpected response from pod" = "Unexpected response from pod";
+"Unexpected response from pod" = "Phản hồi bất thường từ pod";
 
 /* Error message for when unexpected address is received (1: received address) (2: expected address) */
 "Invalid address 0x%x. Expected 0x%x" = "Invalid address 0x%x. Expected 0x%x";
@@ -424,10 +424,10 @@
 "Pod not connected" = "Pod not connected";
 
 /* Error message action could not be performed because pod is suspended */
-"Pod is suspended" = "Pod is suspended";
+"Pod is suspended" = "Pod bị tạm ngưng";
 
 /* Format string for pod fault code */
-"Pod Fault: %1$@" = "Pod Fault: %1$@";
+"Pod Fault: %1$@" = "Pod lỗi: %1$@";
 
 /* Error message when command is rejected because an unacknowledged command is pending. */
 "Communication issue: Unacknowledged command pending." = "Communication issue: Unacknowledged command pending.";
@@ -466,10 +466,10 @@
 "Make sure your pod is nearby and try again." = "Make sure your pod is nearby and try again.";
 
 /* Recovery suggestion when operation could not be completed due to existing bolus in progress */
-"Wait for existing bolus to finish, or cancel bolus" = "Wait for existing bolus to finish, or cancel bolus";
+"Wait for existing bolus to finish, or cancel bolus" = "Chờ đợi liệu bolus hiện tại hoàn tất hoặc hủy liều bolus";
 
 /* Recovery suggestion when operation could not be completed due to existing temp basal in progress */
-"Wait for existing temp basal to finish, or suspend to cancel" = "Wait for existing temp basal to finish, or suspend to cancel";
+"Wait for existing temp basal to finish, or suspend to cancel" = "Chờ đợi liều basal tạm thời hoàn tất hoặc chọn ngưng để hủy";
 
 /* Recovery suggestion when pod is suspended" */
 "Resume delivery" = "Resume delivery";
@@ -490,13 +490,19 @@
 "Move to a new area away from any other pods and try again." = "Move to a new area away from any other pods and try again.";
 
 /* Title text for delivery limits */
-"Delivery Limits" = "Delivery Limits";
+"Delivery Limits" = "Giới hạn tiêm";
 
 /* The title text for the basal rate schedule */
-"Basal Rates" = "Basal Rates";
+"Basal Rates" = "Tỷ lệ cơ bản";
 
 /* The error message shown when Loop's basal schedule has more entries than the pod can support */
-"Too many entries" = "Too many entries";
+"Too many entries" = "Quá nhiều mục";
 
 /* The error message shown when Loop's basal schedule has an unsupported rate */
-"Invalid entry" = "Invalid entry";
+"Invalid entry" = "Lỗi nhập không hợp lệ";
+
+/* Title of button to sync basal profile from pod */
+"Sync With Pod" = "Sync với Pod";
+
+/* Title of button to sync basal profile when no pod paired */
+"Save" = "Lưu";

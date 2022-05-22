@@ -31,11 +31,11 @@
 /* Title text for button to enable confirmation beeps */
 "Enable Confirmation Beeps" = "Enable Confirmation Beeps";
 
-/* Title text for button to disable automatic bolus beeps */
-"Disable Automatic Bolus Beeps" = "Disable Automatic Bolus Beeps";
+/* Title text for button to disable extended confirmation beeps */
+"Disable Extended Confirmation Beeps" = "Disable Extended Confirmation Beeps";
 
-/* Title text for button to enable automatic bolus beeps */
-"Enable Automatic Bolus Beeps" = "Enable Automatic Bolus Beeps";
+/* Title text for button to enable extended confirmation beeps */
+"Enable Extended Confirmation Beeps" = "Enable Extended Confirmation Beeps";
 
 /* Title of the pod settings view controller" */
 "Pod Settings" = "Pod Settings";
@@ -500,3 +500,9 @@
 
 /* The error message shown when Loop's basal schedule has an unsupported rate */
 "Invalid entry" = "Invalid entry";
+
+/* Title of button to sync basal profile from pod */
+"Sync With Pod" = "Sync With Pod";
+
+/* Title of button to sync basal profile when no pod paired */
+"Save" = "Save";

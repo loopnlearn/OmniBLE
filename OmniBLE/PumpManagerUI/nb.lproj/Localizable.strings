@@ -31,11 +31,11 @@
 /* Title text for button to enable confirmation beeps */
 "Enable Confirmation Beeps" = "Slå på lyd for bekreftelse";
 
-/* Title text for button to disable automatic bolus beeps */
-"Disable Automatic Bolus Beeps" = "Slå av lyd for bekreftelse av Auto-bolus";
+/* Title text for button to disable extended confirmation beeps */
+"Disable Extended Confirmation Beeps" = "Deaktiver utvidede bekreftelseslyder";
 
-/* Title text for button to enable automatic bolus beeps */
-"Enable Automatic Bolus Beeps" = "Slå på lyd for bekreftelse av Auto-bolus";
+/* Title text for button to enable extended confirmation beeps */
+"Enable Extended Confirmation Beeps" = "Aktiver utvidede bekreftelseslyder";
 
 /* Title of the pod settings view controller" */
 "Pod Settings" = "Pod-innstillinger";
@@ -500,3 +500,9 @@
 
 /* The error message shown when Loop's basal schedule has an unsupported rate */
 "Invalid entry" = "Ugyldig oppføring";
+
+/* Title of button to sync basal profile from pod */
+"Sync With Pod" = "Synkroniser med pod";
+
+/* Title of button to sync basal profile when no pod paired */
+"Save" = "Lagre";

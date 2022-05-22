@@ -31,11 +31,11 @@
 /* Title text for button to enable confirmation beeps */
 "Enable Confirmation Beeps" = "Разрешить подтверждающие звуковые сигналы";
 
-/* Title text for button to disable automatic bolus beeps */
-"Disable Automatic Bolus Beeps" = "Выключить звуковые сигналы автоматического болюса";
+/* Title text for button to disable extended confirmation beeps */
+"Disable Extended Confirmation Beeps" = "Запретить расширенные подтверждающие звуковые сигналы";
 
-/* Title text for button to enable automatic bolus beeps */
-"Enable Automatic Bolus Beeps" = "Включить звуковые сигналы автоматического болюса";
+/* Title text for button to enable extended confirmation beeps */
+"Enable Extended Confirmation Beeps" = "Разрешить расширенные подтверждающие звуковые сигналы";
 
 /* Title of the pod settings view controller" */
 "Pod Settings" = "Настройки Pod";
@@ -397,7 +397,7 @@
 "Uncertain" = "Не подтверждено";
 
 /* Error message shown when empty response from pod was received */
-"Unexpected response from pod" = "Пустой ответ от пода";
+"Unexpected response from pod" = "Получен пустой ответ от пода";
 
 /* The format string for Unknown pod fault (1: The fault code value) */
 "Unknown pod fault %1$03d" = "Неизвестная ошибка пода %1$03d";
@@ -406,7 +406,7 @@
 "Wait for existing bolus to finish, or cancel bolus" = "Дождитесь окончания подачи болюса или отмените его";
 
 /* Recovery suggestion when operation could not be completed due to existing temp basal in progress */
-"Wait for existing temp basal to finish, or suspend to cancel" = "Дождитесь окончания текущего врем базала или отмените";
+"Wait for existing temp basal to finish, or suspend to cancel" = "Дождитесь окончания текущего временного базала или отмените его";
 
 /* Description waiting for pairing reminder */
 "Waiting for pairing reminder" = "Напоминание об ожидании сопряжения";
@@ -500,3 +500,9 @@
 
 /* The error message shown when Loop's basal schedule has an unsupported rate */
 "Invalid entry" = "Неверная запись";
+
+/* Title of button to sync basal profile from pod */
+"Sync With Pod" = "Синхронизировать с Pod'ом";
+
+/* Title of button to sync basal profile when no pod paired */
+"Save" = "Сохранить";
