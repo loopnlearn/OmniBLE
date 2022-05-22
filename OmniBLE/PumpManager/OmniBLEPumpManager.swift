@@ -1527,13 +1527,14 @@ extension OmniBLEPumpManager: PumpManager {
                     throw PodCommsError.podSuspended
                 }
 
-                guard self.state.podState?.unfinalizedBolus?.isFinished() != false else {
+                // A resume scheduled basal delivery request is denoted by a 0 duration that cancels any existing temp basal.
+                let resumingScheduledBasal = duration < .ulpOfOne
+
+                // If a bolus is not finished, fail if not resuming the scheduled basal
+                guard self.state.podState?.unfinalizedBolus?.isFinished() != false || resumingScheduledBasal else {
                     self.log.info("Not enacting temp basal because podState indicates unfinalized bolus in progress.")
                     throw PodCommsError.unfinalizedBolus
                 }
-
-                // A resume scheduled basal delivery request is denoted by a 0 duration that cancels any existing temp basal.
-                let resumingScheduledBasal = duration < .ulpOfOne
 
                 // Did the last message have comms issues or is the last delivery status not yet verified?
                 let uncertainDeliveryStatus = self.state.podState?.lastCommsOK == false ||
@@ -1559,7 +1560,8 @@ extension OmniBLEPumpManager: PumpManager {
                         canceledDose = dose
                     }
 
-                    guard !status.deliveryStatus.bolusing else {
+                    // If pod is bolusing, fail if not resuming the scheduled basal
+                    guard !status.deliveryStatus.bolusing || resumingScheduledBasal else {
                         throw PodCommsError.unfinalizedBolus
                     }
 
