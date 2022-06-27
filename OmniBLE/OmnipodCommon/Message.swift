@@ -53,13 +53,11 @@ struct Message {
         // pods generates some unexpected checksum that is not understood and doesn't match the crc16 we need to generate.
         // The Dash PDM explicitly ignores these two CRC bytes for incoming messages, so we ignore them for OmniBLE
         // and rely on the higher level BLE & Dash "MessagePacket" data checking to provide data corruption protection.
-/*
-        let crc = (UInt16(encodedData[encodedData.count-2]) << 8) + UInt16(encodedData[encodedData.count-1])
-        let computedCrc = UInt16(msgWithoutCrc.crc16())
-        if computedCrc != crc {
-            throw MessageError.invalidCrc
-        }
-*/
+//        let crc = (UInt16(encodedData[encodedData.count-2]) << 8) + UInt16(encodedData[encodedData.count-1])
+//        let computedCrc = UInt16(msgWithoutCrc.crc16())
+//        if computedCrc != crc {
+//            throw MessageError.invalidCrc
+//        }
         self.messageBlocks = try Message.decodeBlocks(data: Data(msgWithoutCrc.suffix(from: 6)))
     }
     
