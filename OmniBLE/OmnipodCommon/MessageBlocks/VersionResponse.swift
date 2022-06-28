@@ -13,7 +13,7 @@ fileprivate let assignAddressVersionLength: UInt8 = 0x15
 fileprivate let setupPodVersionLength: UInt8 = 0x1B
 
 let erosProductId: UInt8 = 2        // 2nd gen Eros Omnipod (PM=PI=2.x.y)
-let dashProductId: UInt8 = 4        // 4th gen Dash Omnipod (firmware version 4.x.y)
+let dashProductId: UInt8 = 4        // Dash NXP BLE (firmware 3.x.y) or TWI BOARD (firmware 4.x.y)
 
 public struct VersionResponse : MessageBlock {
     
@@ -35,9 +35,9 @@ public struct VersionResponse : MessageBlock {
     
     public let blockType: MessageBlockType = .versionResponse
 
-    public let firmwareVersion: FirmwareVersion     // for Eros (PM) 2.x.y, for Dash 4.x.y, for Omnipod5 5.x.y?
-    public let iFirmwareVersion: FirmwareVersion    // for Eros (PI) same as PM, for Dash & Omnipod 5 BLE firmware version #
-    public let productId: UInt8                     // 02 for Eros 02, 04 for Dash, and guessing 05 for Omnipod 5
+    public let firmwareVersion: FirmwareVersion     // for Eros (PM) 2.x.y, for NXP Dash 3.x.y, for TWI Dash 4.x.y
+    public let iFirmwareVersion: FirmwareVersion    // for Eros (PI) same as PM, for Dash BLE firmware version #
+    public let productId: UInt8                     // 02 for Eros, 04 for Dash, perhaps 05 for Omnipod 5
     public let lot: UInt32
     public let tid: UInt32
     public let address: UInt32

@@ -6,6 +6,7 @@
 //  Created by Pete Schwamb on 10/14/17.
 //  Copyright © 2021 LoopKit Authors. All rights reserved.
 //
+
 import Foundation
 
 public enum MessageError: Error {
@@ -48,18 +49,15 @@ struct Message {
 
         let msgWithoutCrc = encodedData.prefix(encodedData.count - 2)
 
-        // Dash pods generates a crc16 for Omnipod Messages, but the actual algorithm is not yet understood.
-        // The Dash PDM explicitly ignores these two CRC bytes for incoming messages, so we ignore them as well
-        // since there is higher level BLE & dash message data checking to provide data corruption protection.
-        // The pod simulator currently returns a 0 for crc, but presumably if/when the algorithm is understood,
-        // that will be updated as well.
-
+        // Eros pods generates the expected CRC for Omnipod Messages that we can validate using crc16(), while Dash
+        // pods generates some unexpected checksum that is not understood and doesn't match the crc16 we need to generate.
+        // The Dash PDM explicitly ignores these two CRC bytes for incoming messages, so we ignore them for OmniBLE
+        // and rely on the higher level BLE & Dash "MessagePacket" data checking to provide data corruption protection.
 //        let crc = (UInt16(encodedData[encodedData.count-2]) << 8) + UInt16(encodedData[encodedData.count-1])
 //        let computedCrc = UInt16(msgWithoutCrc.crc16())
 //        if computedCrc != crc {
 //            throw MessageError.invalidCrc
 //        }
-
         self.messageBlocks = try Message.decodeBlocks(data: Data(msgWithoutCrc.suffix(from: 6)))
     }
     
@@ -111,13 +109,6 @@ struct Message {
             return nil
         }
     }
-
-     // returns the encoded length of a message
-     static func messageLength(message: [MessageBlock]) -> Int {
-         let message = Message(address: 0, messageBlocks: message, sequenceNum: 0)
-         let encodedData = message.encoded()
-         return encodedData.count
-     }
 }
 
 extension Message: CustomDebugStringConvertible {
