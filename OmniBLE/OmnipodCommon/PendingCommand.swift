@@ -15,7 +15,7 @@ public enum StartProgram: RawRepresentable {
 
     case bolus(volume: Double, automatic: Bool)
     case basalProgram(schedule: BasalSchedule)
-    case tempBasal(unitsPerHour: Double, duration: TimeInterval, automatic: Bool, isHighTemp: Bool)
+    case tempBasal(unitsPerHour: Double, duration: TimeInterval, isHighTemp: Bool, automatic: Bool)
     
     private enum StartProgramType: Int {
         case bolus, basalProgram, tempBasal
@@ -34,13 +34,13 @@ public enum StartProgram: RawRepresentable {
                 "programType": StartProgramType.basalProgram.rawValue,
                 "schedule": schedule.rawValue
             ]
-        case .tempBasal(let unitsPerHour, let duration, let automatic, let isHighTemp):
+        case .tempBasal(let unitsPerHour, let duration, let isHighTemp, let automatic):
             return [
                 "programType": StartProgramType.tempBasal.rawValue,
                 "unitsPerHour": unitsPerHour,
                 "duration": duration,
-                "automatic": automatic,
-                "isHighTemp": isHighTemp
+                "isHighTemp": isHighTemp,
+                "automatic": automatic
             ]
         }
     }
@@ -69,12 +69,12 @@ public enum StartProgram: RawRepresentable {
         case .tempBasal:
             guard let unitsPerHour = rawValue["unitsPerHour"] as? Double,
                   let duration = rawValue["duration"] as? TimeInterval,
-                  let automatic = rawValue["automatic"] as? Bool,
                   let isHighTemp = rawValue["isHighTemp"] as? Bool else
             {
                 return nil
             }
-            self = .tempBasal(unitsPerHour: unitsPerHour, duration: duration, automatic: automatic, isHighTemp: isHighTemp)
+            let automatic = rawValue["automatic"] as? Bool ?? true
+            self = .tempBasal(unitsPerHour: unitsPerHour, duration: duration, isHighTemp: isHighTemp, automatic: automatic)
         }
     }
     
@@ -84,8 +84,8 @@ public enum StartProgram: RawRepresentable {
             return lhsVolume == rhsVolume && lhsAutomatic == rhsAutomatic
         case (.basalProgram(let lhsSchedule), .basalProgram(let rhsSchedule)):
             return lhsSchedule == rhsSchedule
-        case (.tempBasal(let lhsUnitsPerHour, let lhsDuration, let lhsAutomatic, let lhsIsHighTemp), .tempBasal(let rhsUnitsPerHour, let rhsDuration, let rhsAutomatic, let rhsIsHighTemp)):
-            return lhsUnitsPerHour == rhsUnitsPerHour && lhsDuration == rhsDuration && lhsAutomatic == rhsAutomatic && lhsIsHighTemp == rhsIsHighTemp
+        case (.tempBasal(let lhsUnitsPerHour, let lhsDuration, let lhsIsHighTemp, let lhsAutomatic), .tempBasal(let rhsUnitsPerHour, let rhsDuration, let rhsIsHighTemp, let rhsAutomatic)):
+            return lhsUnitsPerHour == rhsUnitsPerHour && lhsDuration == rhsDuration && lhsIsHighTemp == rhsIsHighTemp && lhsAutomatic == rhsAutomatic
         default:
             return false
         }
@@ -101,7 +101,7 @@ public enum PendingCommand: RawRepresentable, Equatable {
     private enum PendingCommandType: Int {
         case startProgram, stopProgram
     }
-    
+
     public var commandDate: Date {
         switch self {
         case .program(_, _, let date):

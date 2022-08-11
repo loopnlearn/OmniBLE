@@ -295,7 +295,7 @@ class PodMessageTransport: MessageTransport {
         let data = try StringLengthPrefixEncoding.parseKeys([RESPONSE_PREFIX], decrypted.payload)[0]
         log.info("Received decrypted response: %@ in packet: %@", data.hexadecimalString, decrypted.payload.hexadecimalString)
 
-        let response = try Message.init(encodedData: data)
+        let response = try Message.init(encodedData: data, checkCRC: false)
 
         log.default("Recv(Hex): %@", data.hexadecimalString)
         messageLogger?.didReceive(data)
