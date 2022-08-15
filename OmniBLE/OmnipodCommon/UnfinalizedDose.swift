@@ -85,12 +85,12 @@ public struct UnfinalizedDose: RawRepresentable, Equatable, CustomStringConverti
     public func progress(at date: Date = Date()) -> Double {
         return min(nominalProgress(at: date), 1)
     }
-    
+
     // Is a bolus or a temp basal nominally finished
     public func isFinished(at date: Date = Date()) -> Bool {
         return progress(at: date) >= 1
     }
-    
+
     // Has a bolus operation had enough time to positively finish
     public func isBolusPositivelyFinished(at date: Date = Date()) -> Bool {
         // An extra long pad time for the bolus command to be received by the pod
@@ -227,22 +227,20 @@ public struct UnfinalizedDose: RawRepresentable, Equatable, CustomStringConverti
         self.startTime = startTime
         self.scheduledCertainty = scheduledCertainty
         
-        if let scheduledUnits = rawValue["scheduledUnits"] as? Double {
-            self.scheduledUnits = scheduledUnits
-        }
+        self.scheduledUnits = rawValue["scheduledUnits"] as? Double
 
-        if let scheduledTempRate = rawValue["scheduledTempRate"] as? Double {
-            self.scheduledTempRate = scheduledTempRate
-        }
+        self.scheduledTempRate = rawValue["scheduledTempRate"] as? Double
 
-        if let duration = rawValue["duration"] as? Double {
-            self.duration = duration
-        }
-        
+        self.duration = rawValue["duration"] as? Double
+
         if let automatic = rawValue["automatic"] as? Bool {
             self.automatic = automatic
         } else {
-            self.automatic = false
+            if case .tempBasal = doseType {
+                self.automatic = true
+            } else {
+                self.automatic = false
+            }
         }
 
         if let isHighTemp = rawValue["isHighTemp"] as? Bool {
@@ -262,17 +260,9 @@ public struct UnfinalizedDose: RawRepresentable, Equatable, CustomStringConverti
             "isHighTemp": isHighTemp,
         ]
         
-        if let scheduledUnits = scheduledUnits {
-           rawValue["scheduledUnits"] = scheduledUnits
-        }
-
-        if let scheduledTempRate = scheduledTempRate {
-            rawValue["scheduledTempRate"] = scheduledTempRate
-        }
-
-        if let duration = duration {
-            rawValue["duration"] = duration
-        }
+        rawValue["scheduledUnits"] = scheduledUnits
+        rawValue["scheduledTempRate"] = scheduledTempRate
+        rawValue["duration"] = duration
         
         return rawValue
     }
@@ -302,9 +292,21 @@ extension DoseEntry {
     init (_ dose: UnfinalizedDose) {
         switch dose.doseType {
         case .bolus:
-            self = DoseEntry(type: .bolus, startDate: dose.startTime, endDate: dose.finishTime, value: dose.scheduledUnits ?? dose.units, unit: .units, deliveredUnits: dose.finalizedUnits)
+            self = DoseEntry(
+                type: .bolus,
+                startDate: dose.startTime,
+                endDate: dose.finishTime,
+                value: dose.scheduledUnits ?? dose.units,
+                unit: .units,
+                deliveredUnits: dose.finalizedUnits)
         case .tempBasal:
-            self = DoseEntry(type: .tempBasal, startDate: dose.startTime, endDate: dose.finishTime, value: dose.scheduledTempRate ?? dose.rate, unit: .unitsPerHour, deliveredUnits: dose.finalizedUnits)
+            self = DoseEntry(
+                type: .tempBasal,
+                startDate: dose.startTime,
+                endDate: dose.finishTime,
+                value: dose.scheduledTempRate ?? dose.rate,
+                unit: .unitsPerHour,
+                deliveredUnits: dose.finalizedUnits)
         case .suspend:
             self = DoseEntry(suspendDate: dose.startTime)
         case .resume:

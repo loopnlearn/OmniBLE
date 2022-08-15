@@ -123,7 +123,7 @@ extension PodCommsError: LocalizedError {
         case .invalidAddress:
             return LocalizedString("Crosstalk possible. Please move to a new location", comment: "Recovery suggestion when unexpected address received")
         case .podNotConnected:
-            return LocalizedString("Make sure your pod is nearby and try again.", comment: "Recovery suggestion when no pod is available")
+            return LocalizedString("Make sure your pod is nearby", comment: "Recovery suggestion when no pod is available")
         case .unfinalizedBolus:
             return LocalizedString("Wait for existing bolus to finish, or cancel bolus", comment: "Recovery suggestion when operation could not be completed due to existing bolus in progress")
         case .unfinalizedTempBasal:
@@ -155,9 +155,9 @@ extension PodCommsError: LocalizedError {
         case .podIncompatible:
             return nil
         case .noPodsFound:
-            return LocalizedString("Make sure your pod is filled and nearby.", comment: "Recovery suggestion for PodCommsError.noPodsFound")
+            return LocalizedString("Make sure your pod is filled and nearby", comment: "Recovery suggestion for PodCommsError.noPodsFound")
         case .tooManyPodsFound:
-            return LocalizedString("Move to a new area away from any other pods and try again.", comment: "Recovery suggestion for PodCommsError.tooManyPodsFound")
+            return LocalizedString("Move to a new area away from any other pods", comment: "Recovery suggestion for PodCommsError.tooManyPodsFound")
         }
     }
 
@@ -199,10 +199,11 @@ public class PodCommsSession {
 
     // Handles updating PodState on first pod fault seen
     private func handlePodFault(fault: DetailedStatus) {
-        if self.podState.fault == nil {
-            self.podState.fault = fault // save the first fault returned
+        if podState.fault == nil {
+            podState.fault = fault // save the first fault returned
             handleCancelDosing(deliveryType: .all, bolusNotDelivered: fault.bolusNotDelivered)
-            podState.updateFromDetailedStatusResponse(fault)
+            let derivedStatusResponse = StatusResponse(detailedStatus: fault)
+            podState.updateFromStatusResponse(derivedStatusResponse)
         }
         log.error("Pod Fault: %@", String(describing: fault))
     }
@@ -400,8 +401,8 @@ public class PodCommsSession {
     private func markSetupProgressCompleted(statusResponse: StatusResponse) {
         if (podState.setupProgress != .completed) {
             podState.setupProgress = .completed
-            podState.setupUnitsDelivered = statusResponse.insulin // stash the current insulin delivered value as the baseline
-            log.info("Total setup units delivered: %@", String(describing: statusResponse.insulin))
+            podState.setupUnitsDelivered = statusResponse.insulinDelivered // stash the current insulin delivered value as the baseline
+            log.info("Total setup units delivered: %@", String(describing: statusResponse.insulinDelivered))
         }
     }
 
@@ -543,7 +544,7 @@ public class PodCommsSession {
             podState.updateFromStatusResponse(status)
             return DeliveryCommandResult.success(statusResponse: status)
         } catch PodCommsError.unacknowledgedMessage(let seq, let error) {
-            podState.pendingCommand = PendingCommand.program(.tempBasal(unitsPerHour: rate, duration: duration, automatic: automatic, isHighTemp: isHighTemp), seq, startTime)
+            podState.pendingCommand = PendingCommand.program(.tempBasal(unitsPerHour: rate, duration: duration, isHighTemp: isHighTemp, automatic: automatic), seq, startTime)
             log.debug("Unacknowledged temp basal: command seq = %d", seq)
             return DeliveryCommandResult.unacknowledged(error: .commsError(error: error))
         } catch let error {
@@ -804,7 +805,8 @@ public class PodCommsSession {
             // just detected that the pod has faulted, handle setting the fault state but don't throw
             handlePodFault(fault: detailedStatus)
         } else {
-            podState.updateFromDetailedStatusResponse(detailedStatus)
+            let derivedStatusResponse = StatusResponse(detailedStatus: detailedStatus)
+            podState.updateFromStatusResponse(derivedStatusResponse)
         }
         return detailedStatus
     }

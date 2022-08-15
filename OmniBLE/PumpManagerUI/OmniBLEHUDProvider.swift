@@ -209,6 +209,9 @@ internal class OmniBLEHUDProvider: NSObject, HUDProvider, PodStateObserver {
 
 extension Double {
     func asReservoirPercentage() -> Double {
+        if self > Pod.maximumReservoirReading {
+            return 1
+        }
         return min(1, max(0, self / Pod.reservoirCapacity))
     }
 }

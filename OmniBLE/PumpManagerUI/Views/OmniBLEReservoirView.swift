@@ -131,7 +131,7 @@ public final class OmniBLEReservoirView: LevelHUDView, NibLoadable {
         let time = timeFormatter.string(from: date)
         caption?.text = time
 
-        if let volume = volume {
+        if let volume = volume, volume <= Pod.maximumReservoirReading {
             if let units = numberFormatter.string(from: volume) {
                 volumeLabel.text = String(format: LocalizedString("%@U", comment: "Format string for reservoir volume. (1: The localized volume)"), units)
 
@@ -143,5 +143,3 @@ public final class OmniBLEReservoirView: LevelHUDView, NibLoadable {
         self.reservoirAlertState = reservoirAlertState
     }
 }
-
-
