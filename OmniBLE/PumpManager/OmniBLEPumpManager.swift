@@ -138,8 +138,8 @@ public class OmniBLEPumpManager: DeviceManager {
 
             if oldValue.podState?.lastInsulinMeasurements?.reservoirLevel != newValue.podState?.lastInsulinMeasurements?.reservoirLevel {
                 if let lastInsulinMeasurements = newValue.podState?.lastInsulinMeasurements,
-                   let reservoirLevel = lastInsulinMeasurements.reservoirLevel,
-                   reservoirLevel <= Pod.maximumReservoirReading
+                    let reservoirLevel = lastInsulinMeasurements.reservoirLevel,
+                    isValidReservoirLevelValue(reservoirLevel)
                 {
                     self.pumpDelegate.notify({ (delegate) in
                         self.log.info("DU: updating reservoir level %{public}@", String(describing: reservoirLevel))
@@ -189,9 +189,8 @@ public class OmniBLEPumpManager: DeviceManager {
 
     private func logDeviceCommunication(_ message: String, type: DeviceLogEntryType = .send) {
         let podAddress = String(format: "%04X", self.state.podId)
-        self.pumpDelegate.notify { (delegate) in
-            delegate?.deviceManager(self, logEventForDeviceIdentifier: podAddress, type: type, message: message, completion: nil)
-        }
+        // Not dispatching here; if delegate queue is blocked, timestamps will be delayed
+        self.pumpDelegate.delegate?.deviceManager(self, logEventForDeviceIdentifier: podAddress, type: type, message: message, completion: nil)
     }
 
     // Not persisted
@@ -890,12 +889,15 @@ extension OmniBLEPumpManager {
                     case .certainFailure(let error):
                         throw error
                     case .unacknowledged(let error):
+                        // TODO: rework interfaces to be able to return an uncertainDelivery error and implemnt recovery
+                        self.log.error("Save basal uncertain cancel error: %@", String(describing: error))
                         throw error
                     case .success:
                         break
                     }
                     let beep = self.confirmationBeeps
                     let _ = try session.setBasalSchedule(schedule: schedule, scheduleOffset: scheduleOffset, acknowledgementBeep: beep)
+                    // TODO: rework interfaces to be able to return an uncertainDelivery error and implemnt recovery
 
                     self.setState { (state) in
                         state.basalSchedule = schedule
@@ -965,22 +967,25 @@ extension OmniBLEPumpManager {
         #endif
     }
 
-    public func readPodStatus(completion: @escaping (Result<DetailedStatus, Error>) -> Void) {
-        // use hasSetupPod to be able to read pod info from a faulted Pod
+    public func getDetailedStatus(storeDosesOnSuccess: Bool = true, emitConfirmationBeep: Bool = true, completion: @escaping (Result<DetailedStatus, Error>) -> Void) {
+        // use hasSetupPod instead of self.hasActivePod to be able to read pod info from a faulted Pod
         guard self.hasSetupPod else {
             completion(.failure(OmniBLEPumpManagerError.noPodPaired))
             return
         }
 
-        podComms.runSession(withName: "Read pod status") { (result) in
+        podComms.runSession(withName: "Get detailed status") { (result) in
             do {
                 switch result {
                 case .success(let session):
-                    let beepBlock = self.beepMessageBlock(beepType: .bipBip)
+                    let beepBlock = emitConfirmationBeep ? self.beepMessageBlock(beepType: .bipBip) : nil
                     let detailedStatus = try session.getDetailedStatus(beepBlock: beepBlock)
-                    session.dosesForStorage({ (doses) -> Bool in
-                        self.store(doses: doses, in: session)
-                    })
+
+                    if storeDosesOnSuccess {
+                        session.dosesForStorage({ (doses) -> Bool in
+                            self.store(doses: doses, in: session)
+                        })
+                    }
                     completion(.success(detailedStatus))
                 case .failure(let error):
                     completion(.failure(error))
@@ -992,7 +997,7 @@ extension OmniBLEPumpManager {
     }
 
     public func testingCommands(completion: @escaping (Error?) -> Void) {
-        // use hasSetupPod so the user can see any fault info and post fault commands can be attempted
+        // use hasSetupPod instead of self.hasActivePod so the user can see any fault info and post fault commands can be attempted
         guard self.hasSetupPod else {
             completion(OmniBLEPumpManagerError.noPodPaired)
             return
@@ -1028,11 +1033,11 @@ extension OmniBLEPumpManager {
         self.podComms.runSession(withName: "Play Test Beeps") { (result) in
             switch result {
             case .success(let session):
-                let beep = self.confirmationBeeps
+                let enabled = self.confirmationBeeps
                 let result = session.beepConfig(
                     beepConfigType: .bipBeepBipBeepBipBeepBipBeep,
-                    tempBasalCompletionBeep: beep && self.hasUnfinalizedManualTempBasal,
-                    bolusCompletionBeep: beep && self.hasUnfinalizedManualBolus
+                    tempBasalCompletionBeep: enabled && self.hasUnfinalizedManualTempBasal,
+                    bolusCompletionBeep: enabled && self.hasUnfinalizedManualBolus
                 )
 
                 switch result {
@@ -1048,7 +1053,7 @@ extension OmniBLEPumpManager {
     }
 
     public func readPulseLog(completion: @escaping (Result<String, Error>) -> Void) {
-        // use hasSetupPod to be able to read pulse log from a faulted Pod
+        // use hasSetupPod to be able to read the pulse log from a faulted Pod
         guard self.hasSetupPod else {
             completion(.failure(OmniBLEPumpManagerError.noPodPaired))
             return
@@ -1240,6 +1245,8 @@ extension OmniBLEPumpManager: PumpManager {
             case .certainFailure(let error):
                 completion(error)
             case .unacknowledged(let error):
+                // TODO: rework interfaces to return an uncertainDelivery error and implement recovery
+                self.log.error("Suspend delivery basal uncertain error: %@", String(describing: error))
                 completion(error)
             case .success:
                 session.dosesForStorage() { (doses) -> Bool in
@@ -1375,7 +1382,7 @@ extension OmniBLEPumpManager: PumpManager {
                 state.bolusEngageState = .engaging
             })
 
-            var getStatusNeeded = false
+            var getStatusNeeded = false // initializing to true effectively disables the bolus comms getStatus optimization
             var finalizeFinishedDosesNeeded = false
 
             // Skip the getStatus comms optimization for a manual bolus,
@@ -1482,8 +1489,8 @@ extension OmniBLEPumpManager: PumpManager {
                 }
 
                 // when cancelling a bolus use the built-in type 6 beeeeeep to match PDM if confirmation beeps are enabled
-                let beeptype: BeepType = self.confirmationBeeps ? .beeeeeep : .noBeep
-                let result = session.cancelDelivery(deliveryType: .bolus, beepType: beeptype)
+                let beepType: BeepType = self.confirmationBeeps ? .beeeeeep : .noBeep
+                let result = session.cancelDelivery(deliveryType: .bolus, beepType: beepType)
                 switch result {
                 case .certainFailure(let error):
                     throw error
@@ -1516,7 +1523,7 @@ extension OmniBLEPumpManager: PumpManager {
         let completionBeep = confirmationBeeps && !automatic
 
         self.podComms.runSession(withName: "Enact Temp Basal") { (result) in
-            self.log.info("Enact temp basal %.03fU/hr for %ds", rate, Int(duration))
+            self.log.info("Enact temp basal %.02fU/hr for %ds", rate, Int(duration))
             let session: PodCommsSession
             switch result {
             case .success(let s):
@@ -1541,7 +1548,7 @@ extension OmniBLEPumpManager: PumpManager {
                     throw PodCommsError.unfinalizedBolus
                 }
 
-                // Did the last message have comms issues or is the last delivery status not yet verified?
+                // Did the last message have comms issues or is the last delivery status not verified correctly?
                 let uncertainDeliveryStatus = self.state.podState?.lastCommsOK == false ||
                                                 self.state.podState?.deliveryStatusVerified == false
 
@@ -1558,7 +1565,8 @@ extension OmniBLEPumpManager: PumpManager {
                     case .certainFailure(let error):
                         throw error
                     case .unacknowledged(let error):
-                        // TODO: Return PumpManagerError.uncertainDelivery and implement recovery if resumingNormalBasal
+                        // TODO: Return PumpManagerError.uncertainDelivery and implement recovery if resumingScheduledBasal
+                        self.log.error("Cancel temp basal uncertain error: %@", String(describing: error))
                         throw error
                     case .success(let cancelTempStatus, let dose):
                         status = cancelTempStatus
@@ -1689,6 +1697,10 @@ extension OmniBLEPumpManager: MessageLogger {
     func didReceive(_ message: Data) {
         log.default("didReceive: %{public}@", message.hexadecimalString)
         self.logDeviceCommunication(message.hexadecimalString, type: .receive)
+    }
+
+    func didError(_ message: String) {
+        self.logDeviceCommunication(message, type: .error)
     }
 }
 
