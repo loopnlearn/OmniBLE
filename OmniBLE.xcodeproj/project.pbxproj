@@ -144,6 +144,8 @@
 		D82BFB6427F37418004C9FB9 /* ZeroBasalScheduleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82BFB6327F37418004C9FB9 /* ZeroBasalScheduleTest.swift */; };
 		D8896C6227890E6B00E09A96 /* DetailedStatus+OmniBLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8896C6127890E6B00E09A96 /* DetailedStatus+OmniBLE.swift */; };
 		D895BF5B275DE64000D51FC7 /* StringLengthPrefixEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D895BF5A275DE64000D51FC7 /* StringLengthPrefixEncoding.swift */; };
+		D897B05F2934243B00FDB009 /* BolusDeliveryTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897B05E2934243B00FDB009 /* BolusDeliveryTable.swift */; };
+		D897B0612934244300FDB009 /* InsulinTableEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897B0602934244300FDB009 /* InsulinTableEntry.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -342,6 +344,8 @@
 		D82BFB6327F37418004C9FB9 /* ZeroBasalScheduleTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroBasalScheduleTest.swift; sourceTree = "<group>"; };
 		D8896C6127890E6B00E09A96 /* DetailedStatus+OmniBLE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DetailedStatus+OmniBLE.swift"; sourceTree = "<group>"; };
 		D895BF5A275DE64000D51FC7 /* StringLengthPrefixEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringLengthPrefixEncoding.swift; sourceTree = "<group>"; };
+		D897B05E2934243B00FDB009 /* BolusDeliveryTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BolusDeliveryTable.swift; sourceTree = "<group>"; };
+		D897B0602934244300FDB009 /* InsulinTableEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsulinTableEntry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,8 +380,10 @@
 				102111442709462300784F13 /* BasalSchedule+LoopKit.swift */,
 				1016325727185EE4007A3BC2 /* BasalSchedule.swift */,
 				1016325127185EE4007A3BC2 /* BeepType.swift */,
+				D897B05E2934243B00FDB009 /* BolusDeliveryTable.swift */,
 				10389A2026FF7841002115E9 /* CRC16.swift */,
 				1016325227185EE4007A3BC2 /* FaultEventCode.swift */,
+				D897B0602934244300FDB009 /* InsulinTableEntry.swift */,
 				10389A1D26FF7841002115E9 /* Message.swift */,
 				10389A0326FF7841002115E9 /* MessageBlocks */,
 				C1F67EDB2797A03A0017487F /* PendingCommand.swift */,
@@ -900,6 +906,7 @@
 				10389A3826FF7841002115E9 /* DetailedStatus.swift in Sources */,
 				10389A2B26FF7841002115E9 /* PlaceholderMessageBlock.swift in Sources */,
 				10389A3026FF7841002115E9 /* StatusResponse.swift in Sources */,
+				D897B0612934244300FDB009 /* InsulinTableEntry.swift in Sources */,
 				1021114A2709462300784F13 /* PodDoseProgressEstimator.swift in Sources */,
 				8475313B26ED838B009FD801 /* PodSettingsSetupViewController.swift in Sources */,
 				8475315A26EDA193009FD801 /* HKUnit.swift in Sources */,
@@ -969,6 +976,7 @@
 				10389A3726FF7841002115E9 /* SetupPodCommand.swift in Sources */,
 				1024E32D2746083800DE01F2 /* EapSqn.swift in Sources */,
 				8475313426ED838B009FD801 /* ExpirationReminderDateTableViewCell.swift in Sources */,
+				D897B05F2934243B00FDB009 /* BolusDeliveryTable.swift in Sources */,
 				102111482709462300784F13 /* PodInsulinMeasurements.swift in Sources */,
 				10389A4126FF7841002115E9 /* MessageTransport.swift in Sources */,
 				10389A2E26FF7841002115E9 /* FaultConfigCommand.swift in Sources */,
