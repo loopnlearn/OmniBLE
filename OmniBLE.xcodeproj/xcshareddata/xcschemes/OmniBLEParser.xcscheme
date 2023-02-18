@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D8B692DE299F1E6100053673"
+               BlueprintIdentifier = "D8F0F40B298C834700C95456"
                BuildableName = "OmniBLEParser"
                BlueprintName = "OmniBLEParser"
                ReferencedContainer = "container:OmniBLE.xcodeproj">
@@ -45,18 +45,12 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D8B692DE299F1E6100053673"
+            BlueprintIdentifier = "D8F0F40B298C834700C95456"
             BuildableName = "OmniBLEParser"
             BlueprintName = "OmniBLEParser"
             ReferencedContainer = "container:OmniBLE.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "/Users/Joe_1/Documents/LoopReportToParse.txt"
-            isEnabled = "YES">
-         </CommandLineArgument>
-      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -68,7 +62,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D8B692DE299F1E6100053673"
+            BlueprintIdentifier = "D8F0F40B298C834700C95456"
             BuildableName = "OmniBLEParser"
             BlueprintName = "OmniBLEParser"
             ReferencedContainer = "container:OmniBLE.xcodeproj">
