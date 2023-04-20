@@ -874,6 +874,56 @@ extension OmniBLEPumpManager {
         #endif
     }
 
+    private func SiteChange()
+    {
+        do { // Silence all errors and return
+            let keychain = KeychainManager()
+            let credentials = try keychain.getInternetCredentials(account: "NightscoutAPI")
+
+            let date = Date()
+            let formatter = ISO8601DateFormatter()
+            formatter.timeZone = TimeZone(abbreviation: "UTC")
+            let dateString = formatter.string(from: date)
+
+            let json: [String: Any] = [
+                "enteredBy": "Loop",
+                "timestamp": dateString,
+                "eventType": "Site Change",
+                "secret": credentials.password.sha1()
+            ]
+
+            guard var urlComponents = URLComponents(url: credentials.url, resolvingAgainstBaseURL: false) else {return }
+            if urlComponents.path.hasSuffix("/") {
+                urlComponents.path = String(urlComponents.path.dropLast())
+            }
+            urlComponents.path += "/api/v1/treatments.json"
+
+            guard let apiURL = urlComponents.url else { return }
+
+            var request = URLRequest(url: apiURL)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = try? JSONSerialization.data(withJSONObject: json)
+
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    // Handle network error
+                    print("Error: \(error)")
+                    return
+                }
+
+                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                    // Handle server error
+                    print("Error: Invalid response")
+                    return
+                }
+            }
+            task.resume()
+        } catch {
+            return
+        }
+    }
+
     // Called on the main thread
     public func insertCannula(completion: @escaping (Result<TimeInterval,OmniBLEPumpManagerError>) -> Void) {
         
@@ -894,6 +944,7 @@ extension OmniBLEPumpManager {
                 var podState = state.podState
                 podState?.setupProgress = .completed
                 state.updatePodStateFromPodComms(podState)
+                self.SiteChange()
                 return .success(mockDelay)
             })
 
@@ -944,6 +995,7 @@ extension OmniBLEPumpManager {
                     ]
 
                     let finishWait = try session.insertCannula(optionalAlerts: alerts)
+                    self.SiteChange()
                     completion(.success(finishWait))
                 } catch let error {
                     completion(.failure(.communication(error)))
