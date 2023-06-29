@@ -134,38 +134,39 @@ class SimulatorLogParser {
 if CommandLine.argc <= 1 {
     print("No file name specified in command arguments to parse!")
     print("Set the Xcode Arguments Passed on Launch using Product->Scheme->Edit Scheme...")
-    print("to specify the full path to Loop Report, Xcode log, or sim log file to parse\n")
-} else {
-    for filename in CommandLine.arguments[1...] {
-        let loopIssueReportParser = LoopIssueReportParser()
-        let xcodeDashLogParser = XcodeDashLogParser()
-        let simulatorLogParser = SimulatorLogParser()
-        print("\nParsing \(filename)")
-        
-        do {
-            let data = try String(contentsOfFile: filename, encoding: .utf8)
-            let lines = data.components(separatedBy: .newlines)
-            
-            for line in lines {
-                switch line {
-                case Regex("(send|receive) [0-9a-fA-F]+"):
-                    // * 2022-04-05 06:56:14 +0000 Omnipod-Dash 17CAE1DD send 17cae1dd00030e010003b1
-                    // * 2022-04-05 06:56:14 +0000 Omnipod-Dash 17CAE1DD receive 17cae1dd040a1d18002ab00000019fff0198
-                    loopIssueReportParser.parseLine(line)
-                case Regex("(Send|Recv)\\(Hex\\): [0-9a-fA-F]+"):
-                    // 2023-02-02 15:23:13.094289-0800 Loop[60606:22880823] [PodMessageTransport] Send(Hex): 1776c2c63c030e010000a0
-                    // 2023-02-02 15:23:13.497849-0800 Loop[60606:22880823] [PodMessageTransport] Recv(Hex): 1776c2c6000a1d180064d800000443ff0000
-                    xcodeDashLogParser.parseLine(line)
-                case Regex("; HEX, [0-9a-fA-F]+"):
-                    // INFO[7699] pkg command; 0x0e; GET_STATUS; HEX, 1776c2c63c030e010000a0
-                    // INFO[7699] pkg response 0x1d; HEX, 1776c2c6000a1d280064e80000057bff0000
-                    simulatorLogParser.parseLine(line)
-                default:
-                    break
-                }
+    print("to specify the full path to sim, Loop Report, or Xcode log file(s) to parse.\n")
+    exit(1)
+}
+
+for filename in CommandLine.arguments[1...] {
+    let simulatorLogParser = SimulatorLogParser()
+    let loopIssueReportParser = LoopIssueReportParser()
+    let xcodeDashLogParser = XcodeDashLogParser()
+    print("\nParsing \(filename)")
+
+    do {
+        let data = try String(contentsOfFile: filename, encoding: .utf8)
+        let lines = data.components(separatedBy: .newlines)
+
+        for line in lines {
+            switch line {
+            case Regex("; HEX, [0-9a-fA-F]+"):
+                // INFO[7699] pkg command; 0x0e; GET_STATUS; HEX, 1776c2c63c030e010000a0
+                // INFO[7699] pkg response 0x1d; HEX, 1776c2c6000a1d280064e80000057bff0000
+                simulatorLogParser.parseLine(line)
+            case Regex("(send|receive) [0-9a-fA-F]+"):
+                // * 2022-04-05 06:56:14 +0000 Omnipod-Dash 17CAE1DD send 17cae1dd00030e010003b1
+                // * 2022-04-05 06:56:14 +0000 Omnipod-Dash 17CAE1DD receive 17cae1dd040a1d18002ab00000019fff0198
+                loopIssueReportParser.parseLine(line)
+            case Regex("(Send|Recv)\\(Hex\\): [0-9a-fA-F]+"):
+                // 2023-02-02 15:23:13.094289-0800 Loop[60606:22880823] [PodMessageTransport] Send(Hex): 1776c2c63c030e010000a0
+                // 2023-02-02 15:23:13.497849-0800 Loop[60606:22880823] [PodMessageTransport] Recv(Hex): 1776c2c6000a1d180064d800000443ff0000
+                xcodeDashLogParser.parseLine(line)
+            default:
+                break
             }
-        } catch let error {
-            print("Error: \(error)")
         }
+    } catch let error {
+        print("Error: \(error)")
     }
 }
