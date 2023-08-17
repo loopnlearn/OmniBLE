@@ -11,6 +11,23 @@ import UIKit
 import LoopKit
 import LoopKitUI
 
+fileprivate var defaultSuspendTime = TimeInterval(minutes: 30)
+
+public class SilencePodTableViewCell: TextButtonTableViewCell {
+
+    public func updateTextLabel(enabled: Bool) {
+        if enabled {
+            self.textLabel?.text = LocalizedString("Unsilence Pod", comment: "Title text for button to unsilence pod")
+        } else {
+            self.textLabel?.text = LocalizedString("Silence Pod", comment: "Title text for button to silence pod")
+        }
+    }
+
+    override public func loadingStatusChanged() {
+        self.isEnabled = !isLoading
+    }
+}
+
 public class ConfirmationBeepsTableViewCell: TextButtonTableViewCell {
 
     public func updateTextLabel(enabled: Bool) {
@@ -78,16 +95,28 @@ class OmniBLESettingsViewController: UITableViewController {
         return cell
     }()
 
+    lazy var silencePodTableViewCell: SilencePodTableViewCell = {
+        let cell = SilencePodTableViewCell(style: .default, reuseIdentifier: nil)
+        cell.updateTextLabel(enabled: pumpManager.silencePod)
+        return cell
+    }()
+
     lazy var confirmationBeepsTableViewCell: ConfirmationBeepsTableViewCell = {
         let cell = ConfirmationBeepsTableViewCell(style: .default, reuseIdentifier: nil)
         cell.updateTextLabel(enabled: pumpManager.confirmationBeeps)
+        cell.isEnabled = !pumpManager.silencePod
         return cell
     }()
     
     lazy var extendedBeepsTableViewCell: ExtendedBeepsTableViewCell = {
         let cell = ExtendedBeepsTableViewCell(style: .default, reuseIdentifier: nil)
         cell.updateTextLabel(enabled: pumpManager.extendedBeeps)
-        cell.isEnabled = self.pumpManager.confirmationBeeps
+        cell.isEnabled = pumpManager.confirmationBeeps && !pumpManager.silencePod
+        return cell
+    }()
+
+    lazy var expirationReminderDateTableViewCell: ExpirationReminderDateTableViewCell = {
+        let cell = ExpirationReminderDateTableViewCell(style: .default, reuseIdentifier: nil)
         return cell
     }()
 
@@ -275,6 +304,7 @@ class OmniBLESettingsViewController: UITableViewController {
     
     private enum ConfigurationRow: Int, CaseIterable {
         case suspendResume = 0
+        case silencePod
         case enableDisableConfirmationBeeps
         case enableDisableExtendedBeeps
         case reminder
@@ -284,7 +314,7 @@ class OmniBLESettingsViewController: UITableViewController {
     
     fileprivate enum StatusRow: Int, CaseIterable {
         case expiresAt = 0
-        case podActiveClock
+        case podActive
         case bolus
         case basal
         case alarms
@@ -343,7 +373,7 @@ class OmniBLESettingsViewController: UITableViewController {
             if statusRow == .alarms {
                 let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(AlarmsTableViewCell.self), for: indexPath) as! AlarmsTableViewCell
                 cell.textLabel?.text = LocalizedString("Alarms", comment: "The title of the cell showing alarm status")
-                cell.alerts = podState.activeAlerts
+                cell.alerts = podState.activeAlertSlots
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(SettingsTableViewCell.self), for: indexPath)
@@ -360,10 +390,10 @@ class OmniBLESettingsViewController: UITableViewController {
                 }
                 cell.setDetailDate(podState.expiresAt, formatter: dateFormatter)
                 return cell
-            case .podActiveClock:
+            case .podActive:
                 let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(SettingsTableViewCell.self), for: indexPath)
-                cell.textLabel?.text = LocalizedString("Pod Active Clock", comment: "The title of the cell showing the pod active clock")
-                cell.setDetailAge(podState.expiresAt?.addingTimeInterval(-Pod.nominalPodLife).timeIntervalSinceNow)
+                cell.textLabel?.text = LocalizedString("Pod Active", comment: "The title of the cell showing pod active time")
+                cell.setDetailAge(self.pumpManager.timeActive)
                 return cell
             case .bolus:
                 cell.textLabel?.text = LocalizedString("Bolus Delivery", comment: "The title of the cell showing pod bolus status")
@@ -400,6 +430,8 @@ class OmniBLESettingsViewController: UITableViewController {
             switch configurationRows[indexPath.row] {
             case .suspendResume:
                 return suspendResumeTableViewCell
+            case .silencePod:
+                return silencePodTableViewCell
             case .enableDisableConfirmationBeeps:
                 return confirmationBeepsTableViewCell
             case .enableDisableExtendedBeeps:
@@ -551,7 +583,7 @@ class OmniBLESettingsViewController: UITableViewController {
             switch StatusRow(rawValue: indexPath.row)! {
             case .alarms:
                 if let cell = tableView.cellForRow(at: indexPath) as? AlarmsTableViewCell {
-                    let activeSlots = AlertSet(slots: Array(cell.alerts.keys))
+                    let activeSlots = cell.alerts
                     if activeSlots.count > 0 {
                         cell.isLoading = true
                         cell.isEnabled = false
@@ -574,6 +606,9 @@ class OmniBLESettingsViewController: UITableViewController {
             switch configurationRows[indexPath.row] {
             case .suspendResume:
                 suspendResumeTapped()
+                tableView.deselectRow(at: indexPath, animated: true)
+            case .silencePod:
+                silencePodTapped()
                 tableView.deselectRow(at: indexPath, animated: true)
             case .enableDisableConfirmationBeeps:
                 confirmationBeepsTapped()
@@ -648,7 +683,7 @@ class OmniBLESettingsViewController: UITableViewController {
             switch configurationRows[indexPath.row] {
             case .reminder, .suspendResume:
                 break
-            case .enableDisableConfirmationBeeps, .enableDisableExtendedBeeps, .timeZoneOffset, .replacePod:
+            case .silencePod, .enableDisableConfirmationBeeps, .enableDisableExtendedBeeps, .timeZoneOffset, .replacePod:
                 tableView.reloadRows(at: [indexPath], with: .fade)
             }
         case .diagnostics:
@@ -672,7 +707,7 @@ class OmniBLESettingsViewController: UITableViewController {
                 }
             }
         case .suspend:
-            let suspendTime: TimeInterval = .minutes(0) // untimed suspend with reminder beeps pending UI work
+            let suspendTime = defaultSuspendTime // XXX should update the UI to make suspend time user selectable
             pumpManager.suspendDelivery(withSuspendReminders: suspendTime) { (error) in
                 if let error = error {
                     DispatchQueue.main.async {
@@ -684,13 +719,61 @@ class OmniBLESettingsViewController: UITableViewController {
         }
     }
 
+    private func setExpirationReminderDate(expirationReminderDate: Date) {
+        func done() {
+            //DispatchQueue.main.async { [weak self] in
+            //    if let self = self {
+            //        self.expirationReminderDateTableViewCell.isLoading = false
+            //    }
+            //}
+        }
+
+        pumpManager.updateExpirationReminder(expirationReminderDate, completion: { (error) in
+            if let error = error {
+                DispatchQueue.main.async {
+                    let title = LocalizedString("Error programming expiration reminder", comment: "The alert title for programming expiration reminder error")
+                    self.present(UIAlertController(with: error, title: title), animated: true)
+                }
+            }
+            done()
+        })
+    }
+
+    private func silencePodTapped() {
+        func done() {
+            DispatchQueue.main.async { [weak self] in
+                if let self = self {
+                    let podSilenced = self.pumpManager.silencePod
+                    self.silencePodTableViewCell.updateTextLabel(enabled: podSilenced)
+                    self.silencePodTableViewCell.isLoading = false
+                    self.confirmationBeepsTableViewCell.isEnabled = !podSilenced
+                    self.extendedBeepsTableViewCell.isEnabled = !podSilenced
+                }
+            }
+        }
+
+        silencePodTableViewCell.isLoading = true
+        let silencePod = !pumpManager.silencePod
+        pumpManager.setSilencePod(silencePod: silencePod, completion: { (error) in
+            if let error = error {
+                DispatchQueue.main.async {
+                    let title = LocalizedString("Error programming silence pod", comment: "The alert title for programming silence pod")
+                    self.present(UIAlertController(with: error, title: title), animated: true)
+                }
+            }
+            done()
+        })
+    }
+
     private func setConfirmationBeeps(confirmationBeeps: Bool) {
         func done() {
             DispatchQueue.main.async { [weak self] in
                 if let self = self {
                     self.confirmationBeepsTableViewCell.updateTextLabel(enabled: self.pumpManager.confirmationBeeps)
                     self.confirmationBeepsTableViewCell.isLoading = false
-                    self.extendedBeepsTableViewCell.isEnabled = self.pumpManager.confirmationBeeps
+                    let silenced = self.pumpManager.silencePod
+                    self.confirmationBeepsTableViewCell.isEnabled = !silenced
+                    self.extendedBeepsTableViewCell.isEnabled = !silenced && self.pumpManager.confirmationBeeps
                 }
             }
         }
@@ -791,15 +874,17 @@ extension OmniBLESettingsViewController: PodStateObserver {
             return
         }
 
-        let reloadRows: [StatusRow] = [.podActiveClock, .bolus, .basal, .reservoirLevel, .deliveredInsulin]
-        self.tableView.reloadRows(at: reloadRows.map({ IndexPath(row: $0.rawValue, section: statusIdx) }), with: .none)
-
-        if oldState?.activeAlerts != state?.activeAlerts,
-            let alerts = state?.activeAlerts,
+        let reloadRows: [StatusRow]
+        if oldState?.activeAlertSlots != state?.activeAlertSlots,
+            let alerts = state?.activeAlertSlots,
             let alertCell = self.tableView.cellForRow(at: IndexPath(row: StatusRow.alarms.rawValue, section: statusIdx)) as? AlarmsTableViewCell
         {
             alertCell.alerts = alerts
+            reloadRows = [.podActive, .bolus, .basal, .reservoirLevel, .deliveredInsulin, .alarms]
+        } else {
+            reloadRows = [.podActive, .bolus, .basal, .reservoirLevel, .deliveredInsulin]
         }
+        self.tableView.reloadRows(at: reloadRows.map({ IndexPath(row: $0.rawValue, section: statusIdx) }), with: .none)
     }
 
     func podConnectionStateDidChange(isConnected: Bool) {
@@ -820,6 +905,7 @@ extension OmniBLESettingsViewController: PumpManagerStatusObserver {
 extension OmniBLESettingsViewController: DatePickerTableViewCellDelegate {
     func datePickerTableViewCellDidUpdateDate(_ cell: DatePickerTableViewCell) {
         pumpManager.expirationReminderDate = cell.date
+        setExpirationReminderDate(expirationReminderDate: cell.date)
     }
 }
 
@@ -889,13 +975,13 @@ class AlarmsTableViewCell: LoadingTableViewCell {
         self.detailTextLabel?.isHidden = isLoading
     }
     
-    var alerts = [AlertSlot: PodAlert]() {
+    var alerts: AlertSet = .none {
         didSet {
             updateColor()
             if alerts.isEmpty {
                 detailTextLabel?.text = LocalizedString("None", comment: "Alerts detail when no alerts unacknowledged")
             } else {
-                detailTextLabel?.text = alerts.map { slot, alert in String.init(describing: alert) }.joined(separator: ", ")
+                detailTextLabel?.text = alertString(alerts: alerts)
             }
         }
     }
