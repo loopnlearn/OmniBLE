@@ -25,6 +25,8 @@ public struct OmniBLEPumpManagerState: RawRepresentable, Equatable {
 
     public var expirationReminderDate: Date?
 
+    public var silencePod: Bool
+
     public var confirmationBeeps: Bool
 
     public var extendedBeeps: Bool
@@ -56,6 +58,7 @@ public struct OmniBLEPumpManagerState: RawRepresentable, Equatable {
         self.timeZone = timeZone
         self.basalSchedule = basalSchedule
         self.unstoredDoses = []
+        self.silencePod = false
         self.confirmationBeeps = false
         self.extendedBeeps = false
         if controllerId != nil && podId != nil {
@@ -139,6 +142,8 @@ public struct OmniBLEPumpManagerState: RawRepresentable, Equatable {
             self.unstoredDoses = []
         }
 
+        self.silencePod = rawValue["silencePod"] as? Bool ?? false
+
         self.confirmationBeeps = rawValue["confirmationBeeps"] as? Bool ?? false
 
         self.extendedBeeps = rawValue["extendedBeeps"] as? Bool ?? rawValue["automaticBolusBeeps"] as? Bool ?? false
@@ -150,6 +155,7 @@ public struct OmniBLEPumpManagerState: RawRepresentable, Equatable {
             "timeZone": timeZone.secondsFromGMT(),
             "basalSchedule": basalSchedule.rawValue,
             "unstoredDoses": unstoredDoses.map { $0.rawValue },
+            "silencePod": silencePod,
             "confirmationBeeps": confirmationBeeps,
             "extendedBeeps": extendedBeeps,
         ]
@@ -193,6 +199,7 @@ extension OmniBLEPumpManagerState: CustomDebugStringConvertible {
             "* tempBasalEngageState: \(String(describing: tempBasalEngageState))",
             "* lastPumpDataReportDate: \(String(describing: lastPumpDataReportDate))",
             "* isPumpDataStale: \(String(describing: isPumpDataStale))",
+            "* silencePod: \(String(describing: silencePod))",
             "* confirmationBeeps: \(String(describing: confirmationBeeps))",
             "* extendedBeeps: \(String(describing: extendedBeeps))",
             "* controllerId: \(String(format: "%08X", controllerId))",
