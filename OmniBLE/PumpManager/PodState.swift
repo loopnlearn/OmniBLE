@@ -59,8 +59,8 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
     public var activatedAt: Date?
     public var expiresAt: Date? // set based on timeActive and can change with Pod clock drift and/or system time change
 
-    public var timeActive: TimeInterval // pod active time from each response, always whole minute values
-    public var timeActiveUpdated: Date? // time that timeActive value was last updated
+    public var podTime: TimeInterval // pod time from the last response, always whole minute values
+    public var podTimeUpdated: Date? // time that the podTime value was last updated
 
     public var setupUnitsDelivered: Double?
 
@@ -136,7 +136,7 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
         self.bleIdentifier = bleIdentifier
         self.deliveryStatusVerified = false
         self.lastCommsOK = false
-        self.timeActive = 0
+        self.podTime = 0
     }
 
     public var unfinishedSetup: Bool {
@@ -186,11 +186,14 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
     private mutating func updatePodTimes(timeActive: TimeInterval) -> Date {
         let now = Date()
 
-        // Don't use a zero timeActive value after a reset type pod fault
-        if timeActive != 0 || self.timeActiveUpdated == nil {
-            self.timeActive = timeActive
-            self.timeActiveUpdated = now
+        guard timeActive >= self.podTime else {
+            // The pod active time went backwards and thus we have an apparent reset fault.
+            // Don't update any times or displayed expiresAt time will expectedly jump.
+            return now
         }
+
+        self.podTime = timeActive
+        self.podTimeUpdated = now
 
         let activatedAtComputed = now - timeActive
         if activatedAt == nil {
@@ -414,14 +417,14 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
             }
         }
 
-        if let timeActive = rawValue["timeActive"] as? TimeInterval,
-            let timeActiveUpdated = rawValue["timeActiveUpdated"] as? Date
+        if let podTime = rawValue["podTime"] as? TimeInterval,
+            let podTimeUpdated = rawValue["podTimeUpdated"] as? Date
         {
-            self.timeActive = timeActive
-            self.timeActiveUpdated = timeActiveUpdated
+            self.podTime = podTime
+            self.podTimeUpdated = podTimeUpdated
         } else {
-            self.timeActive = 0
-            self.timeActiveUpdated = nil
+            self.podTime = 0
+            self.podTimeUpdated = nil
         }
 
         if let setupUnitsDelivered = rawValue["setupUnitsDelivered"] as? Double {
@@ -566,8 +569,8 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
         rawValue["primeFinishTime"] = primeFinishTime
         rawValue["activatedAt"] = activatedAt
         rawValue["expiresAt"] = expiresAt
-        rawValue["timeActive"] = timeActive
-        rawValue["timeActiveUpdated"] = timeActiveUpdated
+        rawValue["podTime"] = podTime
+        rawValue["podTimeUpdated"] = podTimeUpdated
         rawValue["setupUnitsDelivered"] = setupUnitsDelivered
 
         if configuredAlerts.count > 0 {
@@ -588,8 +591,8 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
             "* bleIdentifier: \(bleIdentifier)",
             "* activatedAt: \(String(reflecting: activatedAt))",
             "* expiresAt: \(String(reflecting: expiresAt))",
-            "* timeActive: \(timeActive.timeIntervalStr)",
-            "* timeActiveUpdated: \(String(reflecting: timeActiveUpdated))",
+            "* podTime: \(podTime.timeIntervalStr)",
+            "* podTimeUpdated: \(String(reflecting: podTimeUpdated))",
             "* setupUnitsDelivered: \(String(reflecting: setupUnitsDelivered))",
             "* firmwareVersion: \(firmwareVersion)",
             "* bleFirmwareVersion: \(bleFirmwareVersion)",
@@ -602,13 +605,13 @@ public struct PodState: RawRepresentable, Equatable, CustomDebugStringConvertibl
             "* unfinalizedSuspend: \(String(describing: unfinalizedSuspend))",
             "* unfinalizedResume: \(String(describing: unfinalizedResume))",
             "* finalizedDoses: \(String(describing: finalizedDoses))",
-            "* activeAlerts: \(alertString(alerts: activeAlertSlots))",
+            "* activeAlertsSlots: \(alertSetString(alertSet: activeAlertSlots))",
             "* messageTransportState: \(String(describing: messageTransportState))",
             "* setupProgress: \(setupProgress)",
             "* primeFinishTime: \(String(describing: primeFinishTime))",
-            "* configuredAlerts: \(String(describing: configuredAlerts))",
-            "",
-            fault != nil ? String(reflecting: fault!) : "fault: nil",
+            "* configuredAlerts: \(configuredAlertsString(configuredAlerts: configuredAlerts))",
+            "* PdmRef: " + (fault?.pdmRef == nil ? "nil" : String(describing: fault!.pdmRef!)),
+            "* Fault: " + (fault == nil ? "nil" : String(describing: fault!)),
             "",
         ].joined(separator: "\n")
     }

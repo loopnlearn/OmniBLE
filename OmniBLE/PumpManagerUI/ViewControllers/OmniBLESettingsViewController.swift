@@ -393,7 +393,7 @@ class OmniBLESettingsViewController: UITableViewController {
             case .podActive:
                 let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(SettingsTableViewCell.self), for: indexPath)
                 cell.textLabel?.text = LocalizedString("Pod Active", comment: "The title of the cell showing pod active time")
-                cell.setDetailAge(self.pumpManager.timeActive)
+                cell.setDetailAge(self.pumpManager.podTime)
                 return cell
             case .bolus:
                 cell.textLabel?.text = LocalizedString("Bolus Delivery", comment: "The title of the cell showing pod bolus status")
@@ -981,7 +981,7 @@ class AlarmsTableViewCell: LoadingTableViewCell {
             if alerts.isEmpty {
                 detailTextLabel?.text = LocalizedString("None", comment: "Alerts detail when no alerts unacknowledged")
             } else {
-                detailTextLabel?.text = alertString(alerts: alerts)
+                detailTextLabel?.text = alertSetString(alertSet: alerts)
             }
         }
     }

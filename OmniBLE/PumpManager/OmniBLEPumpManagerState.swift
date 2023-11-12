@@ -133,7 +133,7 @@ public struct OmniBLEPumpManagerState: RawRepresentable, Equatable {
         if let expirationReminderDate = rawValue["expirationReminderDate"] as? Date {
             self.expirationReminderDate = expirationReminderDate
         } else if let expiresAt = podState?.expiresAt {
-            self.expirationReminderDate = expiresAt.addingTimeInterval(-Pod.expirationReminderAlertDefaultTimeBeforeExpiration)
+            self.expirationReminderDate = expiresAt.addingTimeInterval(-Pod.defaultExpirationReminderOffset)
         }
 
         if let rawUnstoredDoses = rawValue["unstoredDoses"] as? [UnfinalizedDose.RawValue] {
@@ -204,7 +204,7 @@ extension OmniBLEPumpManagerState: CustomDebugStringConvertible {
             "* extendedBeeps: \(String(describing: extendedBeeps))",
             "* controllerId: \(String(format: "%08X", controllerId))",
             "* podId: \(String(format: "%08X", podId))",
-            String(reflecting: podState),
+            "* PodState: " + (podState == nil ? "nil\n" : String(describing: podState!)),
         ].joined(separator: "\n")
     }
 }
