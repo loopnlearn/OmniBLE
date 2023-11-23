@@ -449,13 +449,15 @@ extension OmniBLEPumpManager {
         }
     }
 
-    public var timeActive: TimeInterval {
-        guard let podState = state.podState else {
-            return 0
+    public var podTime: TimeInterval {
+        get {
+            guard let podState = state.podState else {
+                return 0
+            }
+            let elapsed = -(podState.podTimeUpdated?.timeIntervalSinceNow ?? 0)
+            let podActiveTime = podState.podTime + elapsed
+            return podActiveTime
         }
-        let elapsed = -(podState.timeActiveUpdated?.timeIntervalSinceNow ?? 0)
-        let podActiveTime = podState.timeActive + elapsed
-        return podActiveTime
     }
 
     // MARK: - Notifications
@@ -701,7 +703,7 @@ extension OmniBLEPumpManager {
                 return .notReadyForCannulaInsertion
             }
 
-            state.expirationReminderDate = expiresAt.addingTimeInterval(-Pod.expirationReminderAlertDefaultTimeBeforeExpiration)
+            state.expirationReminderDate = expiresAt.addingTimeInterval(-Pod.defaultExpirationReminderOffset)
 
             guard podState.setupProgress.needsCannulaInsertion else {
                 return .podAlreadyPaired
@@ -1189,17 +1191,20 @@ extension OmniBLEPumpManager {
                 )
             }
 
-            let podAlerts = createPodAlerts(configuredAlerts: configuredAlerts, activeAlertSlots: activeAlertSlots, timeActive: self.timeActive, silent: silencePod)
-
+            let reservoirLevel = self.state.podState?.lastInsulinMeasurements?.reservoirLevel ?? Pod.reservoirLevelAboveThresholdMagicNumber
+            let podAlerts = regeneratePodAlerts(silent: silencePod, configuredAlerts: configuredAlerts, activeAlertSlots: activeAlertSlots, currentPodTime: self.podTime, currentReservoirLevel: reservoirLevel)
             do {
-                try session.configureAlerts(podAlerts, beepBlock: beepBlock)
+                // Since non-responsive pod comms are currently only resolved for insulin related commands,
+                // it's possible that a previous pod alert was successfully configured will lose its response
+                // and thus the alert won't get reset when reconfiguring pod alerts with a new silence pod state.
+                // So acknowledge all alerts now to be absolutely sure that no triggered alert will be forgotten.
+                try session.configureAlerts(podAlerts, acknowledgeAll: true, beepBlock: beepBlock)
                 self.setState { (state) in
                     state.silencePod = silencePod
-               }
+                }
                 completion(nil)
             } catch {
                 self.log.error("Configure alerts %{public}@ failed: %{public}@", String(describing: podAlerts), String(describing: error))
-
                 completion(error)
             }
         }
@@ -1222,7 +1227,7 @@ extension OmniBLEPumpManager {
                 return
             }
 
-            let podTime = self.timeActive
+            let podTime = self.podTime
             var expirationReminderPodTime: TimeInterval = 0
             if let expirationReminderDate = expirationReminderDate, expirationReminderDate < expiresAt {
                 let timeUntilReminder = expirationReminderDate.timeIntervalSinceNow
@@ -1255,6 +1260,15 @@ extension OmniBLEPumpManager {
             return
         }
 
+        let supportedValue = min(max(0, Double(value)), Pod.maximumReservoirReading)
+        guard let currentReservoirLevel = self.state.podState?.lastInsulinMeasurements?.reservoirLevel, currentReservoirLevel > supportedValue else {
+            // Since the new low reservoir alert level is not below the current reservoir value,
+            // just set the internal state for the next pod to prevent an immediate low reservoir alert.
+            // self.lowReservoirReminderValue = supportedValue
+            completion(nil)
+            return
+        }
+
         self.podComms.runSession(withName: "Program Low Reservoir Reminder") { (result) in
 
             let session: PodCommsSession
@@ -1266,17 +1280,13 @@ extension OmniBLEPumpManager {
                 return
             }
 
-            let supportedValue = min(max(0, Double(value)), Pod.maximumReservoirReading)
             let lowReservoirReminder = PodAlert.lowReservoir(units: supportedValue, silent: self.silencePod)
             do {
                 let beepBlock = self.beepMessageBlock(beepType: .beep)
                 try session.configureAlerts([lowReservoirReminder], beepBlock: beepBlock)
-                self.setState { (state) in
-                    // state.lowReservoirReminderValue = supportedValue
-                }
+                // self.lowReservoirReminderValue = supportedValue
                 completion(nil)
             } catch {
-                self.log.error("Configure %{public}@ failed: %{public}@", String(describing: lowReservoirReminder), String(describing: error))
                 completion(error)
             }
         }

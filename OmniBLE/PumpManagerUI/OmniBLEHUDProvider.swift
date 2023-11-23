@@ -157,7 +157,7 @@ internal class OmniBLEHUDProvider: NSObject, HUDProvider, PodStateObserver {
                 lifetime = 0
             }
             rawValue["lifetime"] = lifetime
-            rawValue["alerts"] = alertString(alerts: podState.activeAlertSlots)
+            rawValue["alerts"] = alertSetString(alertSet: podState.activeAlertSlots)
         }
         
         if let lastInsulinMeasurements = podState?.lastInsulinMeasurements {

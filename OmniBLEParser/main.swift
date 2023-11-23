@@ -183,7 +183,11 @@ for arg in CommandLine.arguments[1...] {
             // 2023-09-02T00:29:04-0700 [DeviceManager] DeviceDataManager.swift - deviceManager(_:logEventForDeviceIdentifier:type:message:completion:) - 563 - DEV: Device message: 17b3931b08030e01008205
             // 2023-09-02T00:29:04-0700 [DeviceManager] DeviceDataManager.swift - deviceManager(_:logEventForDeviceIdentifier:type:message:completion:) - 563 - DEV: Device message: 17b3931b0c0a1d1800b48000000683ff017d
             case Regex("Device message: [0-9a-fA-F]+$"):
-                parseIAPSLogLine(line)
+                // Don't mistakenly match an iaps xcode log file line as an iaps log file line
+                // 2023-10-28 22:37:24.584982-0700 FreeAPS[6030:4151040] [DeviceManager] DeviceDataManager.swift - deviceManager(_:logEventForDeviceIdentifier:type:message:completion:) - 563 DEV: Device message: 17eed3be3824191c494e532e2800069406024c0001f4010268000000060279a404f005021e040300000001ca
+                if !line.contains(" FreeAPS") {
+                    parseIAPSLogLine(line)
+                }
 
             default:
                 break
