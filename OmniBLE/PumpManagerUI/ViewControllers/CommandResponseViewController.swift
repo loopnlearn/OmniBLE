@@ -115,17 +115,6 @@ extension CommandResponseViewController {
         }
     }
 
-    static func testingCommands(pumpManager: OmniBLEPumpManager) -> T {
-        return T { (completionHandler) -> String in
-            pumpManager.testingCommands() { (error) in
-                DispatchQueue.main.async {
-                    completionHandler(resultString(error: error))
-                }
-            }
-            return LocalizedString("Testing Commands…", comment: "Progress message for testing commands.")
-        }
-    }
-
     static func playTestBeeps(pumpManager: OmniBLEPumpManager) -> T {
         return T { (completionHandler) -> String in
             pumpManager.playTestBeeps() { (error) in
@@ -140,6 +129,22 @@ extension CommandResponseViewController {
                 }
             }
             return LocalizedString("Play Test Beeps…", comment: "Progress message for play test beeps.")
+        }
+    }
+
+    static func readActivationTime(pumpManager: OmniBLEPumpManager) -> T {
+        return T { (completionHandler) -> String in
+            pumpManager.readActivationTime() { (result) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let activationTimeString):
+                        completionHandler(activationTimeString)
+                    case .failure(let error):
+                        completionHandler(resultString(error: error))
+                    }
+                }
+            }
+            return LocalizedString("Reading Activation Time…", comment: "Progress message for reading activation time.")
         }
     }
 
@@ -159,5 +164,53 @@ extension CommandResponseViewController {
         }
     }
 
+    static func readPulseLogPlus(pumpManager: OmniBLEPumpManager) -> T {
+        return T { (completionHandler) -> String in
+            pumpManager.readPulseLogPlus() { (result) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let pulseLogPlusString):
+                        completionHandler(pulseLogPlusString)
+                    case .failure(let error):
+                        completionHandler(resultString(error: error))
+                    }
+                }
+            }
+            return LocalizedString("Reading Pulse Log Plus…", comment: "Progress message for reading pulse log plus.")
+        }
+    }
+
+    static func readTriggeredAlerts(pumpManager: OmniBLEPumpManager) -> T {
+        return T { (completionHandler) -> String in
+            pumpManager.readTriggeredAlerts() { (result) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let triggeredAlertsString):
+                        completionHandler(triggeredAlertsString)
+                    case .failure(let error):
+                        completionHandler(resultString(error: error))
+                    }
+                }
+            }
+            return LocalizedString("Reading Triggered Alerts…", comment: "Progress message for reading triggered alerts.")
+        }
+    }
+
+    static func testingCommands(pumpManager: OmniBLEPumpManager) -> T {
+        return T { (completionHandler) -> String in
+            pumpManager.testingCommands() { (error) in
+                DispatchQueue.main.async {
+                    completionHandler(resultString(error: error))
+                }
+            }
+            return LocalizedString("Testing Commands…", comment: "Progress message for testing commands.")
+        }
+    }
+
+    static func pumpManagerDetails(pumpManager: OmniBLEPumpManager) -> T {
+        return T { (completionHandler) ->  String in
+            return pumpManager.debugDescription
+        }
+    }
 }
 
