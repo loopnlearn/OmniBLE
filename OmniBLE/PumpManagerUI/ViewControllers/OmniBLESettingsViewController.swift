@@ -258,8 +258,8 @@ class OmniBLESettingsViewController: UITableViewController {
     private enum Section: Int, CaseIterable {
         case status = 0
         case configuration
-        case diagnostics
         case podDetails
+        case podDiagnostics
         case deletePumpManager
     }
     
@@ -268,7 +268,7 @@ class OmniBLESettingsViewController: UITableViewController {
             if podState.unfinishedSetup {
                 return [.configuration]
             } else {
-                return [.status, .configuration, .diagnostics, .podDetails]
+                return [.status, .configuration, .podDetails, .podDiagnostics]
             }
         } else {
             return [.configuration, .deletePumpManager]
@@ -286,14 +286,7 @@ class OmniBLESettingsViewController: UITableViewController {
         case bleFirmwareVersion
         case bleDeviceName
     }
-    
-    private enum Diagnostics: Int, CaseIterable {
-        case readPodStatus = 0
-        case playTestBeeps
-        case readPulseLog
-        case testCommand
-    }
-    
+
     private var configurationRows: [ConfigurationRow] {
         if podState == nil || podState?.unfinishedSetup == true {
             return [.replacePod]
@@ -334,12 +327,12 @@ class OmniBLESettingsViewController: UITableViewController {
             return StatusRow.allCases.count
         case .configuration:
             return configurationRows.count
-        case .deletePumpManager:
-            return 1
-        case .diagnostics:
-            return Diagnostics.allCases.count
         case .podDetails:
             return PodDetailsRow.allCases.count
+        case .podDiagnostics:
+            return 1
+        case .deletePumpManager:
+            return 1
         }
     }
     
@@ -349,10 +342,10 @@ class OmniBLESettingsViewController: UITableViewController {
             return nil  // No title, appears below a pod picture
         case .configuration:
             return LocalizedString("Configuration", comment: "The title of the configuration section in settings")
-        case .diagnostics:
-            return LocalizedString("Diagnostics", comment: "The title of the diagnostics section in settings")
         case .podDetails:
             return LocalizedString("Pod Details", comment: "The title of the pod details section in settings")
+        case .podDiagnostics:
+            return nil // No title for the single button section
         case .deletePumpManager:
             return " "  // Use an empty string for more dramatic spacing
         }
@@ -360,7 +353,7 @@ class OmniBLESettingsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch sections[section] {
-        case .podDetails, .diagnostics, .configuration, .status, .deletePumpManager:
+        case .status, .configuration, .podDetails, .podDiagnostics, .deletePumpManager:
             return nil
         }
     }
@@ -487,30 +480,6 @@ class OmniBLESettingsViewController: UITableViewController {
                 return cell
             }
 
-        case .diagnostics:
-            switch Diagnostics(rawValue: indexPath.row)! {
-            case .readPodStatus:
-                let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(SettingsTableViewCell.self), for: indexPath)
-                cell.textLabel?.text = LocalizedString("Read Pod Status", comment: "The title of the command to read the pod status")
-                cell.accessoryType = .disclosureIndicator
-                return cell
-            case .playTestBeeps:
-                let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(SettingsTableViewCell.self), for: indexPath)
-                cell.textLabel?.text = LocalizedString("Play Test Beeps", comment: "The title of the command to play test beeps")
-                cell.accessoryType = .disclosureIndicator
-                return cell
-            case .readPulseLog:
-                let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(SettingsTableViewCell.self), for: indexPath)
-                cell.textLabel?.text = LocalizedString("Read Pulse Log", comment: "The title of the command to read the pulse log")
-                cell.accessoryType = .disclosureIndicator
-                return cell
-            case .testCommand:
-                let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(SettingsTableViewCell.self), for: indexPath)
-                cell.textLabel?.text = LocalizedString("Test Command", comment: "The title of the command to run the test command")
-                cell.accessoryType = .disclosureIndicator
-                return cell
-            }
-
         case .podDetails:
             let podState = self.podState!
             switch PodDetailsRow(rawValue: indexPath.row)! {
@@ -541,6 +510,12 @@ class OmniBLESettingsViewController: UITableViewController {
                 return cell
             }
 
+        case .podDiagnostics:
+            let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(SettingsTableViewCell.self), for: indexPath)
+            cell.textLabel?.text = LocalizedString("Pod Diagnostics", comment: "The title of the pod diagnostics view botton")
+            cell.accessoryType = .disclosureIndicator
+            return cell
+
         case .deletePumpManager:
             let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(TextButtonTableViewCell.self), for: indexPath) as! TextButtonTableViewCell
 
@@ -561,7 +536,7 @@ class OmniBLESettingsViewController: UITableViewController {
             default:
                 return false
             }
-        case .configuration, .diagnostics, .deletePumpManager:
+        case .configuration, .deletePumpManager, .podDiagnostics:
             return true
         case .podDetails:
             return false
@@ -639,27 +614,12 @@ class OmniBLESettingsViewController: UITableViewController {
                 }
                 self.navigationController?.present(vc, animated: true, completion: nil)
             }
-        case .diagnostics:
-            switch Diagnostics(rawValue: indexPath.row)! {
-            case .readPodStatus:
-                let vc = CommandResponseViewController.readPodStatus(pumpManager: pumpManager)
-                vc.title = sender?.textLabel?.text
-                show(vc, sender: indexPath)
-            case .playTestBeeps:
-                let vc = CommandResponseViewController.playTestBeeps(pumpManager: pumpManager)
-                vc.title = sender?.textLabel?.text
-                show(vc, sender: indexPath)
-            case .readPulseLog:
-                let vc = CommandResponseViewController.readPulseLog(pumpManager: pumpManager)
-                vc.title = sender?.textLabel?.text
-                show(vc, sender: indexPath)
-            case .testCommand:
-                let vc = CommandResponseViewController.testingCommands(pumpManager: pumpManager)
-                vc.title = sender?.textLabel?.text
-                show(vc, sender: indexPath)
-            }
         case .podDetails:
             break
+        case .podDiagnostics:
+            let vc = PodDiagnosticsViewController(pumpManager: pumpManager)
+            vc.title = sender?.textLabel?.text
+            show(vc, sender: indexPath)
         case .deletePumpManager:
             let confirmVC = UIAlertController(pumpManagerDeletionHandler: {
                 self.pumpManager.notifyDelegateOfDeactivation {
@@ -681,14 +641,12 @@ class OmniBLESettingsViewController: UITableViewController {
             break
         case .configuration:
             switch configurationRows[indexPath.row] {
-            case .reminder, .suspendResume:
+            case .suspendResume, .reminder:
                 break
             case .silencePod, .enableDisableConfirmationBeeps, .enableDisableExtendedBeeps, .timeZoneOffset, .replacePod:
                 tableView.reloadRows(at: [indexPath], with: .fade)
             }
-        case .diagnostics:
-            tableView.reloadRows(at: [indexPath], with: .fade)
-        case .podDetails, .deletePumpManager:
+        case .podDetails, .deletePumpManager, .podDiagnostics:
             break
         }
         
