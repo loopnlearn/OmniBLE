@@ -29,6 +29,7 @@ public enum OmniBLEPumpManagerError: Error {
     case noPodPaired
     case podAlreadyPaired
     case notReadyForCannulaInsertion
+    case setupNotComplete
 }
 
 extension OmniBLEPumpManagerError: LocalizedError {
@@ -40,6 +41,8 @@ extension OmniBLEPumpManagerError: LocalizedError {
             return LocalizedString("Pod already paired", comment: "Error message shown when user cannot pair because pod is already paired")
         case .notReadyForCannulaInsertion:
             return LocalizedString("Pod is not in a state ready for cannula insertion", comment: "Error message when cannula insertion fails because the pod is in an unexpected state")
+        case .setupNotComplete:
+            return LocalizedString("Pod setup is not complete", comment: "Error description when pod setup is not complete")
         }
     }
 
@@ -51,6 +54,8 @@ extension OmniBLEPumpManagerError: LocalizedError {
             return nil
         case .notReadyForCannulaInsertion:
             return nil
+        case .setupNotComplete:
+            return nil
         }
     }
 
@@ -61,6 +66,8 @@ extension OmniBLEPumpManagerError: LocalizedError {
         case .podAlreadyPaired:
             return nil
         case .notReadyForCannulaInsertion:
+            return nil
+        case .setupNotComplete:
             return nil
         }
     }
@@ -837,6 +844,12 @@ extension OmniBLEPumpManager {
             return
         }
 
+        guard state.podState?.setupProgress == .completed else {
+            // A cancel delivery command before pod setup is complete will fault the pod
+            completion(OmniBLEPumpManagerError.setupNotComplete)
+            return
+        }
+
         guard state.podState?.unfinalizedBolus?.isFinished() != false else {
             completion(PodCommsError.unfinalizedBolus)
             return
@@ -868,6 +881,11 @@ extension OmniBLEPumpManager {
                 // If there's no active pod yet, save the basal schedule anyway
                 state.basalSchedule = schedule
                 return .success(false)
+            }
+
+            guard state.podState?.setupProgress == .completed else {
+                // A cancel delivery command before pod setup is complete will fault the pod
+                return .failure(OmniBLEPumpManagerError.setupNotComplete)
             }
 
             guard state.podState?.unfinalizedBolus?.isFinished() != false else {
@@ -1780,6 +1798,12 @@ extension OmniBLEPumpManager: PumpManager {
     public func enactTempBasal(unitsPerHour: Double, for duration: TimeInterval, automatic: Bool, completion: @escaping (PumpManagerResult<DoseEntry>) -> Void) {
         guard self.hasActivePod else {
             completion(.failure(OmniBLEPumpManagerError.noPodPaired))
+            return
+        }
+
+        guard state.podState?.setupProgress == .completed else {
+            // A cancel delivery command before pod setup is complete will fault the pod
+            completion(.failure(OmniBLEPumpManagerError.setupNotComplete))
             return
         }
 
